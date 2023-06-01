@@ -12,11 +12,14 @@ export const BookingComponent = () => {
   const [bookingState, dispatch] = useReducer(BookingsReducer, {
     bookings: [],
     currentBooking: defaultBooking,
+    firstSittingTablesLeft: 0,
+    secondSittingTablesLeft: 0,
   });
 
   const [showGuests, setShowGuests] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [html, setHtml] = useState<JSX.Element>(<></>);
 
   const goToCalendar = () => {
     setShowCalendar(true);
@@ -35,8 +38,6 @@ export const BookingComponent = () => {
     setShowCalendar(false);
     setShowGuests(false);
   };
-
-  const [html, setHtml] = useState<JSX.Element>(<></>);
 
   useEffect(() => {
     if (showGuests) {
@@ -69,38 +70,3 @@ export const BookingComponent = () => {
     </>
   );
 };
-
-/*
-
-function Item({ name, isPacked }) {
-  if (isPacked) {
-    return <li className="item">{name} ✔</li>;
-  }
-  return <li className="item">{name}</li>;
-}
-
-export default function PackingList() {
-  return (
-    <section>
-      <h1>Sally Ride's Packing List</h1>
-      <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
-        />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
-        />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
-        />
-      </ul>
-    </section>
-  );
-}
-
-
-
-*/
