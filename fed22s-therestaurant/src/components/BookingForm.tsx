@@ -1,6 +1,7 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { BookingsContext } from "../contexts/BookingsContext";
 import { User, defaultUser } from "../models/User";
+import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -8,18 +9,27 @@ interface IBookingFormProps {
 
 export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
   const context = useContext(BookingsContext);
-  //context.currentBooking
-  const [currentUser, setCurrentUser] = useState<User>(
-    context.currentBooking.user
-  );
+  const dispatch = useContext(BookingDispatchContext);
+  const [currentUser, setCurrentUser] = useState<User>({
+    ...context.currentBooking.user,
+  });
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const propertyName = e.target.name;
     if (e.target.type === "text") {
       setCurrentUser({ ...currentUser, [propertyName]: e.target.value });
     }
+    context.currentBooking.user = currentUser;
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    context.currentBooking.user = currentUser;
+    dispatch({
+      type: "added",
+      payload: JSON.stringify(context.currentBooking),
+    });
+  };
 
   return (
     <>
@@ -40,7 +50,7 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
         />
         <input
           type="text"
-          placeholder="Email"
+          placeholder="Mejl"
           name="email"
           onChange={handleChange}
           value={currentUser.email}
@@ -54,6 +64,12 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
         />
         <button>Slutför bokning!</button>
       </form>
+
+      {/* endast för att checka att contextet förändras efter inputstatet */}
+      <p>Namn: {context.currentBooking.user.name}</p>
+      <p>Mejl: {context.currentBooking.user.email}</p>
+      <p>Mobilnr: {context.currentBooking.user.phonenumber}</p>
+      <p>Antalet gäster: {context.currentBooking.user.numberOfGuests} st</p>
     </>
   );
 };
