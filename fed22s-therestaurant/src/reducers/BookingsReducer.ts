@@ -1,3 +1,4 @@
+import { IBookingsContext } from "../contexts/BookingsContext";
 import { Booking } from "../models/Booking";
 
 export interface IAction {
@@ -7,14 +8,19 @@ export interface IAction {
 }
 
 export const BookingsReducer = (
-  bookings: Booking[],
-  // booking: Booking,
+  bookingState: IBookingsContext,
   action: IAction
-): Booking[] => {
+): IBookingsContext => {
   switch (action.type) {
     //Hämta alla bokningar direkt??
     case "gotAllBookings": {
       //return JSON.parse(action.payload);
+    }
+
+    case "getBookingsForDate": {
+      //tar emot datumsträng som payload från react calendar.
+      //gör apianrop till databasen, med datumet, få tillbaka ett objekt med antal bokade bord sittning 1 och 2. {first: number, second: number}
+      //return { obj }
     }
 
     case "added": {
@@ -39,5 +45,5 @@ export const BookingsReducer = (
       break;
   }
 
-  return bookings;
+  return bookingState;
 };

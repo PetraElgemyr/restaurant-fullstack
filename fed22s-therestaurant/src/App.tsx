@@ -1,24 +1,19 @@
 import { useEffect, useReducer } from "react";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
-import { BookingContext } from "./contexts/BookingContext";
 import { BookingsReducer } from "./reducers/BookingsReducer";
 import { BookingDispatchContext } from "./contexts/BookingDispatchContext";
+import { BookingsContext } from "./contexts/BookingsContext";
+import { defaultBooking } from "./models/Booking";
 
 function App() {
-  const [bookings, dispatch] = useReducer(BookingsReducer, []);
-
   useEffect(() => {
     //hämta alla bokningar
   }, []);
 
   return (
     <>
-      <BookingContext.Provider value={bookings}>
-        <BookingDispatchContext.Provider value={dispatch}>
-          <RouterProvider router={router}></RouterProvider>
-        </BookingDispatchContext.Provider>
-      </BookingContext.Provider>
+      <RouterProvider router={router}></RouterProvider>
     </>
   );
 }

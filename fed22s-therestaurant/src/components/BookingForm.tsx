@@ -1,3 +1,9 @@
 export const BookingForm = () => {
-  return <></>;
+  return (
+    <>
+      <form>
+        <button>Slutför bokning!</button>
+      </form>
+    </>
+  );
 };
