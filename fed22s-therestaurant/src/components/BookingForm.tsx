@@ -38,7 +38,8 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
       </button>
       <p>
         Du har valt att boka bord för{" "}
-        {context.currentBooking.user.numberOfGuests} pers den {"DATUM"}
+        {context.currentBooking.user.numberOfGuests} pers den{" "}
+        {context.currentBooking.date}
       </p>
       <form onSubmit={handleSubmit}>
         <input
