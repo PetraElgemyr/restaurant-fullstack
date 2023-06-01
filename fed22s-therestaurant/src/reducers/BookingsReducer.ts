@@ -1,5 +1,7 @@
+import axios from "axios";
 import { IBookingsContext } from "../contexts/BookingsContext";
 import { Booking } from "../models/Booking";
+import { getBookingsByDate } from "../serivces/BookingServices";
 
 export interface IAction {
   type: string;
@@ -12,22 +14,22 @@ export const BookingsReducer = (
   action: IAction
 ): IBookingsContext => {
   switch (action.type) {
-    case "getBookingsForDate": {
-      //tar emot datumsträng som payload från react calendar.
+    case "gotBookingsForDate": {
+      let dateString: string = action.payload; //tar emot datumsträng som ligger i min payload. ex 2023119
+      let bookingsAtDate: Booking[] = []; //skapar lista med bokningar DET DATUMET
+      const checkDateBookings = async () => {
+        bookingsAtDate = await getBookingsByDate(dateString);
+      };
+      checkDateBookings();
       //gör apianrop till databasen, med datumet, få tillbaka ett objekt med antal bokade bord sittning 1 och 2. {first: number, second: number}
       //return { obj }
     }
 
     case "added": {
-      //Ta emot antalet gäster
-      //Få datum från kalender
-      //Se vilka bokningsobjekt vars "date" är det valda datumet
-      //Kolla på sittning 1 och 2 det datumet om det är 15 bokade bord eller om det finns lediga.
-      //(gör loop och if(sitting===1) addera booking.bookedTables och samma för sitting=2 för den dagen)???
-      //Visa tillgänglig sittning ledig det datumet
-      //Ta emot vilken sittning, 1 eller 2
-      //Ta emot namn, mejl, mobilnr från payload till nytt User-objekt.
-      //Skapa ett nytt bokningsobjeket
+      let newBooking: Booking = JSON.parse(action.payload);
+      axios.post("http://localhost:5000/api/v1/bakgarden/bookings", newBooking);
+      //Ta emot ett färdigt BOOKING-obj i min action.payload
+      //axios post till url:n, skicka med hela objektet i postrequestet.
       //Lägg till objektet i listan med bokningar
     }
 
