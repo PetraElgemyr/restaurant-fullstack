@@ -12,11 +12,6 @@ export const BookingsReducer = (
   action: IAction
 ): IBookingsContext => {
   switch (action.type) {
-    //Hämta alla bokningar direkt??
-    case "gotAllBookings": {
-      //return JSON.parse(action.payload);
-    }
-
     case "getBookingsForDate": {
       //tar emot datumsträng som payload från react calendar.
       //gör apianrop till databasen, med datumet, få tillbaka ett objekt med antal bokade bord sittning 1 och 2. {first: number, second: number}
