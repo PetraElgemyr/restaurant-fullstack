@@ -6,7 +6,7 @@ const {
     createBooking,
     deleteBooking,
     getBookingsByDate
-} = require("./bookingController");
+} = require("../controllers/bookingController");
 
 router.get("/", getAllBookings);
 router.get("/:bookingDate", getBookingsByDate);
