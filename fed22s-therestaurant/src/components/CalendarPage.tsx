@@ -22,14 +22,18 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
       </button>
       <Calendar
         onClickDay={(day) => {
-          let chosenDate =
-            day.getUTCFullYear().toString() +
-            day.getMonth().toString() +
-            day.getDate().toString();
-
+          let month: string = (day.getMonth() + 1).toString();
+          let dateDay: string = day.getDate().toString();
+          if (month.length === 1) {
+            month = "0" + month;
+          }
+          if (dateDay.length === 1) {
+            dateDay = "0" + dateDay;
+          }
+          let chosenDate = day.getFullYear().toString() + month + dateDay;
           console.log("Datum:", chosenDate);
           //skicka datum till databas VIA reducer
-          dispatch({ type: "", payload: chosenDate });
+          // dispatch({ type: "gotBookingsForDate", payload: chosenDate });
         }}
       ></Calendar>
       <div>Kl. 18:00 - 20:00</div>
