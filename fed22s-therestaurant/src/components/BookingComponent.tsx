@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { JSXElementConstructor, useEffect, useReducer, useState } from "react";
 import { BookGuests } from "./BookGuests";
 import { BookingForm } from "./BookingForm";
 import { CalendarPage } from "./CalendarPage";
@@ -14,25 +14,93 @@ export const BookingComponent = () => {
     currentBooking: defaultBooking,
   });
 
+  const [showGuests, setShowGuests] = useState(true);
+  const [showCalendar, setShowCalendar] = useState(false);
+  const [showForm, setShowForm] = useState(false);
+
   const goToCalendar = () => {
-    //show CalendarPage och dölj bookGuests
+    setShowCalendar(true);
+    setShowGuests(false);
+    setShowForm(false);
+  };
+
+  const goToGuests = () => {
+    setShowGuests(true);
+    setShowCalendar(false);
+    setShowForm(false);
   };
 
   const goToForm = () => {
-    //show Bookingform  och dölj kalender
+    setShowForm(true);
+    setShowCalendar(false);
+    setShowGuests(false);
   };
 
-  const endBooking = (user: User) => {};
+  const [html, setHtml] = useState<JSX.Element>(<></>);
 
+  useEffect(() => {
+    if (showGuests) {
+      setHtml(<BookGuests goToCalendar={goToCalendar}></BookGuests>);
+    }
+    if (showCalendar) {
+      setHtml(
+        <CalendarPage
+          goToGuests={goToGuests}
+          goToForm={goToForm}
+        ></CalendarPage>
+      );
+    }
+    if (showForm) {
+      setHtml(<BookingForm goToCalendar={goToCalendar}></BookingForm>);
+    }
+  }, [showGuests, showCalendar, showForm]);
+
+  const endBooking = (user: User) => {};
   return (
     <>
       <BookingsContext.Provider value={bookingState}>
         <BookingDispatchContext.Provider value={dispatch}>
-          <BookGuests goToCalendar={goToCalendar}></BookGuests>
-          <CalendarPage goToForm={}></CalendarPage>
-          <BookingForm endBooking={endBooking}></BookingForm>
+          {html}
+          {/* <BookGuests goToCalendar={goToCalendar}></BookGuests> */}
+          {/* <CalendarPage goToForm={}></CalendarPage> */}
+          {/* <BookingForm endBooking={endBooking}></BookingForm> */}
         </BookingDispatchContext.Provider>
       </BookingsContext.Provider>
     </>
   );
 };
+
+/*
+
+function Item({ name, isPacked }) {
+  if (isPacked) {
+    return <li className="item">{name} ✔</li>;
+  }
+  return <li className="item">{name}</li>;
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sally Ride's Packing List</h1>
+      <ul>
+        <Item 
+          isPacked={true} 
+          name="Space suit" 
+        />
+        <Item 
+          isPacked={true} 
+          name="Helmet with a golden leaf" 
+        />
+        <Item 
+          isPacked={false} 
+          name="Photo of Tam" 
+        />
+      </ul>
+    </section>
+  );
+}
+
+
+
+*/
