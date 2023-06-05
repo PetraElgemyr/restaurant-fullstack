@@ -4,8 +4,17 @@
   "description": "Contains the api for the restaurant assignment",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon ./fed22s-backend"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+      "dependencies": {
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "mongoose": "^7.2.2"
+    },
+        "devDependencies": {
+        "nodemon": "^2.0.20"
+    }
 }
