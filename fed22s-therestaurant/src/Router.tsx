@@ -3,7 +3,11 @@ import { Layout } from "./components/Layout";
 import { Home } from "./components/Home";
 import Contact from "./components/Contact";
 import Confirmation from "./components/Confirmation";
+
+import Admin from "./components/Admin";
+
 import { BookingComponent } from "./components/BookingComponent";
+
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "/confirmation",
         element: <Confirmation></Confirmation>,
+      },
+      {
+        path: "/admin",
+        element: <Admin></Admin>,
       },
     ],
   },
