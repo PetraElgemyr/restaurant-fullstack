@@ -1,39 +1,61 @@
-/**
- *
- * EJ AKTUELL, BARA PETRAS KLADD :)
- *
- */
+import axios from "axios";
+import { Booking } from "../models/Booking";
 
-// import { Booking } from "../models/Booking";
+export interface IActionCurrentBooking {
+    type: ActionTypeCurrentBooking;
+    payload: any;
+  }
+  
+  export enum ActionTypeCurrentBooking {
+    SET_NUMBER_OF_GUESTS,
+    SET_SITTING,
+    SET_BOOKED_TABLES,
+    SET_DATE,
+    SET_USER,
+    ADDED,
+    DELETED,
+  }
+  
+  export const CurrentBookingReducer = (currentBooking: Booking , action: IActionCurrentBooking)=> {
+    switch (action.type) {
 
-// export interface IAction {
-//   type: string;
-//   payload: string /*Glöm ej att stringifya alla payloads som vi skickar med dispatch-anropet. Alla ska va samma datatyp.
-//       Glöm ej att parsa payload från string till json när vi tar emot och ska använda payload i vår reducer */;
-// }
+        case ActionTypeCurrentBooking.SET_NUMBER_OF_GUESTS: {
+            console.log("set number of guests", action.payload)
+            return{...currentBooking, numberOfGuests: action.payload}
+        }
 
-// export const BookingsReducer = (booking: Booking, action: IAction): Booking => {
-//   switch (action.payload) {
-//     case "added": {
-//       //Ta emot antalet gäster
-//       //Få datum från kalender
-//       //Se vilka bokningsobjekt vars "date" är det valda datumet
-//       //Kolla på sittning 1 och 2 det datumet om det är 15 bokade bord eller om det finns lediga.
-//       //(gör loop och if(sitting===1) addera booking.bookedTables och samma för sitting=2 för den dagen)???
-//       //Visa tillgänglig sittning ledig det datumet
-//       //Ta emot vilken sittning, 1 eller 2
-//       //Ta emot namn, mejl, mobilnr från payload till nytt User-objekt.
-//       //Skapa ett nytt bokningsobjeket
-//       //Lägg till objektet i listan med bokningar
-//     }
+        case ActionTypeCurrentBooking.SET_SITTING: {
+            console.log("set selected sitting", action.payload)
+            return{...currentBooking, sitting: action.payload}
+        }
+        
+        case ActionTypeCurrentBooking.SET_BOOKED_TABLES: {
+            console.log("set booked tables to booking", action.payload)
+            return{...currentBooking, bookedTables: action.payload}
+        }
 
-//     case "deleted": {
-//       break;
-//     }
+        case ActionTypeCurrentBooking.SET_DATE: {
+            console.log("Set date to booking:", action.payload)
+            return {...currentBooking, date: action.payload}
+        }
 
-//     default:
-//       break;
-//   }
-
-//   return booking;
-// };
+        case ActionTypeCurrentBooking.SET_USER: {
+            console.log("setting user to booking", action.payload)
+            return {...currentBooking, user: action.payload}
+        }
+  
+        case ActionTypeCurrentBooking.ADDED: {
+            let newBooking: Booking = JSON.parse(action.payload);
+            axios.post("http://localhost:5000/api/v1/bakgarden/bookings", newBooking);
+        }
+    
+        case ActionTypeCurrentBooking.DELETED: {
+            break;
+        }
+    
+        default:
+            break;
+        }
+  
+    return currentBooking;
+  };

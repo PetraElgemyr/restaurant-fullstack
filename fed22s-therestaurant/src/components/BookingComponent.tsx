@@ -2,21 +2,23 @@ import { JSXElementConstructor, useEffect, useReducer, useState } from "react";
 import { BookGuests } from "./BookGuests";
 import { BookingForm } from "./BookingForm";
 import { CalendarPage } from "./CalendarPage";
-import { BookingsContext } from "../contexts/BookingsContext";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { User } from "../models/User";
+import { CurrentBookingContext } from "../contexts/BookingsContext";
+import { CurrentBookingReducer } from "../reducers/CurrentBookingReducer";
 import { defaultBooking } from "../models/Booking";
-import { BookingsReducer } from "../reducers/BookingsReducer";
+
 
 export const BookingComponent = () => {
-  const [bookingState, dispatch] = useReducer(BookingsReducer, {
-    bookings: [],
-    currentBooking: defaultBooking,
-  });
-
   const [showGuests, setShowGuests] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showForm, setShowForm] = useState(false);
+
+  const [currentBooking, dispatch] = useReducer(CurrentBookingReducer, defaultBooking);
+  
+  useEffect(() => {
+    console.log("booking updated:", currentBooking)
+  })
 
   const goToCalendar = () => {
     setShowCalendar(true);
@@ -58,14 +60,14 @@ export const BookingComponent = () => {
   const endBooking = (user: User) => {};
   return (
     <>
-      <BookingsContext.Provider value={bookingState}>
+      <CurrentBookingContext.Provider value={currentBooking}>
         <BookingDispatchContext.Provider value={dispatch}>
           {html}
           {/* <BookGuests goToCalendar={goToCalendar}></BookGuests> */}
           {/* <CalendarPage goToForm={}></CalendarPage> */}
           {/* <BookingForm endBooking={endBooking}></BookingForm> */}
         </BookingDispatchContext.Provider>
-      </BookingsContext.Provider>
+      </CurrentBookingContext.Provider>
     </>
   );
 };

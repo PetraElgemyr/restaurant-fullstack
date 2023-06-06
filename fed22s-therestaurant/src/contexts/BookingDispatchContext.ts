@@ -1,6 +1,6 @@
 import { Dispatch, createContext } from "react";
-import { IAction } from "../reducers/BookingsReducer";
+import { IActionCurrentBooking } from "../reducers/CurrentBookingReducer";
 
-export const BookingDispatchContext = createContext<Dispatch<IAction>>(() => {
+export const BookingDispatchContext = createContext<Dispatch<IActionCurrentBooking>>(() => {
   return;
 });
