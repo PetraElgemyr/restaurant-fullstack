@@ -6,26 +6,37 @@ import { BookingsContext } from "../contexts/BookingsContext";
 interface ICalendarProps {
   goToGuests: () => void;
   goToForm: () => void;
+  handleGetBookingsForDate: (date: string) => void;
+  handleCheckedBookings: () => void;
 }
 
-export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
+export const CalendarPage = ({
+  goToGuests,
+  goToForm,
+  handleGetBookingsForDate,
+  handleCheckedBookings,
+}: ICalendarProps) => {
   const dispatch = useContext(BookingDispatchContext);
   const context = useContext(BookingsContext);
   const [sittingHtml, setSittingHtml] = useState<JSX.Element>(<></>);
-  const [firstSittingAvailable, setFirstSittingAvailable] = useState(false);
-  const [secondSittingAvailable, setSecondSittingAvailable] = useState(false);
-
-  // const checkSittingsAvailable = () => {
-  //   console.log("context efter upd:", context);
-
-  //   if (
-  //     context.firstSittingTablesLeft === 15 &&
-  //     context.secondSittingTablesLeft === 15
-  //   ) {
-  //     setFirstSittingAvailable(true);
-  //     setSecondSittingAvailable(true);
-  //   }
-  // };
+  const firstSitting = (
+    <div
+      onClick={() => {
+        chooseSitting(1);
+      }}
+    >
+      Kl. 18:00 - 21:00
+    </div>
+  );
+  const secondSitting = (
+    <div
+      onClick={() => {
+        chooseSitting(2);
+      }}
+    >
+      Kl. 21:00 - 00:00
+    </div>
+  );
 
   const chooseSitting = (sittingNum: number) => {
     context.currentBooking.sitting = sittingNum;
@@ -35,50 +46,43 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
     );
   };
 
+  const handleDateClick = (day: Date) => {
+    let month: string = (day.getMonth() + 1).toString();
+    let dateDay: string = day.getDate().toString();
+    if (month.length === 1) {
+      month = "0" + month;
+    }
+    if (dateDay.length === 1) {
+      dateDay = "0" + dateDay;
+    }
+    let chosenDate = day.getFullYear().toString() + month + dateDay;
+    console.log("Datum:", chosenDate);
+
+    //Hämta bokningar för datumet, sätt bokningar till bookingsAtDate
+    // dispatch({ type: "gotBookingsForDate", payload: chosenDate });
+    handleGetBookingsForDate(chosenDate);
+
+    //Räkna antal bord lediga, kolla om det finns tillräckligt för bokning
+    // dispatch({ type: "checkedBookings", payload: JSON.stringify(context) });
+    handleCheckedBookings();
+  };
+
   useEffect(() => {
-    if (firstSittingAvailable && !secondSittingAvailable) {
-      setSittingHtml(
-        <div
-          onClick={() => {
-            chooseSitting(1);
-          }}
-        >
-          Kl. 18:00 - 20:00
-        </div>
-      );
+    if (context.firstSitting.available && !context.secondSitting.available) {
+      setSittingHtml(firstSitting);
     }
-    if (secondSittingAvailable && !firstSittingAvailable) {
-      setSittingHtml(
-        <div
-          onClick={() => {
-            chooseSitting(2);
-          }}
-        >
-          Kl. 20:00 - 22:00
-        </div>
-      );
+    if (context.secondSitting.available && !context.firstSitting.available) {
+      setSittingHtml(secondSitting);
     }
-    if (firstSittingAvailable && secondSittingAvailable) {
+    if (context.firstSitting.available && context.secondSitting.available) {
       setSittingHtml(
         <div>
-          <div
-            onClick={() => {
-              chooseSitting(1);
-            }}
-          >
-            Kl. 18:00 - 20:00
-          </div>
-          <div
-            onClick={() => {
-              chooseSitting(2);
-            }}
-          >
-            Kl. 20:00 - 22:00
-          </div>
+          {firstSitting}
+          {secondSitting}
         </div>
       );
     }
-  }, [firstSittingAvailable, secondSittingAvailable]);
+  }, [context]);
 
   return (
     <>
@@ -92,32 +96,21 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
       </button>
       <Calendar
         onClickDay={(day) => {
-          let month: string = (day.getMonth() + 1).toString();
-          let dateDay: string = day.getDate().toString();
-          if (month.length === 1) {
-            month = "0" + month;
-          }
-          if (dateDay.length === 1) {
-            dateDay = "0" + dateDay;
-          }
-          let chosenDate = day.getFullYear().toString() + month + dateDay;
-          console.log("Datum:", chosenDate);
-          dispatch({ type: "gotBookingsForDate", payload: chosenDate });
-
-          //om det är helt ledigt det datumet
-          if (
-            context.firstSittingTablesLeft === 15 &&
-            context.secondSittingTablesLeft === 15
-          ) {
-            setFirstSittingAvailable(true);
-            setSecondSittingAvailable(true);
-          }
+          handleDateClick(day);
         }}
       ></Calendar>
       {sittingHtml}
       <button type="button" onClick={() => goToForm()}>
         Välj tid
       </button>
+      {context.bookingsAtDate.map((booking, index) => {
+        return (
+          <div key={index}>
+            <p>Datum: {booking.date}</p>
+            <span>Mejl: {booking.user.email}</span>
+          </div>
+        );
+      })}{" "}
     </>
   );
 };

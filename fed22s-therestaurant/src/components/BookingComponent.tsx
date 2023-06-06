@@ -2,7 +2,7 @@ import { JSXElementConstructor, useEffect, useReducer, useState } from "react";
 import { BookGuests } from "./BookGuests";
 import { BookingForm } from "./BookingForm";
 import { CalendarPage } from "./CalendarPage";
-import { BookingsContext } from "../contexts/BookingsContext";
+import { BookingsContext, defaultSitting } from "../contexts/BookingsContext";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { User } from "../models/User";
 import { defaultBooking } from "../models/Booking";
@@ -10,10 +10,10 @@ import { BookingsReducer } from "../reducers/BookingsReducer";
 
 export const BookingComponent = () => {
   const [bookingState, dispatch] = useReducer(BookingsReducer, {
-    bookings: [],
+    bookingsAtDate: [],
     currentBooking: defaultBooking,
-    firstSittingTablesLeft: 0,
-    secondSittingTablesLeft: 0,
+    firstSitting: defaultSitting,
+    secondSitting: defaultSitting,
   });
 
   const [showGuests, setShowGuests] = useState(true);
@@ -39,6 +39,17 @@ export const BookingComponent = () => {
     setShowGuests(false);
   };
 
+  const handleGetBookingsForDate = (chosenDate: string) => {
+    dispatch({ type: "gotBookingsForDate", payload: chosenDate });
+  };
+
+  const handleCheckedBookings = () => {
+    dispatch({
+      type: "checkedBookings",
+      payload: JSON.stringify(bookingState),
+    });
+  };
+
   useEffect(() => {
     if (showGuests) {
       setHtml(<BookGuests goToCalendar={goToCalendar}></BookGuests>);
@@ -48,6 +59,8 @@ export const BookingComponent = () => {
         <CalendarPage
           goToGuests={goToGuests}
           goToForm={goToForm}
+          handleGetBookingsForDate={handleGetBookingsForDate}
+          handleCheckedBookings={handleCheckedBookings}
         ></CalendarPage>
       );
     }
