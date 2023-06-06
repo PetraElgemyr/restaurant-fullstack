@@ -13,7 +13,15 @@ import axios from "axios";
 import { Booking } from "../models/Booking";
 
 export const getBookingsByDate = async (date: string): Promise<Booking[]> => {
-  return await axios.get(
-    `http://localhost:5000/api/v1/bakgarden/bookings/${date}`
-  );
+  let url = `http://localhost:5000/api/v1/bakgarden/bookings/${date}`;
+
+  try {
+    // console.log("Datumet med api:t", date);
+    // console.log("Url:n för anropet: ", url);
+
+    return axios.get(url).then((response) => response.data);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };
