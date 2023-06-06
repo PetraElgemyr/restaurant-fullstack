@@ -1,8 +1,8 @@
 import { createContext } from "react";
-import { Booking, defaultBooking } from "../models/Booking";
+import { Booking, IBooking, defaultBooking } from "../models/Booking";
 
 export interface IBookingsContext {
-  bookingsAtDate: Booking[];
+  bookingsAtDate: IBooking[];
   currentBooking: Booking;
   firstSitting: ISitting;
   secondSitting: ISitting;
@@ -13,7 +13,7 @@ export interface ISitting {
 }
 
 export const defaultSitting: ISitting = {
-  tablesLeft: 0,
+  tablesLeft: 15,
   available: false,
 };
 

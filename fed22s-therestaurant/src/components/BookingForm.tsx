@@ -25,6 +25,7 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     context.currentBooking.user = currentUser;
+
     dispatch({
       type: "added",
       payload: JSON.stringify(context.currentBooking),

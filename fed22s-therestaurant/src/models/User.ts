@@ -8,3 +8,10 @@ export class User {
 }
 
 export const defaultUser = new User("", "", "", 0);
+
+export interface IUser {
+  name: string;
+  email: string;
+  phonenumber: string;
+  numberOfGuests: number;
+}

@@ -1,4 +1,4 @@
-import { User, defaultUser } from "./User";
+import { IUser, User, defaultUser } from "./User";
 
 export class Booking {
   constructor(
@@ -7,6 +7,13 @@ export class Booking {
     public date: string,
     public user: User
   ) {}
+}
+
+export interface IBooking {
+  sitting: number;
+  bookedTables: number;
+  date: string;
+  user: IUser;
 }
 
 export const defaultBooking = new Booking(0, 0, "", defaultUser);

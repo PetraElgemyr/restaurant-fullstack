@@ -1,6 +1,6 @@
 import axios from "axios";
 import { IBookingsContext } from "../contexts/BookingsContext";
-import { Booking } from "../models/Booking";
+import { Booking, IBooking } from "../models/Booking";
 import { getBookingsByDate } from "../serivces/BookingServices";
 import { useContext } from "react";
 import { BookingsContext } from "../contexts/BookingsContext";
@@ -15,6 +15,8 @@ export const BookingsReducer = (
   bookingState: IBookingsContext,
   action: IAction
 ): IBookingsContext => {
+  let data: IBooking[] = [];
+
   switch (action.type) {
     case "choseGuests": {
       const guests: number = parseInt(action.payload);
@@ -53,21 +55,32 @@ export const BookingsReducer = (
 
     case "gotBookingsForDate": {
       let dateString: string = action.payload; //tar emot datumsträng som ligger i min payload. ex 2023119
-      let data: Booking[] = []; //skapar lista med bokningar DET DATUMET
-      const checkDateBookings = async () => {
+      // let data: IBooking[] = []; //skapar lista med bokningar DET DATUMET
+      const checkDateBookings = async (): Promise<IBookingsContext> => {
         data = await getBookingsByDate(dateString);
         console.log("Vår data: ", data);
-        // bookingState.bookingsAtDate = data;
+        if (data.length > 0) {
+          return (bookingState = {
+            ...bookingState,
+            bookingsAtDate: data,
+            currentBooking: {
+              ...bookingState.currentBooking,
+              date: action.payload.toString(),
+            },
+          });
+        } else {
+          return bookingState;
+        }
       };
       checkDateBookings();
-      return (bookingState = {
-        ...bookingState,
-        bookingsAtDate: data,
-        currentBooking: {
-          ...bookingState.currentBooking,
-          date: dateString,
-        },
-      });
+      // return (bookingState = {
+      //   ...bookingState,
+      //   bookingsAtDate: data,
+      //   currentBooking: {
+      //     ...bookingState.currentBooking,
+      //     date: dateString,
+      //   },
+      // });
 
       // if (response.length === 0) {
       //   bookingState = {
@@ -88,126 +101,102 @@ export const BookingsReducer = (
       // } else {
       //   return bookingState;
       // }
+      return bookingState;
     }
 
     case "checkedBookings": {
-      let contextState: IBookingsContext = JSON.parse(action.payload);
-      let tablesBookedFirstSitting: number = 0;
-      let tablesBookedSecondSitting: number = 0;
-      console.log("I checkedBookings", contextState);
+      let dateString: string = action.payload;
+      let bookedTablesFirstSitting = 0;
+      let bookedTablesSecondSitting = 0;
 
-      if (contextState.bookingsAtDate.length === 0) {
-        contextState = {
-          ...contextState,
-          firstSitting: {
-            tablesLeft: 15,
-            available: true,
-          },
-          secondSitting: {
-            tablesLeft: 15,
-            available: true,
-          },
-        };
-        return contextState;
-      } else {
-        contextState.bookingsAtDate.map((booking) => {
+      if (bookingState.bookingsAtDate.length !== 0) {
+        bookingState.bookingsAtDate.map((booking) => {
           if (booking.sitting === 1) {
-            contextState.firstSitting.tablesLeft += booking.bookedTables;
+            bookedTablesFirstSitting =
+              bookedTablesFirstSitting + booking.bookedTables;
           }
           if (booking.sitting === 2) {
-            contextState.secondSitting.tablesLeft += booking.bookedTables;
+            bookedTablesSecondSitting =
+              bookedTablesSecondSitting + booking.bookedTables;
           }
         });
 
-        //om det finns tillräckligt många bord kvar på sittning 1
+        //om det finns tillräckligt många bord kvar för önskad bokning på sittning 1 men ej 2
         if (
-          contextState.firstSitting.tablesLeft -
-            contextState.currentBooking.bookedTables >=
-          1
+          15 - bookedTablesFirstSitting >=
+          bookingState.currentBooking.bookedTables
         ) {
           console.log("Det finns bord på sittning 1 kvar");
-          contextState = {
-            ...contextState,
-            firstSitting: { ...contextState.firstSitting, available: true },
+          bookingState = {
+            ...bookingState,
+            firstSitting: {
+              ...bookingState.firstSitting,
+              available: true,
+              tablesLeft: 15 - bookedTablesFirstSitting,
+            },
+            // secondSitting: { ...bookingState.secondSitting, available: false },
+            currentBooking: {
+              ...bookingState.currentBooking,
+              date: dateString,
+            },
           };
-          return contextState;
         }
-        //om det finns tillräckligt många bord kvar på sittning 2
+        //om det finns tillräckligt många bord kvar för önskad bokning på sittning 2
         if (
-          contextState.secondSitting.tablesLeft -
-            contextState.currentBooking.bookedTables >=
-          1
+          15 - bookedTablesSecondSitting >=
+          bookingState.currentBooking.bookedTables
         ) {
           console.log("Det finns bord på sittning 2 kvar");
-          contextState = {
-            ...contextState,
-            secondSitting: { ...contextState.secondSitting, available: true },
+          bookingState = {
+            ...bookingState,
+            secondSitting: {
+              ...bookingState.secondSitting,
+              available: true,
+              tablesLeft: 15 - bookedTablesSecondSitting,
+            },
+            // firstSitting: { ...bookingState.firstSitting, available: false },
+            currentBooking: {
+              ...bookingState.currentBooking,
+              date: dateString,
+            },
           };
-          return contextState;
+          console.log("Context i reducern", bookingState);
         }
 
         //om det inte finns tillräckligt med bord på någon av sittningarna kvar
         if (
-          contextState.firstSitting.tablesLeft -
-            contextState.currentBooking.bookedTables <
-            1 &&
-          contextState.secondSitting.tablesLeft -
-            contextState.currentBooking.bookedTables <
-            1
+          15 - bookedTablesFirstSitting <
+            bookingState.currentBooking.bookedTables &&
+          15 - bookedTablesSecondSitting <
+            bookingState.currentBooking.bookedTables
         ) {
-          contextState = {
-            ...contextState,
-            firstSitting: { ...contextState.firstSitting, available: false },
-            secondSitting: { ...contextState.secondSitting, available: false },
+          bookingState = {
+            ...bookingState,
+            firstSitting: {
+              ...bookingState.firstSitting,
+              available: false,
+              tablesLeft: 15 - bookedTablesFirstSitting,
+            },
+            secondSitting: {
+              ...bookingState.secondSitting,
+              available: false,
+              tablesLeft: 15 - bookedTablesSecondSitting,
+            },
           };
-          return contextState;
+          console.log("Context i reducern", bookingState);
+
+          return bookingState;
         }
       }
     }
 
-    // else {
-    //   bookingsAtDate.map((booking) => {
-    //     if (booking.sitting === 1) {
-    //       firstSittingTablesBooked += booking.bookedTables;
-    //     }
-    //     if (booking.sitting === 2) {
-    //       secondSittingTablesBooked += booking.bookedTables;
-    //     }
-    //   });
-
-    //   if (firstSittingTablesBooked === 15) {
-    //     console.log("Sittning 1 är fullbokad");
-    //   } else {
-    //     if (firstSittingTablesBooked < 15) {
-    //       let tablesLeftFirstSitting = 15 - firstSittingTablesBooked;
-    //       console.log(
-    //         "Det finns: ",
-    //         tablesLeftFirstSitting,
-    //         " bord kvar detta datum denna tid"
-    //       );
-    //     }
-    //   }
-    //   if (secondSittingTablesBooked === 15) {
-    //     console.log("Sittning 2 är fullbokad");
-    //   } else {
-    //     if (secondSittingTablesBooked < 15) {
-    //       let tablesLeftSecondSitting = 15 - secondSittingTablesBooked;
-    //       console.log(
-    //         "Det finns: ",
-    //         tablesLeftSecondSitting,
-    //         " bord kvar detta datum denna tid"
-    //       );
-    //     }
-    //   }
+    // case "added": {
+    //   let newBooking: IBooking = JSON.parse(action.payload);
+    //   axios.post("http://localhost:5000/api/v1/bakgarden/bookings", newBooking);
+    //   //Ta emot ett färdigt BOOKING-obj i min action.payload
+    //   //axios post till url:n, skicka med hela objektet i postrequestet.
+    //   //Lägg till objektet i listan med bokningar
     // }
-
-    case "added": {
-      let newBooking: Booking = JSON.parse(action.payload);
-      axios.post("http://localhost:5000/api/v1/bakgarden/bookings", newBooking);
-      //Ta emot ett färdigt BOOKING-obj i min action.payload
-      //axios post till url:n, skicka med hela objektet i postrequestet.
-      //Lägg till objektet i listan med bokningar
-    }
 
     //Payload är ett id, hitta id på bokning och ta bort från lista med bokningar
     case "deleted": {

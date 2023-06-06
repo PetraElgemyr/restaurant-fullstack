@@ -39,17 +39,6 @@ export const BookingComponent = () => {
     setShowGuests(false);
   };
 
-  const handleGetBookingsForDate = (chosenDate: string) => {
-    dispatch({ type: "gotBookingsForDate", payload: chosenDate });
-  };
-
-  const handleCheckedBookings = () => {
-    dispatch({
-      type: "checkedBookings",
-      payload: JSON.stringify(bookingState),
-    });
-  };
-
   useEffect(() => {
     if (showGuests) {
       setHtml(<BookGuests goToCalendar={goToCalendar}></BookGuests>);
@@ -59,8 +48,6 @@ export const BookingComponent = () => {
         <CalendarPage
           goToGuests={goToGuests}
           goToForm={goToForm}
-          handleGetBookingsForDate={handleGetBookingsForDate}
-          handleCheckedBookings={handleCheckedBookings}
         ></CalendarPage>
       );
     }
