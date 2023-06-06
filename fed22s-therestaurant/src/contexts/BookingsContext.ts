@@ -2,15 +2,24 @@ import { createContext } from "react";
 import { Booking, defaultBooking } from "../models/Booking";
 
 export interface IBookingsContext {
-  bookings: Booking[];
+  bookingsAtDate: Booking[];
   currentBooking: Booking;
-  firstSittingTablesLeft: number;
-  secondSittingTablesLeft: number;
+  firstSitting: ISitting;
+  secondSitting: ISitting;
+}
+export interface ISitting {
+  tablesLeft: number;
+  available: boolean;
 }
 
+export const defaultSitting: ISitting = {
+  tablesLeft: 0,
+  available: false,
+};
+
 export const BookingsContext = createContext<IBookingsContext>({
-  bookings: [],
+  bookingsAtDate: [],
   currentBooking: defaultBooking,
-  firstSittingTablesLeft: 0,
-  secondSittingTablesLeft: 0,
+  firstSitting: defaultSitting,
+  secondSitting: defaultSitting,
 });

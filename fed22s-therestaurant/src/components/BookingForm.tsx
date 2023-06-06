@@ -71,6 +71,7 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
       <p>Mejl: {context.currentBooking.user.email}</p>
       <p>Mobilnr: {context.currentBooking.user.phonenumber}</p>
       <p>Antalet gäster: {context.currentBooking.user.numberOfGuests} st</p>
+      <p>Required tables: {context.currentBooking.bookedTables}</p>
     </>
   );
 };
