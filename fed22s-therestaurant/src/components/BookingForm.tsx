@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { User, defaultUser } from "../models/User";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
+import { CurrentBookingContext } from "../contexts/BookingsContext";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -9,6 +10,7 @@ interface IBookingFormProps {
 
 export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
   const dispatch = useContext(BookingDispatchContext);
+  const context = useContext(CurrentBookingContext);
   const [currentUser, setCurrentUser] = useState<User>(defaultUser);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,13 +22,16 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
       setCurrentUser({ ...currentUser, [propertyName]: e.target.value });
     }
     if (e.target.type === "number") {
-      setCurrentUser({ ...currentUser, [propertyName]: e.target.value.toString()});
+      setCurrentUser({
+        ...currentUser,
+        [propertyName]: e.target.value.toString(),
+      });
     }
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch({type: ActionTypeCurrentBooking.SET_USER, payload: currentUser});
+    dispatch({ type: ActionTypeCurrentBooking.SET_USER, payload: currentUser });
   };
 
   return (
@@ -70,7 +75,7 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
       <p>Namn: {currentUser.name}</p>
       <p>Mejl: {currentUser.email}</p>
       <p>Mobilnr: {currentUser.phonenumber}</p>
-      <p>Antalet gäster: {currentUser.numberOfGuests} st</p>
+      <p>Antalet gäster: {context.numberOfGuests} st</p>
     </>
   );
 };
