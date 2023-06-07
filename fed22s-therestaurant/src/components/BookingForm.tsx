@@ -4,6 +4,8 @@ import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { addNewBooking } from "../serivces/BookingServices";
+import { Booking } from "../models/Booking";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -37,10 +39,13 @@ export const BookingForm = ({
     dispatch({ type: ActionTypeCurrentBooking.SET_USER, payload: currentUser });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     dispatch({ type: ActionTypeCurrentBooking.SET_USER, payload: currentUser });
-    dispatch({ type: ActionTypeCurrentBooking.ADDED, payload: context });
+    let addedBooking: Booking = await addNewBooking(context);
+    // dispatch({ type: ActionTypeCurrentBooking.ADDED, payload: context });
+    console.log("Bokningen som lades till: ", addedBooking);
+
     navigate("/confirmation");
   };
 
