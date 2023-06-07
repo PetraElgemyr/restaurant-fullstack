@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Booking } from "../models/Booking";
+import { addNewBooking } from "../serivces/BookingServices";
 
 export interface IActionCurrentBooking {
   type: ActionTypeCurrentBooking;
@@ -48,7 +49,7 @@ export const CurrentBookingReducer = (
 
     case ActionTypeCurrentBooking.ADDED: {
       let newBooking: Booking = JSON.parse(action.payload);
-      axios.post("http://localhost:5000/api/v1/bakgarden/bookings", newBooking);
+      addNewBooking(newBooking);
       return newBooking;
     }
 

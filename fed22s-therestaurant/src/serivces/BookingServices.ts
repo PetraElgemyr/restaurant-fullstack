@@ -18,3 +18,11 @@ export const getBookingsByDate = async (date: string): Promise<Booking[]> => {
   );
   return res.data;
 };
+
+export const addNewBooking = async (booking: Booking): Promise<Booking> => {
+  const response = await axios.post(
+    "http://localhost:5000/api/v1/bakgarden/bookings/",
+    booking
+  );
+  return response.data;
+};
