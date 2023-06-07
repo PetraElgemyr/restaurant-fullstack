@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
-const Admin = () => {
+export const Admin = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const dateSelect = (date: Date | Date[]) => {
@@ -32,5 +32,3 @@ const Admin = () => {
     </div>
   );
 };
-
-export default Admin;
