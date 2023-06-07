@@ -7,18 +7,21 @@ import { User } from "../models/User";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { CurrentBookingReducer } from "../reducers/CurrentBookingReducer";
 import { defaultBooking } from "../models/Booking";
-
+import { GdprInfo } from "./GdprInfo";
 
 export const BookingComponent = () => {
   const [showGuests, setShowGuests] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showForm, setShowForm] = useState(false);
+  const [showGdpr, setShowGdpr] = useState(false);
+  const [currentBooking, dispatch] = useReducer(
+    CurrentBookingReducer,
+    defaultBooking
+  );
 
-  const [currentBooking, dispatch] = useReducer(CurrentBookingReducer, defaultBooking);
-  
   useEffect(() => {
-    console.log("booking updated:", currentBooking)
-  })
+    console.log("booking updated:", currentBooking);
+  });
 
   const goToCalendar = () => {
     setShowCalendar(true);
@@ -36,6 +39,12 @@ export const BookingComponent = () => {
     setShowForm(true);
     setShowCalendar(false);
     setShowGuests(false);
+    setShowGdpr(false);
+  };
+
+  const showGdprPage = () => {
+    setShowGdpr(true);
+    setShowForm(false);
   };
 
   const [html, setHtml] = useState<JSX.Element>(<></>);
@@ -53,7 +62,15 @@ export const BookingComponent = () => {
       );
     }
     if (showForm) {
-      setHtml(<BookingForm goToCalendar={goToCalendar}></BookingForm>);
+      setHtml(
+        <BookingForm
+          goToCalendar={goToCalendar}
+          showGdprPage={showGdprPage}
+        ></BookingForm>
+      );
+    }
+    if (showGdpr) {
+      setHtml(<GdprInfo goToForm={goToForm}></GdprInfo>);
     }
   }, [showGuests, showCalendar, showForm]);
 
