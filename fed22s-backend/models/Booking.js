@@ -17,6 +17,10 @@ const BookingSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    numberOfGuests: {
+        type: Number,
+        required: true,
+    },
     user: {
         name: {
             type: String,
@@ -28,10 +32,6 @@ const BookingSchema = new mongoose.Schema({
         },
         phonenumber: {
             type: String,
-            required: true,
-        },
-        numberOfGuests: {
-            type: Number,
             required: true,
         }
     }
