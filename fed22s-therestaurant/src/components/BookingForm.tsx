@@ -40,6 +40,7 @@ export const BookingForm = ({
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch({ type: ActionTypeCurrentBooking.SET_USER, payload: currentUser });
+    navigate("/confirmation");
   };
 
   return (
