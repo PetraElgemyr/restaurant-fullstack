@@ -1,38 +1,44 @@
 import { useContext, useState } from "react";
-import { BookingsContext } from "../contexts/BookingsContext";
+import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
+import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
 }
 
-export const BookGuests = ({ goToCalendar }: IChooseGuests) => {
-  const context = useContext(BookingsContext);
+const numberOfGuests = [1, 2, 3, 4, 5, 6, 7, 8 ,9 ,10, 11, 12];
 
-  const setNumberOfGuests = (guests: number) => {
-    context.currentBooking.user.numberOfGuests = guests; //sätt till talet
+export const BookGuests = ({ goToCalendar }: IChooseGuests) => {
+  const dispatch = useContext(BookingDispatchContext);
+
+
+  const handleClick= (guests: number) => {
+    // sätt antal gäster via dispatch men förslagsvis ändra om hur bokningen ser ut så att numberOfGuests inte ligger inuti User
+    // Här sätts bara antal bord man har bokat
+    
+    if (guests < 7) {
+      dispatch({type: ActionTypeCurrentBooking.SET_BOOKED_TABLES, payload: 1});
+    }
+
+    if (guests > 6) {
+      dispatch({type: ActionTypeCurrentBooking.SET_BOOKED_TABLES, payload: 2});
+    }
   };
 
   return (
     <>
       <div>
         <p>Här väljer du antalet gäster</p>
-        <div
-          onClick={() => {
-            setNumberOfGuests(1);
-            console.log("klickat");
-          }}
-        >
-          1
-        </div>
-        <div onClick={() => setNumberOfGuests(2)}>2</div>
-        {/* fixa map */}
+        {numberOfGuests.map(guests => (
+          <div key={guests} onClick={() => handleClick(guests)}>{guests}</div>
+        ))}
         <button
           type="button"
           onClick={() => {
             goToCalendar();
           }}
         >
-          Gå vidare
+          Nästa
         </button>
       </div>
     </>
