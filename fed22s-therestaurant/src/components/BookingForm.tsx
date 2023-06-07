@@ -3,15 +3,22 @@ import { User, defaultUser } from "../models/User";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
+  showGdprPage: () => void;
 }
 
-export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
+export const BookingForm = ({
+  goToCalendar,
+  showGdprPage,
+}: IBookingFormProps) => {
+  const navigate = useNavigate();
+
   const dispatch = useContext(BookingDispatchContext);
   const context = useContext(CurrentBookingContext);
-  const [currentUser, setCurrentUser] = useState<User>(defaultUser);
+  const [currentUser, setCurrentUser] = useState<User>(context.user);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const propertyName = e.target.name;
@@ -27,6 +34,7 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
         [propertyName]: e.target.value.toString(),
       });
     }
+    dispatch({ type: ActionTypeCurrentBooking.SET_USER, payload: currentUser });
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -68,9 +76,18 @@ export const BookingForm = ({ goToCalendar }: IBookingFormProps) => {
           value={currentUser.phonenumber}
           required
         />
+        <div>
+          <label>
+            Godkänn sparande av personuppgifter.{" "}
+            <button type="button" onClick={() => showGdprPage()}>
+              Läs mer här
+            </button>{" "}
+            *Nödvändigt för att fortsätta
+          </label>{" "}
+          <input type="checkbox" required />{" "}
+        </div>
         <button>Slutför bokning!</button>
       </form>
-
       {/* endast för att checka att contextet förändras efter inputstatet */}
       <p>Namn: {currentUser.name}</p>
       <p>Mejl: {currentUser.email}</p>
