@@ -15,7 +15,6 @@ export const Admin = () => {
   const [secondSittingBookings, setSecondSittingBookings] = useState<Booking[]>(
     []
   );
-  const [html, setHtml] = useState<JSX.Element>(<></>);
 
   const convertDateToString = (day: Date) => {
     let month: string = (day.getMonth() + 1).toString();
@@ -30,21 +29,16 @@ export const Admin = () => {
     return chosenDate;
   };
 
-  const getDataFromApi = async (chosenDate: string) => {
-    const bookingsFromApi = await getBookingsByDate(chosenDate);
-    setBookingsAtDate(bookingsFromApi);
-    divideBookingsBySitting();
-  };
-
-  const handleDateClick = (day: Date) => {
+  const handleDateClick = async (day: Date) => {
     let date: string = convertDateToString(day);
     setSelectedDate(date);
     if (date !== "") {
       console.log("Hämta bokningar för datum:", date);
-      getDataFromApi(date);
+      const bookingsFromApi = await getBookingsByDate(date);
+      setBookingsAtDate(bookingsFromApi);
+      divideBookingsBySitting();
     } else {
       console.log("Inget datum valt");
-      setHtml(<></>);
     }
   };
 
@@ -57,40 +51,6 @@ export const Admin = () => {
         setSecondSittingBookings([...secondSittingBookings, booking]);
       }
     });
-
-    // setHtml(
-    //   <>
-    //     <h5>Bokningar för datum: {selectedDate}</h5>
-    //     <div>
-    //       <p>Sittning 1: 18:00-20:00</p>
-    //       {bookingsAtDate.map((booking, index) => {
-    //         if (booking.sitting === 1) {
-    //           return (
-    //             <div key={index}>
-    //               <p>{booking.user.name}</p>
-    //               <span>{booking.user.email}</span>
-    //               <span>{booking.numberOfGuests} st gäster</span>
-    //             </div>
-    //           );
-    //         }
-    //       })}
-    //     </div>
-    //     <div>
-    //       <p>Sittning 2: 20:00-22:00</p>
-    //       {bookingsAtDate.map((booking, index) => {
-    //         if (booking.sitting === 2) {
-    //           return (
-    //             <div key={index}>
-    //               <p>{booking.user.name}</p>
-    //               <span>{booking.user.email}</span>
-    //               <span>{booking.numberOfGuests} st gäster</span>
-    //             </div>
-    //           );
-    //         }
-    //       })}
-    //     </div>
-    //   </>
-    // );
   };
 
   console.log("Bokningar på datumet: ", selectedDate, bookingsAtDate);
@@ -103,25 +63,31 @@ export const Admin = () => {
         <h6>Bokningar för datumet {selectedDate}</h6>
         <div>
           <p>Sittning 1</p>
-          {firstSittingBookings.map((booking, index) => (
-            <div key={index}>
-              <p>
-                Namn: {booking.user.name}, antal gäster:{" "}
-                {booking.numberOfGuests} st{" "}
-              </p>
-            </div>
-          ))}
+          {bookingsAtDate.map((booking, index) => {
+            if (booking.sitting === 1) {
+              return (
+                <div key={index}>
+                  <p>{booking.user.name}</p>
+                  <span>{booking.user.email}</span>
+                  <span>{booking.numberOfGuests} st gäster</span>
+                </div>
+              );
+            }
+          })}
         </div>
         <div>
           <p>Sittning 2</p>
-          {secondSittingBookings.map((booking, index) => (
-            <div key={index}>
-              <p>
-                Namn: {booking.user.name}, antal gäster:{" "}
-                {booking.numberOfGuests} st{" "}
-              </p>
-            </div>
-          ))}
+          {bookingsAtDate.map((booking, index) => {
+            if (booking.sitting === 2) {
+              return (
+                <div key={index}>
+                  <p>{booking.user.name}</p>
+                  <span>{booking.user.email}</span>
+                  <span>{booking.numberOfGuests} st gäster</span>
+                </div>
+              );
+            }
+          })}
         </div>
       </div>
       <BookingComponent isAdmin={isAdmin}></BookingComponent>
