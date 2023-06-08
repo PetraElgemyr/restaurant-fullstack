@@ -1,8 +1,15 @@
 const Booking = require("../models/Booking");
 
 exports.getAllBookings = async(req, res, next) => {
-    const bookings = await Booking.find();
-    return res.json(bookings);
+    try {
+        const bookings = await Booking.find();
+        return res.json(bookings);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            message: err.message,
+        });
+    }
 }
 
 exports.createBooking = async(req, res, next) => {
@@ -20,7 +27,7 @@ exports.createBooking = async(req, res, next) => {
 exports.deleteBooking = async(req, res, next) => {
     try {
         const bookingId = req.params.bookingId;
-        const bookingToDelete = await Booking.findById(bookingId);
+        const bookingToDelete = await Booking.findOne({bookingId: bookingId}); 
         if(!bookingToDelete) return res.status(404).json();
         await bookingToDelete.deleteOne();
         return res.sendStatus(204);
