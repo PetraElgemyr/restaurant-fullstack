@@ -74,7 +74,6 @@ export const BookingComponent = () => {
     }
   }, [showGuests, showCalendar, showForm]);
 
-  const endBooking = (user: User) => {};
   return (
     <>
       <CurrentBookingContext.Provider value={currentBooking}>
