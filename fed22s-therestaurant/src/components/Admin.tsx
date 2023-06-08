@@ -39,62 +39,58 @@ export const Admin = () => {
   const handleDateClick = (day: Date) => {
     let date: string = convertDateToString(day);
     setSelectedDate(date);
+    if (selectedDate !== "") {
+      console.log("Hämta bokningar för datum:", selectedDate);
+      getDataFromApi(date);
+    } else {
+      console.log("Inget datum valt");
+      setHtml(<></>);
+    }
   };
 
   const divideBookingsBySitting = () => {
     bookingsAtDate.map((booking) => {
       if (booking.sitting === 1) {
-        return setFirstSittingBookings([...firstSittingBookings, booking]);
+        setFirstSittingBookings([...firstSittingBookings, booking]);
       }
       if (booking.sitting === 2) {
-        return setSecondSittingBookings([...secondSittingBookings, booking]);
+        setSecondSittingBookings([...secondSittingBookings, booking]);
       }
     });
 
-    setHtml(
-      <>
-        <h5>Bokningar för datum: {selectedDate}</h5>
-        <div>
-          <p>Sittning 1: 18:00-20:00</p>
-          {bookingsAtDate.map((booking, index) => {
-            if (booking.sitting === 1) {
-              return (
-                <div key={index}>
-                  <p>{booking.user.name}</p>
-                  <span>{booking.user.email}</span>
-                  <span>{booking.numberOfGuests} st gäster</span>
-                </div>
-              );
-            }
-          })}
-        </div>
-        <div>
-          <p>Sittning 2: 20:00-22:00</p>
-          {bookingsAtDate.map((booking, index) => {
-            if (booking.sitting === 2) {
-              return (
-                <div key={index}>
-                  <p>{booking.user.name}</p>
-                  <span>{booking.user.email}</span>
-                  <span>{booking.numberOfGuests} st gäster</span>
-                </div>
-              );
-            }
-          })}
-        </div>
-      </>
-    );
-  };
-
-  const viewBookings = () => {
-    // Implementera logiken för att hämta bokningar för den valda datumen från backenden
-    if (selectedDate !== "") {
-      console.log("Hämta bokningar för datum:", selectedDate);
-      getDataFromApi(selectedDate);
-    } else {
-      console.log("Inget datum valt");
-      setHtml(<></>);
-    }
+    // setHtml(
+    //   <>
+    //     <h5>Bokningar för datum: {selectedDate}</h5>
+    //     <div>
+    //       <p>Sittning 1: 18:00-20:00</p>
+    //       {bookingsAtDate.map((booking, index) => {
+    //         if (booking.sitting === 1) {
+    //           return (
+    //             <div key={index}>
+    //               <p>{booking.user.name}</p>
+    //               <span>{booking.user.email}</span>
+    //               <span>{booking.numberOfGuests} st gäster</span>
+    //             </div>
+    //           );
+    //         }
+    //       })}
+    //     </div>
+    //     <div>
+    //       <p>Sittning 2: 20:00-22:00</p>
+    //       {bookingsAtDate.map((booking, index) => {
+    //         if (booking.sitting === 2) {
+    //           return (
+    //             <div key={index}>
+    //               <p>{booking.user.name}</p>
+    //               <span>{booking.user.email}</span>
+    //               <span>{booking.numberOfGuests} st gäster</span>
+    //             </div>
+    //           );
+    //         }
+    //       })}
+    //     </div>
+    //   </>
+    // );
   };
 
   console.log("Bokningar på datumet: ", selectedDate, bookingsAtDate);
@@ -103,8 +99,31 @@ export const Admin = () => {
     <div>
       <h2>Välj datum för att se bokningar</h2>
       <Calendar onClickDay={(day) => handleDateClick(day)} />
-      <button onClick={() => viewBookings()}>Visa bokningar</button>
-      {html}
+      <div>
+        <h6>Bokningar för datumet {selectedDate}</h6>
+        <div>
+          <p>Sittning 1</p>
+          {firstSittingBookings.map((booking, index) => (
+            <div key={index}>
+              <p>
+                Namn: {booking.user.name}, antal gäster:{" "}
+                {booking.numberOfGuests} st{" "}
+              </p>
+            </div>
+          ))}
+        </div>
+        <div>
+          <p>Sittning 2</p>
+          {secondSittingBookings.map((booking, index) => (
+            <div key={index}>
+              <p>
+                Namn: {booking.user.name}, antal gäster:{" "}
+                {booking.numberOfGuests} st{" "}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
       <BookingComponent isAdmin={isAdmin}></BookingComponent>
     </div>
   );
