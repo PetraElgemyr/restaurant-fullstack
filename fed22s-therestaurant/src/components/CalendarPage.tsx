@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import Calendar from "react-calendar";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
@@ -20,7 +20,7 @@ interface ISittings {
 export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
   const dispatch = useContext(BookingDispatchContext);
   const currentBooking = useContext(CurrentBookingContext);
-
+  const [html, setHtml] = useState<JSX.Element>(<></>);
   const [firstSitting, setFirstSitting] = useState<ISittings>({
     sitting: 1,
     bookedTables: 0,
@@ -92,6 +92,12 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
     return chosenDate;
   };
 
+  const checkCalenderValidation = () => {
+    if (currentBooking.sitting === 0 || currentBooking.date === "") {
+      setHtml(<div>Du måste välja ett datum samt välja en tid!</div>);
+    }
+  };
+
   return (
     <>
       <button
@@ -117,6 +123,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
             type: ActionTypeCurrentBooking.SET_DATE,
             payload: selectedDate,
           });
+          setHtml(<></>);
         }}
       >
         Kl. 18:00 - 20:00
@@ -130,14 +137,24 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
             type: ActionTypeCurrentBooking.SET_DATE,
             payload: selectedDate,
           });
+          setHtml(<></>);
         }}
       >
         Kl. 20:00 - 22:00
       </button>
-
-      <button type="button" onClick={() => goToForm()}>
+      <button
+        type="button"
+        onClick={() => {
+          if (currentBooking.date !== "" && currentBooking.sitting !== 0) {
+            goToForm();
+          } else {
+            checkCalenderValidation();
+          }
+        }}
+      >
         Nästa
       </button>
+      {html}
     </>
   );
 };
