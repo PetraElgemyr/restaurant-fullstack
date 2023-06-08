@@ -54,5 +54,20 @@ exports.getBookingsByDate = async (req, res, next) => {
 
 exports.updateBookingById = async (req, res, next) => {
   try {
-  } catch (error) {}
+    const givenId = req.params.bookingId;
+    const bookingToUpdate = await Booking.find({ bookingId: givenId }); //behövs ej egentligen?
+    const updatedBooking = req.body;
+
+    const newUpdatedBooking = await Booking.findOneAndReplace(
+      { bookingId: { $eq: givenId } },
+      updatedBooking,
+      { returnNewDocument: true }
+    );
+    return res.json(newUpdatedBooking);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({
+      message: error.message,
+    });
+  }
 };
