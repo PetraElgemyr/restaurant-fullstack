@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import { BookingComponent } from "./BookingComponent";
 
 export const Admin = () => {
+  const isAdmin = true;
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const dateSelect = (date: Date | Date[]) => {
@@ -27,8 +29,9 @@ export const Admin = () => {
   return (
     <div>
       <h2>Välj datum för att se bokningar</h2>
-      <Calendar onChange={dateSelect} value={selectedDate} />
+      <Calendar/>
       <button onClick={viewBookings}>Visa bokningar</button>
+      <BookingComponent isAdmin={isAdmin}></BookingComponent>
     </div>
   );
 };

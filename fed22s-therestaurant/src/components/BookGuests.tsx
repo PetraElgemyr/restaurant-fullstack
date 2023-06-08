@@ -4,54 +4,78 @@ import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
+  isAdmin: boolean;
 }
 
-export const BookGuests = ({ goToCalendar }: IChooseGuests) => {
+export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
   const numberOfGuests = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const numberOfGuestsAdmin = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24];
 
   const dispatch = useContext(BookingDispatchContext);
 
   const handleClick = (guests: number) => {
-    // sätt antal gäster via dispatch men förslagsvis ändra om hur bokningen ser ut så att numberOfGuests inte ligger inuti User
-    // Här sätts bara antal bord man har bokat
+
     dispatch({
       type: ActionTypeCurrentBooking.SET_NUMBER_OF_GUESTS,
       payload: guests,
     });
 
-    if (guests < 7) {
-      dispatch({
-        type: ActionTypeCurrentBooking.SET_BOOKED_TABLES,
-        payload: 1,
-      });
-    }
+    let tables = (guests / 6) + 0.4;
+    tables = Math.round(tables);
 
-    if (guests > 6) {
       dispatch({
         type: ActionTypeCurrentBooking.SET_BOOKED_TABLES,
-        payload: 2,
-      });
-    }
+        payload: tables,
+      })
+
+    console.log(tables)
   };
+  
+  if (!isAdmin) {
+    return (
+      <>
+        <div>
+          <p>Här väljer du antalet gäster</p>
+          {numberOfGuests.map((guests) => (
+            <div key={guests} onClick={() => handleClick(guests)}>
+              {guests}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => {
+              goToCalendar();
+            }}
+          >
+            Nästa
+          </button>
+          <button disabled={!isAdmin}>Is Admin</button>
+        </div>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <div>
+          <p>Här väljer du antalet gäster</p>
+          {numberOfGuestsAdmin.map((guests) => (
+            <div key={guests} onClick={() => handleClick(guests)}>
+              {guests}
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() => {
+              goToCalendar();
+            }}
+          >
+            Nästa
+          </button>
+          <button disabled={!isAdmin}>Is Admin</button>
+        </div>
+      </>
+    );
+  }
 
-  return (
-    <>
-      <div>
-        <p>Här väljer du antalet gäster</p>
-        {numberOfGuests.map((guests) => (
-          <div key={guests} onClick={() => handleClick(guests)}>
-            {guests}
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={() => {
-            goToCalendar();
-          }}
-        >
-          Nästa
-        </button>
-      </div>
-    </>
-  );
-};
+
+}

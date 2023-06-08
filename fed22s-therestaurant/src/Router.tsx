@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/booking",
-        element: <BookingComponent></BookingComponent>,
+        element: <BookingComponent isAdmin={false}></BookingComponent>,
       },
       {
         path: "/contact",

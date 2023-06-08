@@ -9,7 +9,11 @@ import { CurrentBookingReducer } from "../reducers/CurrentBookingReducer";
 import { defaultBooking } from "../models/Booking";
 import { GdprInfo } from "./GdprInfo";
 
-export const BookingComponent = () => {
+interface IBookingComponentProps {
+  isAdmin: boolean
+}
+
+export const BookingComponent = ({isAdmin}: IBookingComponentProps) => {
   const [showGuests, setShowGuests] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -51,7 +55,7 @@ export const BookingComponent = () => {
 
   useEffect(() => {
     if (showGuests) {
-      setHtml(<BookGuests goToCalendar={goToCalendar}></BookGuests>);
+      setHtml(<BookGuests goToCalendar={goToCalendar} isAdmin={isAdmin}></BookGuests>);
     }
     if (showCalendar) {
       setHtml(
