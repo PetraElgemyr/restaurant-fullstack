@@ -42,6 +42,7 @@ export const BookingForm = ({
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     dispatch({ type: ActionTypeCurrentBooking.SET_USER, payload: currentUser });
+    context.bookingId = JSON.stringify(new Date().getTime());
     let addedBooking: Booking = await addNewBooking(context);
     // dispatch({ type: ActionTypeCurrentBooking.ADDED, payload: context });
     console.log("Bokningen som lades till: ", addedBooking);
