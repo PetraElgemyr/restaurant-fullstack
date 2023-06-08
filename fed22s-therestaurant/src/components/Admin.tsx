@@ -39,8 +39,8 @@ export const Admin = () => {
   const handleDateClick = (day: Date) => {
     let date: string = convertDateToString(day);
     setSelectedDate(date);
-    if (selectedDate !== "") {
-      console.log("Hämta bokningar för datum:", selectedDate);
+    if (date !== "") {
+      console.log("Hämta bokningar för datum:", date);
       getDataFromApi(date);
     } else {
       console.log("Inget datum valt");
