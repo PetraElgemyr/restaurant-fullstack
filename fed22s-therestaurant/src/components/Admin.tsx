@@ -7,18 +7,15 @@ import { Booking } from "../models/Booking";
 
 export const Admin = () => {
   const isAdmin = true;
-  // const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [bookingsAtDate, setBookingsAtDate] = useState<Booking[]>([]);
+  const [firstSittingBookings, setFirstSittingBookings] = useState<Booking[]>(
+    []
+  );
+  const [secondSittingBookings, setSecondSittingBookings] = useState<Booking[]>(
+    []
+  );
   const [html, setHtml] = useState<JSX.Element>(<></>);
-  // const dateSelect = (date: Date | Date[]) => {
-  //   if (Array.isArray(date)) {
-  //     // Hantera flera datumval om det behövs
-  //     setSelectedDate(date[0]);
-  //   } else {
-  //     setSelectedDate(date);
-  //   }
-  // };
 
   const convertDateToString = (day: Date) => {
     let month: string = (day.getMonth() + 1).toString();
@@ -33,9 +30,10 @@ export const Admin = () => {
     return chosenDate;
   };
 
-  const getDataFromApi = async () => {
-    const bookingsFromApi = await getBookingsByDate(selectedDate);
+  const getDataFromApi = async (chosenDate: string) => {
+    const bookingsFromApi = await getBookingsByDate(chosenDate);
     setBookingsAtDate(bookingsFromApi);
+    divideBookingsBySitting();
   };
 
   const handleDateClick = (day: Date) => {
@@ -43,13 +41,56 @@ export const Admin = () => {
     setSelectedDate(date);
   };
 
+  const divideBookingsBySitting = () => {
+    bookingsAtDate.map((booking) => {
+      if (booking.sitting === 1) {
+        return setFirstSittingBookings([...firstSittingBookings, booking]);
+      }
+      if (booking.sitting === 2) {
+        return setSecondSittingBookings([...secondSittingBookings, booking]);
+      }
+    });
+
+    setHtml(
+      <>
+        <h5>Bokningar för datum: {selectedDate}</h5>
+        <div>
+          <p>Sittning 1: 18:00-20:00</p>
+          {bookingsAtDate.map((booking, index) => {
+            if (booking.sitting === 1) {
+              return (
+                <div key={index}>
+                  <p>{booking.user.name}</p>
+                  <span>{booking.user.email}</span>
+                  <span>{booking.numberOfGuests} st gäster</span>
+                </div>
+              );
+            }
+          })}
+        </div>
+        <div>
+          <p>Sittning 2: 20:00-22:00</p>
+          {bookingsAtDate.map((booking, index) => {
+            if (booking.sitting === 2) {
+              return (
+                <div key={index}>
+                  <p>{booking.user.name}</p>
+                  <span>{booking.user.email}</span>
+                  <span>{booking.numberOfGuests} st gäster</span>
+                </div>
+              );
+            }
+          })}
+        </div>
+      </>
+    );
+  };
+
   const viewBookings = () => {
     // Implementera logiken för att hämta bokningar för den valda datumen från backenden
     if (selectedDate !== "") {
       console.log("Hämta bokningar för datum:", selectedDate);
-      getDataFromApi();
-
-      // Anropa backenden eller utför andra åtgärder baserat på vald datum
+      getDataFromApi(selectedDate);
     } else {
       console.log("Inget datum valt");
       setHtml(<></>);
@@ -63,14 +104,7 @@ export const Admin = () => {
       <h2>Välj datum för att se bokningar</h2>
       <Calendar onClickDay={(day) => handleDateClick(day)} />
       <button onClick={() => viewBookings()}>Visa bokningar</button>
-      {bookingsAtDate.map((booking, index) => {
-        return (
-          <div key={index}>
-            <span>{booking.date}</span>
-            <span>{booking.user.name}</span>
-          </div>
-        );
-      })}
+      {html}
       <BookingComponent isAdmin={isAdmin}></BookingComponent>
     </div>
   );
