@@ -5,6 +5,7 @@ import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { Booking } from "../models/Booking";
 import { getBookingsByDate } from "../serivces/BookingServices";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
+import { useConvertDateToString } from "../hooks/useConvertDateToString";
 
 interface ICalendarProps {
   goToGuests: () => void;
@@ -34,7 +35,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
   const [selectedDate, setSelectedDate] = useState("");
 
   const handleClick = (day: Date) => {
-    const date = convertDateToString(day);
+    const date = useConvertDateToString(day);
     setSelectedDate(date);
 
     const getData = async () => {
@@ -77,19 +78,6 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
           ? true
           : false,
     });
-  };
-
-  const convertDateToString = (day: Date) => {
-    let month: string = (day.getMonth() + 1).toString();
-    let dateDay: string = day.getDate().toString();
-    if (month.length === 1) {
-      month = "0" + month;
-    }
-    if (dateDay.length === 1) {
-      dateDay = "0" + dateDay;
-    }
-    let chosenDate = day.getFullYear().toString() + month + dateDay;
-    return chosenDate;
   };
 
   const checkCalenderValidation = () => {
