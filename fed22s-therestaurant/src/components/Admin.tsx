@@ -5,6 +5,7 @@ import { BookingComponent } from "./BookingComponent";
 import { getBookingsByDate } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
+import { ChangeBooking } from "./changeBooking";
 
 
 export const Admin = () => {
@@ -58,30 +59,24 @@ export const Admin = () => {
           <Calendar onClickDay={(day) => handleDateClick(day)} />
           <div>
             <h6>Bokningar för datumet {selectedDate}</h6>
+
             <div>
               <p>Sittning 1</p>
-              {bookingsAtDate.map((booking, index) => {
+              {bookingsAtDate.map((booking) => {
                 if (booking.sitting === 1) {
                   return (
-                    <div key={index}>
-                      <p>{booking.user.name}</p>
-                      <span>{booking.user.email}</span>
-                      <span>{booking.numberOfGuests} st gäster</span>
-                    </div>
+                    <ChangeBooking key={booking.bookingId} booking={booking}></ChangeBooking>
                   );
                 }
               })}
             </div>
+
             <div>
               <p>Sittning 2</p>
-              {bookingsAtDate.map((booking, index) => {
+              {bookingsAtDate.map((booking) => {
                 if (booking.sitting === 2) {
                   return (
-                    <div key={index}>
-                      <p>{booking.user.name}</p>
-                      <span>{booking.user.email}</span>
-                      <span>{booking.numberOfGuests} st gäster</span>
-                    </div>
+                    <ChangeBooking key={booking.bookingId} booking={booking}></ChangeBooking>
                   );
                 }
               })}
