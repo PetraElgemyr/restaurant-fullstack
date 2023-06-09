@@ -6,6 +6,8 @@ import { Confirmation } from "./components/Confirmation";
 import { Admin } from "./components/Admin";
 import { BookingComponent } from "./components/BookingComponent";
 import { CancelBooking } from "./components/CancelBooking";
+import { CancelConfirmation } from "./components/CancelConfirmation";
+import { CancelLayout } from "./components/CancelLayout";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +18,21 @@ export const router = createBrowserRouter([
         path: "/",
         element: <Home></Home>,
       },
+      {
+        path: "/cancel",
+        element: <CancelLayout></CancelLayout>,
+        children: [
+          {
+            path: "/cancel/:bookingId",
+            element: <CancelBooking></CancelBooking>,
+          },
+          {
+            path: "/cancel/confirmation",
+            element: <CancelConfirmation></CancelConfirmation>,
+          },
+        ],
+      },
+
       {
         path: "/booking",
         element: <BookingComponent isAdmin={false}></BookingComponent>,
@@ -32,7 +49,6 @@ export const router = createBrowserRouter([
         path: "/admin",
         element: <Admin></Admin>,
       },
-      { path: "/cancel/:id", element: <CancelBooking></CancelBooking> },
     ],
   },
 ]);
