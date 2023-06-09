@@ -12,7 +12,7 @@ interface ICalendarProps {
   goToForm: () => void;
 }
 
-interface ISittings {
+export interface ISittings {
   sitting: number;
   bookedTables: number;
   availabel: boolean;
@@ -66,7 +66,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
       ...firstSitting,
       bookedTables: bookedTablesFirstSitting,
       availabel:
-        currentBooking.bookedTables <= 15 - bookedTablesFirstSitting
+        currentBooking.bookedTables <= (15 - bookedTablesFirstSitting)
           ? true
           : false,
     });
@@ -74,7 +74,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
       ...secondSitting,
       bookedTables: bookedTablesSecondSitting,
       availabel:
-        currentBooking.bookedTables <= 15 - bookedTablesSecondSitting
+        currentBooking.bookedTables <= (15 - bookedTablesSecondSitting)
           ? true
           : false,
     });
