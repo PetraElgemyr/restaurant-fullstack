@@ -53,7 +53,7 @@ export const CancelBooking = () => {
     };
 
     getBooking();
-  });
+  }, []);
 
   return <>{bookingExists ? foundHtml : notFoundHtml}</>;
 };
