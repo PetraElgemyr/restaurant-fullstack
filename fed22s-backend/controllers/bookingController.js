@@ -29,9 +29,8 @@ exports.createBooking = async (req, res, next) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "restaurang.bakgarden@hotmail.com",
-        pass: "bakgarden1",
-        // pass: newBooking.bookingId
+        user: "restaurang.bakgarden@gmail.com",
+        pass: "wvyppbywtqyssext", //autogenererat lösen för tredjepartsapplikationer för inloggning till vår gmail
       },
     });
 
