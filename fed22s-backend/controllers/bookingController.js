@@ -38,7 +38,7 @@ exports.createBooking = async (req, res, next) => {
     Datum: ${newBooking.date}
     Tid: ${sittingTime}
     Antal gäster: ${newBooking.numberOfGuests}
-    Namn:${newBooking.user.name}
+    Namn: ${newBooking.user.name}
     Mejladress: ${newBooking.user.email}
     Telefonnummer: ${newBooking.user.phonenumber}
     Bokningsnummer: ${newBooking.bookingId}
@@ -115,5 +115,16 @@ exports.updateBookingById = async (req, res, next) => {
     return res.status(500).json({
       message: error.message,
     });
+  }
+};
+
+exports.getBookingById = async () => {
+  try {
+    const bookingId = req.params.bookingId;
+    const bookingToDelete = await Booking.find({ bookingId: bookingId });
+    return res.json(bookingToDelete);
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({ message: error.message });
   }
 };
