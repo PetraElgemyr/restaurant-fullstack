@@ -11,11 +11,3 @@ export const CancelBooking = () => {
     </>
   );
 };
-
-/*
-
-  const params = useParams(); // { id: 123 }
-  const { superHeroes } = useLoaderData() as Loader;
-
-  const current = superHeroes.find((superhero) => superhero.id === params.id);
-*/
