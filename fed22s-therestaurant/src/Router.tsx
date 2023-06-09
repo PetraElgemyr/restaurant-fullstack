@@ -5,6 +5,7 @@ import { Contact } from "./components/Contact";
 import { Confirmation } from "./components/Confirmation";
 import { Admin } from "./components/Admin";
 import { BookingComponent } from "./components/BookingComponent";
+import { CancelBooking } from "./components/CancelBooking";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
         path: "/admin",
         element: <Admin></Admin>,
       },
+      { path: "/cancel/:id", element: <CancelBooking></CancelBooking> },
     ],
   },
 ]);
