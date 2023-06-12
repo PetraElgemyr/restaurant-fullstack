@@ -81,6 +81,62 @@ exports.deleteBooking = async (req, res, next) => {
     const bookingId = req.params.bookingId;
     const bookingToDelete = await Booking.findOne({ bookingId: bookingId });
     if (!bookingToDelete) return res.status(404).json();
+
+    let sittingTime = "";
+
+    if (bookingToDelete.sitting == 1) {
+      sittingTime = "18:00-20:00";
+    }
+    if (bookingToDelete.sitting == 2) {
+      sittingTime = "20:00-22:00";
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "restaurang.bakgarden@gmail.com",
+        pass: "wvyppbywtqyssext", //autogenererat lösen för tredjepartsapplikationer för inloggning till vår gmail
+      },
+    });
+
+    let date = bookingToDelete.date;
+    const dateSplitted = date.split("");
+    dateSplitted.splice(4, 0, "-");
+    dateSplitted.splice(7, 0, "-");
+    date = dateSplitted.join("");
+
+    const mailText = `Avbokningsbekräftelse. Du har nu avbokat din bokning den ${date} klockan ${sittingTime}. 
+
+    Bokningsuppgifter: 
+    Antal gäster: ${bookingToDelete.numberOfGuests}
+    Namn: ${bookingToDelete.user.name}
+    Mejladress: ${bookingToDelete.user.email}
+    Telefonnummer: ${bookingToDelete.user.phonenumber}
+    Bokningsnummer: ${bookingToDelete.bookingId}
+
+    Om du inte önskat avboka din bokning, vänligen kontakta oss snarast!
+    Vid andra frågor, välkommen att kontakta oss på mejl eller telefon.
+    
+    Vänliga hälsningar,
+    
+    personalen på Restaurang Bakgården
+    `;
+
+    const mailOptions = {
+      from: "restaurang.bakgarden@hotmail.com",
+      to: bookingToDelete.user.email,
+      subject: "Avbokningsbekräftelse",
+      text: mailText,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Mejlet skickat: ", info.response);
+      }
+    });
+
     await bookingToDelete.deleteOne();
     return res.sendStatus(204);
   } catch (err) {
