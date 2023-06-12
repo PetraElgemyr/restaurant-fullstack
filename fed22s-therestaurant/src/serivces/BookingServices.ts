@@ -34,9 +34,16 @@ export const deleteBookingById = async (id: string): Promise<AxiosResponse> => {
   return response;
 };
 
-export const getBookingById = async (id: string): Promise<Booking> => {
+export const getBookingById = async (id: string): Promise<AxiosResponse> => {
+  let res = await axios.get(
+    `http://localhost:5000/api/v1/bakgarden/bookings/cancel/${id}`
+  );
+  return res;
+};
+
+export const getAllBookings = async (): Promise<Booking[]> => {
   let response = await axios.get(
-    `http://localhost:5000/api/v1/bakgarden/bookings/${id}`
+    "http://localhost:5000/api/v1/bakgarden/bookings"
   );
   return response.data;
 };
