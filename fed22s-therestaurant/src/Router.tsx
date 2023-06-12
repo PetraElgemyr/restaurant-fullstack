@@ -19,18 +19,12 @@ export const router = createBrowserRouter([
         element: <Home></Home>,
       },
       {
-        path: "/cancel",
-        element: <CancelLayout></CancelLayout>,
-        children: [
-          {
-            path: "/cancel/:bookingId",
-            element: <CancelBooking></CancelBooking>,
-          },
-          {
-            path: "/cancel/confirmation",
-            element: <CancelConfirmation></CancelConfirmation>,
-          },
-        ],
+        path: "/cancel/:bookingId",
+        element: <CancelBooking></CancelBooking>,
+      },
+      {
+        path: "/cancel/confirmation",
+        element: <CancelConfirmation></CancelConfirmation>,
       },
 
       {

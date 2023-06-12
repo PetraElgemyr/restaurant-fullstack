@@ -120,9 +120,13 @@ exports.updateBookingById = async (req, res, next) => {
 
 exports.getBookingById = async () => {
   try {
-    const bookingId = req.params.bookingId;
-    const bookingToDelete = await Booking.find({ bookingId: bookingId });
-    return res.json(bookingToDelete);
+    const givenId = req.params.bookingId;
+    const bookingToDelete = await Booking.find({ bookingId: givenId });
+    if (!bookingToDelete) {
+      return res.status(404).json();
+    } else {
+      return res.json(bookingToDelete);
+    }
   } catch (err) {
     console.log(err);
     return res.status(404).json({ message: error.message });
