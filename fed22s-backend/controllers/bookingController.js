@@ -134,7 +134,7 @@ exports.updateBookingById = async (req, res, next) => {
       },
     });
 
-    let date = newBooking.date;
+    let date = updatedBooking.date;
     const dateSplitted = date.split("");
     dateSplitted.splice(4, 0, "-");
     dateSplitted.splice(7, 0, "-");
