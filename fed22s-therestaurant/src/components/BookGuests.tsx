@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
+import { CurrentBookingContext } from "../contexts/BookingsContext";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
@@ -9,28 +10,70 @@ export interface IChooseGuests {
 
 export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
   const numberOfGuests = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-  const numberOfGuestsAdmin = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24];
-
+  const numberOfGuestsAdmin = [
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    23, 24,
+  ];
+  const currentBooking = useContext(CurrentBookingContext);
   const dispatch = useContext(BookingDispatchContext);
+  const [html, setHtml] = useState<JSX.Element>(<></>);
+  const [guestsString, setGuestsString] = useState("");
 
   const handleClick = (guests: number) => {
+    dispatch({
+      type: ActionTypeCurrentBooking.SET_NUMBER_OF_GUESTS,
+      payload: guests,
+    });
+
+    let tables = guests / 6 + 0.4;
+    tables = Math.round(tables);
+
+    dispatch({
+      type: ActionTypeCurrentBooking.SET_BOOKED_TABLES,
+      payload: tables,
+    });
+
+    console.log(tables);
+    setHtml(<></>);
+  };
+
+  const checkNumberOfGuests = () => {
+    if (currentBooking.numberOfGuests === 0 || guestsString === "0") {
+      setHtml(<div>Du måste välja antalet gäster innan du går vidare</div>);
+    }
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.type === "text") {
+      setGuestsString(e.target.value);
+
+      if (e.target.value === "" || e.target.value === "0") {
+        setHtml(<div>Du måste välja antalet gäster innan du går vidare</div>);
+      }
+    }
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    const guests = parseInt(guestsString);
 
     dispatch({
       type: ActionTypeCurrentBooking.SET_NUMBER_OF_GUESTS,
       payload: guests,
     });
 
-    let tables = (guests / 6) + 0.4;
+    let tables = guests / 6 + 0.4;
     tables = Math.round(tables);
 
-      dispatch({
-        type: ActionTypeCurrentBooking.SET_BOOKED_TABLES,
-        payload: tables,
-      })
+    dispatch({
+      type: ActionTypeCurrentBooking.SET_BOOKED_TABLES,
+      payload: tables,
+    });
 
-    console.log(tables)
+    console.log(tables);
+    currentBooking.bookingId = JSON.stringify(new Date().getTime());
+    goToCalendar();
   };
-  
+
   if (!isAdmin) {
     return (
       <>
@@ -44,11 +87,16 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
           <button
             type="button"
             onClick={() => {
-              goToCalendar();
+              if (currentBooking.numberOfGuests !== 0 || guestsString !== "0") {
+                goToCalendar();
+              } else {
+                checkNumberOfGuests();
+              }
             }}
           >
             Nästa
           </button>
+          {html}
           <button disabled={!isAdmin}>Is Admin</button>
         </div>
       </>
@@ -58,24 +106,29 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
       <>
         <div>
           <p>Här väljer du antalet gäster</p>
-          {numberOfGuestsAdmin.map((guests) => (
-            <div key={guests} onClick={() => handleClick(guests)}>
-              {guests}
-            </div>
-          ))}
-          <button
-            type="button"
-            onClick={() => {
-              goToCalendar();
+          <form
+            onSubmit={(e: FormEvent) => {
+              e.preventDefault();
+              if (currentBooking.numberOfGuests !== 0 || guestsString !== "0") {
+                handleSubmit(e);
+              } else {
+                checkNumberOfGuests();
+              }
             }}
           >
-            Nästa
-          </button>
+            <input
+              type="text"
+              value={guestsString}
+              onChange={handleChange}
+              required
+            />
+            <button>Nästa</button>
+          </form>
+
+          {html}
           <button disabled={!isAdmin}>Is Admin</button>
         </div>
       </>
     );
   }
-
-
-}
+};
