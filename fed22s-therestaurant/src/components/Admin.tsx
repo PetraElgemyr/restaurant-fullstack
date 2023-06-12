@@ -7,19 +7,11 @@ import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { ChangeBooking } from "./changeBooking";
 
-
 export const Admin = () => {
   const isAdmin = true;
   const [createNewBooking, setCreateNewBooking] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [bookingsAtDate, setBookingsAtDate] = useState<Booking[]>([]);
-  const [firstSittingBookings, setFirstSittingBookings] = useState<Booking[]>(
-    []
-  );
-  const [secondSittingBookings, setSecondSittingBookings] = useState<Booking[]>(
-    []
-  );
-
 
   const handleDateClick = async (day: Date) => {
     let date: string = useConvertDateToString(day);
@@ -28,28 +20,16 @@ export const Admin = () => {
       console.log("Hämta bokningar för datum:", date);
       const bookingsFromApi = await getBookingsByDate(date);
       setBookingsAtDate(bookingsFromApi);
-      divideBookingsBySitting();
     } else {
       console.log("Inget datum valt");
     }
-  };
-
-  const divideBookingsBySitting = () => {
-    bookingsAtDate.map((booking) => {
-      if (booking.sitting === 1) {
-        setFirstSittingBookings([...firstSittingBookings, booking]);
-      }
-      if (booking.sitting === 2) {
-        setSecondSittingBookings([...secondSittingBookings, booking]);
-      }
-    });
   };
 
   console.log("Bokningar på datumet: ", selectedDate, bookingsAtDate);
 
   const handleClick = () => {
     setCreateNewBooking(true);
-  }
+  };
   if (!createNewBooking) {
     return (
       <>
@@ -65,7 +45,10 @@ export const Admin = () => {
               {bookingsAtDate.map((booking) => {
                 if (booking.sitting === 1) {
                   return (
-                    <ChangeBooking key={booking.bookingId} booking={booking}></ChangeBooking>
+                    <ChangeBooking
+                      key={booking.bookingId}
+                      booking={booking}
+                    ></ChangeBooking>
                   );
                 }
               })}
@@ -76,21 +59,23 @@ export const Admin = () => {
               {bookingsAtDate.map((booking) => {
                 if (booking.sitting === 2) {
                   return (
-                    <ChangeBooking key={booking.bookingId} booking={booking}></ChangeBooking>
+                    <ChangeBooking
+                      key={booking.bookingId}
+                      booking={booking}
+                    ></ChangeBooking>
                   );
                 }
               })}
             </div>
-          </div>  
+          </div>
         </div>
       </>
-    )
+    );
   } else {
     return (
       <>
         <BookingComponent isAdmin={isAdmin}></BookingComponent>
       </>
-    )
+    );
   }
-
 };
