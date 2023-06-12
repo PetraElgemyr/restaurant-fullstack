@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { getBookingsByDate, updateBookingById } from "../serivces/BookingServices";
 import { ISittings } from "./CalendarPage";
+import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
 
 interface IChangeBooking {
     booking: Booking
@@ -153,7 +154,7 @@ export const ChangeBooking = ({booking}: IChangeBooking) => {
                     >
                         Kl. 20:00 - 22:00
                     </button>
-                    <div>Datum: {currentBooking.date ? currentBooking.date :  "Välj sittning för att se valt datum"}</div>
+                    <div>Datum: {currentBooking.date ? useConvertDateToISO8601(currentBooking.date) :  "Välj sittning för att se valt datum"}</div>
                     <div>Sittning: {currentBooking.sitting === 0 ? "Välj en sittning" : currentBooking.sitting}</div>
 
                 <form onSubmit={handleSubmit}>
