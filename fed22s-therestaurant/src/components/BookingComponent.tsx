@@ -10,10 +10,10 @@ import { defaultBooking } from "../models/Booking";
 import { GdprInfo } from "./GdprInfo";
 
 interface IBookingComponentProps {
-  isAdmin: boolean
+  isAdmin: boolean;
 }
 
-export const BookingComponent = ({isAdmin}: IBookingComponentProps) => {
+export const BookingComponent = ({ isAdmin }: IBookingComponentProps) => {
   const [showGuests, setShowGuests] = useState(true);
   const [showCalendar, setShowCalendar] = useState(false);
   const [showForm, setShowForm] = useState(false);
@@ -55,7 +55,9 @@ export const BookingComponent = ({isAdmin}: IBookingComponentProps) => {
 
   useEffect(() => {
     if (showGuests) {
-      setHtml(<BookGuests goToCalendar={goToCalendar} isAdmin={isAdmin}></BookGuests>);
+      setHtml(
+        <BookGuests goToCalendar={goToCalendar} isAdmin={isAdmin}></BookGuests>
+      );
     }
     if (showCalendar) {
       setHtml(
@@ -91,38 +93,3 @@ export const BookingComponent = ({isAdmin}: IBookingComponentProps) => {
     </>
   );
 };
-
-/*
-
-function Item({ name, isPacked }) {
-  if (isPacked) {
-    return <li className="item">{name} ✔</li>;
-  }
-  return <li className="item">{name}</li>;
-}
-
-export default function PackingList() {
-  return (
-    <section>
-      <h1>Sally Ride's Packing List</h1>
-      <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
-        />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
-        />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
-        />
-      </ul>
-    </section>
-  );
-}
-
-
-
-*/

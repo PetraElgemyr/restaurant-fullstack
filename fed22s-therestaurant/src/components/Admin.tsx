@@ -27,14 +27,15 @@ export const Admin = () => {
 
   console.log("Bokningar på datumet: ", selectedDate, bookingsAtDate);
 
-  const handleClick = () => {
+  const handleAddBookingClick = () => {
     setCreateNewBooking(true);
   };
+
   if (!createNewBooking) {
     return (
       <>
         <div>
-          <button onClick={handleClick}>Lägg till ny bokning</button>
+          <button onClick={handleAddBookingClick}>Lägg till ny bokning</button>
           <h2>Välj datum för att se bokningar</h2>
           <Calendar onClickDay={(day) => handleDateClick(day)} />
           <div>
