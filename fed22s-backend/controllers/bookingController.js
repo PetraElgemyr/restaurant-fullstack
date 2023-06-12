@@ -34,8 +34,14 @@ exports.createBooking = async (req, res, next) => {
       },
     });
 
+    let date = newBooking.date;
+    const dateSplitted = date.split("");
+    dateSplitted.splice(4, 0, "-");
+    dateSplitted.splice(7, 0, "-");
+    date = dateSplitted.join("");
+
     const mailText = `Tack för din bokning! Här nedan ser du dina bokningsdetaljer.
-    Datum: ${newBooking.date}
+    Datum: ${date}
     Tid: ${sittingTime}
     Antal gäster: ${newBooking.numberOfGuests}
     Namn: ${newBooking.user.name}
@@ -109,6 +115,58 @@ exports.updateBookingById = async (req, res, next) => {
       updatedBooking,
       { returnNewDocument: true }
     );
+
+    const cancelLink = `http://localhost:5173/cancel/${updatedBooking.bookingId}`;
+    let sittingTime = "";
+
+    if (updatedBooking.sitting == 1) {
+      sittingTime = "18:00-20:00";
+    }
+    if (updatedBooking.sitting == 2) {
+      sittingTime = "20:00-22:00";
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "restaurang.bakgarden@gmail.com",
+        pass: "wvyppbywtqyssext", //autogenererat lösen för tredjepartsapplikationer för inloggning till vår gmail
+      },
+    });
+
+    let date = updatedBooking.date;
+    const dateSplitted = date.split("");
+    dateSplitted.splice(4, 0, "-");
+    dateSplitted.splice(7, 0, "-");
+    date = dateSplitted.join("");
+
+    const mailText = `Vi har uppdaterat din bokning! Här nedan ser du dina nya bokningsdetaljer.
+    Datum: ${date}
+    Tid: ${sittingTime}
+    Antal gäster: ${updatedBooking.numberOfGuests}
+    Namn: ${updatedBooking.user.name}
+    Mejladress: ${updatedBooking.user.email}
+    Telefonnummer: ${updatedBooking.user.phonenumber}
+    Bokningsnummer: ${updatedBooking.bookingId}
+
+    Om något ser fel ut, vänligen kontakta oss!
+    Vid avbokning, klicka på länken ${cancelLink} `;
+
+    const mailOptions = {
+      from: "restaurang.bakgarden@hotmail.com",
+      to: updatedBooking.user.email,
+      subject: "Uppdaterad bokning",
+      text: mailText,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Mejlet skickat: ", info.response);
+      }
+    });
+
     return res.json(newUpdatedBooking);
   } catch (err) {
     console.log(err);
