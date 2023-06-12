@@ -47,3 +47,12 @@ export const getAllBookings = async (): Promise<Booking[]> => {
   );
   return response.data;
 };
+
+export const updateBookingById = async (booking: Booking): Promise<Booking> => {
+  const response = await axios.put(
+    `http://localhost:5000/api/v1/bakgarden/bookings/${booking.bookingId}`,
+    booking
+  );
+    return response.data;
+}
+
