@@ -2,24 +2,19 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { BookingComponent } from "./BookingComponent";
-import { getBookingsByDate } from "../serivces/BookingServices";
+import {
+  deleteBookingById,
+  getBookingsByDate,
+} from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { ChangeBooking } from "./changeBooking";
-
 
 export const Admin = () => {
   const isAdmin = true;
   const [createNewBooking, setCreateNewBooking] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [bookingsAtDate, setBookingsAtDate] = useState<Booking[]>([]);
-  const [firstSittingBookings, setFirstSittingBookings] = useState<Booking[]>(
-    []
-  );
-  const [secondSittingBookings, setSecondSittingBookings] = useState<Booking[]>(
-    []
-  );
-
 
   const handleDateClick = async (day: Date) => {
     let date: string = useConvertDateToString(day);
@@ -28,33 +23,28 @@ export const Admin = () => {
       console.log("Hämta bokningar för datum:", date);
       const bookingsFromApi = await getBookingsByDate(date);
       setBookingsAtDate(bookingsFromApi);
-      divideBookingsBySitting();
     } else {
       console.log("Inget datum valt");
     }
   };
 
-  const divideBookingsBySitting = () => {
-    bookingsAtDate.map((booking) => {
-      if (booking.sitting === 1) {
-        setFirstSittingBookings([...firstSittingBookings, booking]);
-      }
-      if (booking.sitting === 2) {
-        setSecondSittingBookings([...secondSittingBookings, booking]);
-      }
-    });
-  };
-
   console.log("Bokningar på datumet: ", selectedDate, bookingsAtDate);
 
-  const handleClick = () => {
+  const handleAddBookingClick = () => {
     setCreateNewBooking(true);
-  }
+  };
+
+  const handleDeleteClick = async (bookingId: string) => {
+    await deleteBookingById(bookingId);
+    const bookingsFromApi = await getBookingsByDate(selectedDate);
+    setBookingsAtDate(bookingsFromApi);
+  };
+
   if (!createNewBooking) {
     return (
       <>
         <div>
-          <button onClick={handleClick}>Lägg till ny bokning</button>
+          <button onClick={handleAddBookingClick}>Lägg till ny bokning</button>
           <h2>Välj datum för att se bokningar</h2>
           <Calendar onClickDay={(day) => handleDateClick(day)} />
           <div>
@@ -65,7 +55,11 @@ export const Admin = () => {
               {bookingsAtDate.map((booking) => {
                 if (booking.sitting === 1) {
                   return (
-                    <ChangeBooking key={booking.bookingId} booking={booking}></ChangeBooking>
+                    <ChangeBooking
+                      key={booking.bookingId}
+                      booking={booking}
+                      handleDeleteClick={handleDeleteClick}
+                    ></ChangeBooking>
                   );
                 }
               })}
@@ -76,21 +70,24 @@ export const Admin = () => {
               {bookingsAtDate.map((booking) => {
                 if (booking.sitting === 2) {
                   return (
-                    <ChangeBooking key={booking.bookingId} booking={booking}></ChangeBooking>
+                    <ChangeBooking
+                      key={booking.bookingId}
+                      booking={booking}
+                      handleDeleteClick={handleDeleteClick}
+                    ></ChangeBooking>
                   );
                 }
               })}
             </div>
-          </div>  
+          </div>
         </div>
       </>
-    )
+    );
   } else {
     return (
       <>
         <BookingComponent isAdmin={isAdmin}></BookingComponent>
       </>
-    )
+    );
   }
-
 };
