@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { BookingComponent } from "./BookingComponent";
-import { getBookingsByDate } from "../serivces/BookingServices";
+import {
+  deleteBookingById,
+  getBookingsByDate,
+} from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { ChangeBooking } from "./changeBooking";
@@ -31,6 +34,12 @@ export const Admin = () => {
     setCreateNewBooking(true);
   };
 
+  const handleDeleteClick = async (bookingId: string) => {
+    await deleteBookingById(bookingId);
+    const bookingsFromApi = await getBookingsByDate(selectedDate);
+    setBookingsAtDate(bookingsFromApi);
+  };
+
   if (!createNewBooking) {
     return (
       <>
@@ -49,6 +58,7 @@ export const Admin = () => {
                     <ChangeBooking
                       key={booking.bookingId}
                       booking={booking}
+                      handleDeleteClick={handleDeleteClick}
                     ></ChangeBooking>
                   );
                 }
@@ -63,6 +73,7 @@ export const Admin = () => {
                     <ChangeBooking
                       key={booking.bookingId}
                       booking={booking}
+                      handleDeleteClick={handleDeleteClick}
                     ></ChangeBooking>
                   );
                 }

@@ -3,7 +3,6 @@ import { Booking } from "../models/Booking";
 import Calendar from "react-calendar";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import {
-  deleteBookingById,
   getBookingsByDate,
   updateBookingById,
 } from "../serivces/BookingServices";
@@ -12,9 +11,13 @@ import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
 
 interface IChangeBooking {
   booking: Booking;
+  handleDeleteClick: (bookingId: string) => void;
 }
 
-export const ChangeBooking = ({ booking }: IChangeBooking) => {
+export const ChangeBooking = ({
+  booking,
+  handleDeleteClick,
+}: IChangeBooking) => {
   const [show, setShow] = useState(false);
   const [currentBooking, setCurrentBooking] = useState({ ...booking });
   const [selectedDate, setSelectedDate] = useState("");
@@ -263,7 +266,7 @@ export const ChangeBooking = ({ booking }: IChangeBooking) => {
         <button onClick={handleShowFullView}>Ändra</button>
         <span>{booking.user.name}</span>{" "}
         <span>{booking.numberOfGuests} st</span>
-        <button onClick={() => deleteBookingById(booking.bookingId)}>
+        <button onClick={() => handleDeleteClick(booking.bookingId)}>
           Ta bort
         </button>
       </div>
