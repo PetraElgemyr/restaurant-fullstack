@@ -128,7 +128,7 @@ exports.updateBookingById = async (req, res, next) => {
       },
     });
 
-    const mailText = `Tack för din bokning! Här nedan ser du dina bokningsdetaljer.
+    const mailText = `Vi har ändrat din bokning! Här nedan ser du dina nya bokningsdetaljer.
     Datum: ${updatedBooking.date}
     Tid: ${sittingTime}
     Antal gäster: ${updatedBooking.numberOfGuests}
@@ -143,7 +143,7 @@ exports.updateBookingById = async (req, res, next) => {
     const mailOptions = {
       from: "restaurang.bakgarden@hotmail.com",
       to: updatedBooking.user.email,
-      subject: "Bokningsbekräftelse",
+      subject: "Bokningsbekräftelse ändring",
       text: mailText,
     };
 
