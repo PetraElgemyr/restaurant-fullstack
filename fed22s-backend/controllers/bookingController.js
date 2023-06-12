@@ -1,4 +1,5 @@
 const Booking = require("../models/Booking");
+var nodemailer = require("nodemailer");
 
 exports.getAllBookings = async (req, res, next) => {
   try {
@@ -15,6 +16,51 @@ exports.getAllBookings = async (req, res, next) => {
 exports.createBooking = async (req, res, next) => {
   try {
     const newBooking = await Booking.create(req.body);
+    const cancelLink = `http://localhost:5173/cancel/${newBooking.bookingId}`;
+    let sittingTime = "";
+
+    if (newBooking.sitting == 1) {
+      sittingTime = "18:00-20:00";
+    }
+    if (newBooking.sitting == 2) {
+      sittingTime = "20:00-22:00";
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "restaurang.bakgarden@gmail.com",
+        pass: "wvyppbywtqyssext", //autogenererat lösen för tredjepartsapplikationer för inloggning till vår gmail
+      },
+    });
+
+    const mailText = `Tack för din bokning! Här nedan ser du dina bokningsdetaljer.
+    Datum: ${newBooking.date}
+    Tid: ${sittingTime}
+    Antal gäster: ${newBooking.numberOfGuests}
+    Namn: ${newBooking.user.name}
+    Mejladress: ${newBooking.user.email}
+    Telefonnummer: ${newBooking.user.phonenumber}
+    Bokningsnummer: ${newBooking.bookingId}
+
+    Om något ser fel ut, vänligen kontakta oss. 
+    Vid avbokning, klicka på länken ${cancelLink} `;
+
+    const mailOptions = {
+      from: "restaurang.bakgarden@hotmail.com",
+      to: newBooking.user.email,
+      subject: "Bokningsbekräftelse",
+      text: mailText,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Mejlet skickat: ", info.response);
+      }
+    });
+
     return res.json(newBooking);
   } catch (err) {
     console.error(err);
@@ -69,5 +115,20 @@ exports.updateBookingById = async (req, res, next) => {
     return res.status(500).json({
       message: error.message,
     });
+  }
+};
+
+exports.getBookingById = async () => {
+  try {
+    const givenId = req.params.bookingId;
+    const bookingToDelete = await Booking.find({ bookingId: givenId });
+    if (!bookingToDelete) {
+      return res.status(404).json();
+    } else {
+      return res.json(bookingToDelete);
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(404).json({ message: error.message });
   }
 };
