@@ -87,7 +87,7 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
           <button
             type="button"
             onClick={() => {
-              if (currentBooking.numberOfGuests !== 0 || guestsString !== "0") {
+              if (currentBooking.numberOfGuests !== 0) {
                 goToCalendar();
               } else {
                 checkNumberOfGuests();
