@@ -44,6 +44,10 @@ export const AdminChangeWrapper = styled(WrapperColumn)`
   justify-content: start;
 `;
 
+export const TopMarginWrapper = styled(WrapperColumn)`
+  padding-top: 50px;
+`;
+
 export const AdminCalendarChange = styled(WrapperColumn)`
   background-color: #818c9d;
   width: 90%;
