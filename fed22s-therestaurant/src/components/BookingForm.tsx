@@ -8,7 +8,12 @@ import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { StyledForm, Input, CheckboxInput } from "./styled/Forms";
 import { BackButton, Button } from "./styled/Buttons";
-import { InputWrapperRow, WrapperColumn, WrapperRow } from "./styled/Wrappers";
+import {
+  InputWrapperRow,
+  TopMarginWrapper,
+  WrapperColumn,
+  WrapperRow,
+} from "./styled/Wrappers";
 import {
   GdprSpan,
   LableText,
@@ -60,7 +65,7 @@ export const BookingForm = ({
   };
 
   return (
-    <>
+    <TopMarginWrapper>
       <BackButton type="button" onClick={() => goToCalendar()}>
         Tillbaka
       </BackButton>
@@ -112,6 +117,6 @@ export const BookingForm = ({
       <p>Mejl: {currentUser.email}</p>
       <p>Mobilnr: {currentUser.phonenumber}</p>
       <p>Antalet gäster: {context.numberOfGuests} st</p>
-    </>
+    </TopMarginWrapper>
   );
 };
