@@ -7,6 +7,7 @@ export const Form = styled.form`
 `
 
 export const Input = styled.input`
+    font-family: 'Kite One', sans-serif;
     font-size: 20px;
     color: white;
     border: 1px solid rgba(0, 0, 0, 0.30);

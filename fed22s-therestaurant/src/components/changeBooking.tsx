@@ -8,6 +8,8 @@ import {
 } from "../serivces/BookingServices";
 import { ISittings } from "./CalendarPage";
 import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
+import { Button } from "./styled/Buttons";
+import { Form, Input } from "./styled/Forms";
 
 interface IChangeBooking {
   booking: Booking;
@@ -153,14 +155,14 @@ export const ChangeBooking = ({
   if (show) {
     return (
       <div>
-        <button onClick={handleShowFullView}>Minimera</button>
+        <Button onClick={handleShowFullView}>Minimera</Button>
         <div>{submitted ? "Bokning är uppdaterad!" : ""}</div>
         <Calendar
           onClickDay={(day) => {
             getBookingsOnDate(day);
           }}
         ></Calendar>
-        <button
+        <Button
           disabled={!firstSitting.availabel || submitted}
           onClick={() => {
             setCurrentBooking({
@@ -171,9 +173,9 @@ export const ChangeBooking = ({
           }}
         >
           Kl. 18:00 - 20:00
-        </button>
+        </Button>
 
-        <button
+        <Button
           disabled={!secondSitting.availabel || submitted}
           onClick={() => {
             setCurrentBooking({
@@ -184,7 +186,7 @@ export const ChangeBooking = ({
           }}
         >
           Kl. 20:00 - 22:00
-        </button>
+        </Button>
         <div>
           Datum:{" "}
           {currentBooking.date
@@ -198,9 +200,9 @@ export const ChangeBooking = ({
             : currentBooking.sitting}
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit}>
           <label htmlFor="guests">Antal gäster</label>
-          <input
+          <Input
             id="guests"
             type="number"
             placeholder=""
@@ -211,7 +213,7 @@ export const ChangeBooking = ({
             disabled={submitted}
           />
           <label htmlFor="username">Namn:</label>
-          <input
+          <Input
             id="username"
             type="text"
             placeholder="Namn"
@@ -222,7 +224,7 @@ export const ChangeBooking = ({
             disabled={submitted}
           />
           <label htmlFor="email">Mail:</label>
-          <input
+          <Input
             id="email"
             type="email"
             placeholder="Mejl"
@@ -233,7 +235,7 @@ export const ChangeBooking = ({
             disabled={submitted}
           />
           <label htmlFor="phonenumber">Telefonnummer:</label>
-          <input
+          <Input
             id="phonenumber"
             type="number"
             placeholder="Mobilnummer"
@@ -248,27 +250,27 @@ export const ChangeBooking = ({
               ? ""
               : "Vänligen fyll i alla fält och välj önskad sittning"}
           </span>
-          <button
+          <Button
             onClick={() => {
               setCurrentBooking(booking);
             }}
             disabled={submitted}
           >
             Ångra
-          </button>
-          <button disabled={submitted}>Spara</button>
-        </form>
+          </Button>
+          <Button disabled={submitted}>Spara</Button>
+        </Form>
       </div>
     );
   } else {
     return (
       <div>
-        <button onClick={handleShowFullView}>Ändra</button>
+        <Button onClick={handleShowFullView}>Ändra</Button>
         <span>{booking.user.name}</span>{" "}
         <span>{booking.numberOfGuests} st</span>
-        <button onClick={() => handleDeleteClick(booking.bookingId)}>
+        <Button onClick={() => handleDeleteClick(booking.bookingId)}>
           Ta bort
-        </button>
+        </Button>
       </div>
     );
   }

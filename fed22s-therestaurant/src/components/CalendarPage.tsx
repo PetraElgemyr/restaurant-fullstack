@@ -6,6 +6,7 @@ import { Booking } from "../models/Booking";
 import { getBookingsByDate } from "../serivces/BookingServices";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
+import { Button } from "./styled/Buttons";
 
 interface ICalendarProps {
   goToGuests: () => void;
@@ -88,7 +89,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
 
   return (
     <>
-      <button
+      <Button
         type="button"
         onClick={() => {
           dispatch({ type: ActionTypeCurrentBooking.SET_DATE, payload: "" });
@@ -97,13 +98,13 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
         }}
       >
         Tillbaka
-      </button>
+      </Button>
       <Calendar
         onClickDay={(day) => {
           handleClick(day);
         }}
       ></Calendar>
-      <button
+      <Button
         disabled={!firstSitting.availabel}
         onClick={() => {
           dispatch({ type: ActionTypeCurrentBooking.SET_SITTING, payload: 1 });
@@ -115,9 +116,9 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
         }}
       >
         Kl. 18:00 - 20:00
-      </button>
+      </Button>
 
-      <button
+      <Button
         disabled={!secondSitting.availabel}
         onClick={() => {
           dispatch({ type: ActionTypeCurrentBooking.SET_SITTING, payload: 2 });
@@ -129,8 +130,8 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
         }}
       >
         Kl. 20:00 - 22:00
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         onClick={() => {
           if (currentBooking.date !== "" && currentBooking.sitting !== 0) {
@@ -141,7 +142,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
         }}
       >
         Nästa
-      </button>
+      </Button>
       {html}
     </>
   );
