@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { DropDownMenu, HamMenu, HamStick, Logo, Menu, Nav } from "./styled/Navbar";
+import { DropDownMenu, HamMenu, HamStick, Logo, Menu, Nav } from "./styled/Nav";
 import { useState } from "react";
 import { Button } from "./styled/Buttons";
 
@@ -12,10 +12,10 @@ export const Navbar = () => {
     </Logo>  
     <Menu onClick={() => {setToggled(!toggled)}}>
       <HamMenu>
-        <HamStick toggled={toggled}/>
+        <HamStick toggled={+toggled}/>
       </HamMenu>
     </Menu>
-    <DropDownMenu toggled={toggled}>
+    <DropDownMenu toggled={+toggled}>
       <ul>
         <li>
           <Link to="/booking" onClick={() => {setToggled(!toggled)}} >Boka bord</Link>

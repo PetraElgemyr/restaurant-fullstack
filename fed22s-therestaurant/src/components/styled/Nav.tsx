@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-interface IHamMenuProps {
-    toggled: boolean;
+interface IToggled {
+    toggled: number;
 }
 
 export const Nav = styled.div`
@@ -28,7 +28,7 @@ export const Menu = styled.div`
     right: 13px;   
 `
 
-export const DropDownMenu = styled.div<{toggled: boolean}>`
+export const DropDownMenu = styled.div<IToggled>`
     font-family: 'Julius Sans One', sans-serif;
     display: flex;
     transition: top 1s;
@@ -69,7 +69,7 @@ export const HamMenu = styled.div`
     padding: 0px;  
 `
 
-export const HamStick = styled.div<{toggled: boolean}>`
+export const HamStick = styled.div<IToggled>`
     position: absolute;
     width: 30px;
     height: 3px;
