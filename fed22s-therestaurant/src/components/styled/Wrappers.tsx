@@ -18,6 +18,8 @@ export const WrapperRow = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 95%;
+  background-color: #818c9d;
+  border: 1px solid white;
 
   @media screen and (${devices.tablet}) {
     width: 80%;

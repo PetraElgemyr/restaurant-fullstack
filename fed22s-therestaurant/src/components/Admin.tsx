@@ -15,7 +15,6 @@ import {
   AdminTextWrapper,
   ColToRowWrapper,
   WrapperColumn,
-  WrapperRow,
 } from "./styled/Wrappers";
 import { StyledParagraph } from "./styled/Texts";
 

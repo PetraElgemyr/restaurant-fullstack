@@ -40,9 +40,10 @@ export const ChangeButton = styled(Button)`
   height: 40px;
   min-width: 50px;
   margin: 5px;
+  background-color: #0e192bde;
 
   @media screen and (${devices.tablet}) {
-    width: 140px;
+    width: 130px;
     font-size: 13pt;
     padding: 25px;
   }

@@ -17,5 +17,6 @@ export const StyledSpan = styled.span`
 
   @media screen and (${devices.tablet}) {
     font-size: 13pt;
+    margin: 5px;
   }
 `;
