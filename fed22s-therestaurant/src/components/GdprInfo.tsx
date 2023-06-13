@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { BackButton, Button } from "./styled/Buttons";
 import { WrapperColumn } from "./styled/Wrappers";
 import { GdprSpan } from "./styled/Texts";

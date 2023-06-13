@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import Calendar from "react-calendar";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
