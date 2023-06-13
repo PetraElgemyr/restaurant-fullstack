@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { BookingComponent } from "./BookingComponent";
@@ -12,6 +12,7 @@ import { Button } from "./styled/Buttons";
 import {
   AdminChangeWrapper,
   AdminTextWrapper,
+  BottomMarginWrapper,
   ColToRowWrapper,
   TopMarginWrapper,
   WrapperColumn,
@@ -51,7 +52,7 @@ export const Admin = () => {
 
   if (!createNewBooking) {
     return (
-      <>
+      <BottomMarginWrapper>
         <TopMarginWrapper>
           <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
           <ColToRowWrapper>
@@ -111,7 +112,7 @@ export const Admin = () => {
             </ColToRowWrapper>
           </WrapperColumn>
         </TopMarginWrapper>
-      </>
+      </BottomMarginWrapper>
     );
   } else {
     return (

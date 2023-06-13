@@ -71,6 +71,10 @@ export const TopMarginWrapper = styled(WrapperColumn)`
   }
 `;
 
+export const BottomMarginWrapper = styled(WrapperColumn)`
+  padding-bottom: 40px;
+`;
+
 export const AdminCalendarChange = styled(WrapperColumn)`
   background-color: #818c9d;
   width: 90%;
