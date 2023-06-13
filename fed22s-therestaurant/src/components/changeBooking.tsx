@@ -8,9 +8,13 @@ import {
 } from "../serivces/BookingServices";
 import { ISittings } from "./CalendarPage";
 import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
-import { Button, ChangeButton } from "./styled/Buttons";
+import { Button, ChangeButton, SittingsButton } from "./styled/Buttons";
 import { Input, StyledForm } from "./styled/Forms";
-import { WrapperRow } from "./styled/Wrappers";
+import {
+  AdminCalendarChange,
+  WrapperColumn,
+  WrapperRow,
+} from "./styled/Wrappers";
 import { StyledSpan } from "./styled/Texts";
 
 interface IChangeBooking {
@@ -156,15 +160,15 @@ export const ChangeBooking = ({
 
   if (show) {
     return (
-      <div>
-        <Button onClick={handleShowFullView}>Minimera</Button>
+      <AdminCalendarChange>
+        <ChangeButton onClick={handleShowFullView}>Minimera</ChangeButton>
         <div>{submitted ? "Bokning är uppdaterad!" : ""}</div>
         <Calendar
           onClickDay={(day) => {
             getBookingsOnDate(day);
           }}
         ></Calendar>
-        <Button
+        <SittingsButton
           disabled={!firstSitting.availabel || submitted}
           onClick={() => {
             setCurrentBooking({
@@ -175,9 +179,9 @@ export const ChangeBooking = ({
           }}
         >
           Kl. 18:00 - 20:00
-        </Button>
+        </SittingsButton>
 
-        <Button
+        <SittingsButton
           disabled={!secondSitting.availabel || submitted}
           onClick={() => {
             setCurrentBooking({
@@ -188,7 +192,7 @@ export const ChangeBooking = ({
           }}
         >
           Kl. 20:00 - 22:00
-        </Button>
+        </SittingsButton>
         <div>
           Datum:{" "}
           {currentBooking.date
@@ -252,17 +256,17 @@ export const ChangeBooking = ({
               ? ""
               : "Vänligen fyll i alla fält och välj önskad sittning"}
           </span>
-          <Button
+          <ChangeButton
             onClick={() => {
               setCurrentBooking(booking);
             }}
             disabled={submitted}
           >
             Ångra
-          </Button>
-          <Button disabled={submitted}>Spara</Button>
+          </ChangeButton>
+          <ChangeButton disabled={submitted}>Spara</ChangeButton>
         </StyledForm>
-      </div>
+      </AdminCalendarChange>
     );
   } else {
     return (

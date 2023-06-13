@@ -48,3 +48,8 @@ export const ChangeButton = styled(Button)`
     padding: 25px;
   }
 `;
+
+export const SittingsButton = styled(Button)<IButtonProps>`
+  background-color: ${({ disabled }) => (disabled ? "#242d3ade" : "#0e192bde")};
+  color: ${({ disabled }) => (disabled ? "#9c9a9a" : "white")};
+`;
