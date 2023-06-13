@@ -6,7 +6,7 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useNavigate } from "react-router-dom";
 import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
-import { Form, Input } from "./styled/Forms";
+import { StyledForm, Input } from "./styled/Forms";
 import { Button } from "./styled/Buttons";
 
 interface IBookingFormProps {
@@ -61,7 +61,7 @@ export const BookingForm = ({
         Du har valt att boka bord för{" "}
         {context.currentBooking.user.numberOfGuests} pers den {"DATUM"}
       </p> */}
-      <Form onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleSubmit}>
         <Input
           type="text"
           placeholder="Namn"
@@ -97,7 +97,7 @@ export const BookingForm = ({
           <Input type="checkbox" required />{" "}
         </div>
         <Button>Slutför bokning!</Button>
-      </Form>
+      </StyledForm>
       {/* endast för att checka att contextet förändras efter inputstatet */}
       <p>Namn: {currentUser.name}</p>
       <p>Mejl: {currentUser.email}</p>

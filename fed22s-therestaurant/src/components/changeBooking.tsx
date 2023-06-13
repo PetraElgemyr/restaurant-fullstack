@@ -9,7 +9,7 @@ import {
 import { ISittings } from "./CalendarPage";
 import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
 import { Button } from "./styled/Buttons";
-import { Form, Input } from "./styled/Forms";
+import { Input, StyledForm } from "./styled/Forms";
 
 interface IChangeBooking {
   booking: Booking;
@@ -200,7 +200,7 @@ export const ChangeBooking = ({
             : currentBooking.sitting}
         </div>
 
-        <Form onSubmit={handleSubmit}>
+        <StyledForm onSubmit={handleSubmit}>
           <label htmlFor="guests">Antal gäster</label>
           <Input
             id="guests"
@@ -259,7 +259,7 @@ export const ChangeBooking = ({
             Ångra
           </Button>
           <Button disabled={submitted}>Spara</Button>
-        </Form>
+        </StyledForm>
       </div>
     );
   } else {
