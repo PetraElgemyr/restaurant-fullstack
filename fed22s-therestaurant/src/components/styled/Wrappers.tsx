@@ -54,12 +54,25 @@ export const AdminTextWrapper = styled(WrapperColumn)`
   margin: 10px;
   padding-bottom: 10px;
 `;
+
 export const AdminChangeWrapper = styled(WrapperColumn)`
   justify-content: start;
 `;
 
 export const TopMarginWrapper = styled(WrapperColumn)`
-  padding-top: 50px;
+  padding-top: 20%;
+
+  @media screen and (${devices.tablet}) {
+    padding-top: 11%;
+  }
+
+  @media screen and (${devices.desktop}) {
+    padding-top: 7%;
+  }
+`;
+
+export const BottomMarginWrapper = styled(WrapperColumn)`
+  padding-bottom: 40px;
 `;
 
 export const AdminCalendarChange = styled(WrapperColumn)`

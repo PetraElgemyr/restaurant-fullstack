@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useContext, useState } from "react";
-import { User, defaultUser } from "../models/User";
+import { User } from "../models/User";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
@@ -14,12 +14,7 @@ import {
   WrapperColumn,
   WrapperRow,
 } from "./styled/Wrappers";
-import {
-  GdprSpan,
-  LableText,
-  StyledParagraph,
-  StyledSpan,
-} from "./styled/Texts";
+import { StyledSpan } from "./styled/Texts";
 
 interface IBookingFormProps {
   goToCalendar: () => void;

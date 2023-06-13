@@ -3,7 +3,6 @@ import { BookGuests } from "./BookGuests";
 import { BookingForm } from "./BookingForm";
 import { CalendarPage } from "./CalendarPage";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
-import { User } from "../models/User";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { CurrentBookingReducer } from "../reducers/CurrentBookingReducer";
 import { defaultBooking } from "../models/Booking";
@@ -85,9 +84,6 @@ export const BookingComponent = ({ isAdmin }: IBookingComponentProps) => {
       <CurrentBookingContext.Provider value={currentBooking}>
         <BookingDispatchContext.Provider value={dispatch}>
           {html}
-          {/* <BookGuests goToCalendar={goToCalendar}></BookGuests> */}
-          {/* <CalendarPage goToForm={}></CalendarPage> */}
-          {/* <BookingForm endBooking={endBooking}></BookingForm> */}
         </BookingDispatchContext.Provider>
       </CurrentBookingContext.Provider>
     </>

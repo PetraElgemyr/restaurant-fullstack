@@ -8,7 +8,7 @@ import {
 } from "../serivces/BookingServices";
 import { ISittings } from "./CalendarPage";
 import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
-import { Button, ChangeButton, SittingsButton } from "./styled/Buttons";
+import { ChangeButton, SittingsButton } from "./styled/Buttons";
 import { Input, StyledForm } from "./styled/Forms";
 import {
   AdminCalendarChange,

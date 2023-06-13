@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { BookingComponent } from "./BookingComponent";
@@ -8,16 +8,17 @@ import {
 } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
-import { ChangeBooking } from "./changeBooking";
 import { Button } from "./styled/Buttons";
 import {
   AdminChangeWrapper,
   AdminTextWrapper,
+  BottomMarginWrapper,
   ColToRowWrapper,
   TopMarginWrapper,
   WrapperColumn,
 } from "./styled/Wrappers";
 import { StyledParagraph } from "./styled/Texts";
+import { ChangeBooking } from "./ChangeBooking";
 
 export const Admin = () => {
   const isAdmin = true;
@@ -51,8 +52,9 @@ export const Admin = () => {
 
   if (!createNewBooking) {
     return (
-      <>
+      <BottomMarginWrapper>
         <TopMarginWrapper>
+          <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
           <ColToRowWrapper>
             <WrapperColumn>
               <h2>Välj datum för att se bokningar</h2>
@@ -72,9 +74,6 @@ export const Admin = () => {
               <StyledParagraph>
                 PS. Glöm inte att säga till kockarna om en större bokning görs.
               </StyledParagraph>
-              <Button onClick={handleAddBookingClick}>
-                Lägg till ny bokning
-              </Button>
             </AdminTextWrapper>
           </ColToRowWrapper>
 
@@ -113,7 +112,7 @@ export const Admin = () => {
             </ColToRowWrapper>
           </WrapperColumn>
         </TopMarginWrapper>
-      </>
+      </BottomMarginWrapper>
     );
   } else {
     return (

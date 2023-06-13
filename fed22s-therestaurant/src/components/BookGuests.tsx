@@ -3,7 +3,6 @@ import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { Button } from "./styled/Buttons";
-import { Form } from "react-router-dom";
 import { Input, StyledForm } from "./styled/Forms";
 import { GuestBox, GuestBoxWrapper, GuestWrapper } from "./styled/GuestBox";
 
