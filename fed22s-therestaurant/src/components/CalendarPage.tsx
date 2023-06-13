@@ -6,7 +6,8 @@ import { Booking } from "../models/Booking";
 import { getBookingsByDate } from "../serivces/BookingServices";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
-import { Button } from "./styled/Buttons";
+import { BackButton, Button } from "./styled/Buttons";
+import { WrapperColumn } from "./styled/Wrappers";
 
 interface ICalendarProps {
   goToGuests: () => void;
@@ -67,7 +68,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
       ...firstSitting,
       bookedTables: bookedTablesFirstSitting,
       availabel:
-        currentBooking.bookedTables <= (15 - bookedTablesFirstSitting)
+        currentBooking.bookedTables <= 15 - bookedTablesFirstSitting
           ? true
           : false,
     });
@@ -75,7 +76,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
       ...secondSitting,
       bookedTables: bookedTablesSecondSitting,
       availabel:
-        currentBooking.bookedTables <= (15 - bookedTablesSecondSitting)
+        currentBooking.bookedTables <= 15 - bookedTablesSecondSitting
           ? true
           : false,
     });
@@ -88,8 +89,8 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
   };
 
   return (
-    <>
-      <Button
+    <WrapperColumn>
+      <BackButton
         type="button"
         onClick={() => {
           dispatch({ type: ActionTypeCurrentBooking.SET_DATE, payload: "" });
@@ -98,7 +99,7 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
         }}
       >
         Tillbaka
-      </Button>
+      </BackButton>
       <Calendar
         onClickDay={(day) => {
           handleClick(day);
@@ -144,6 +145,6 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
         Nästa
       </Button>
       {html}
-    </>
+    </WrapperColumn>
   );
 };

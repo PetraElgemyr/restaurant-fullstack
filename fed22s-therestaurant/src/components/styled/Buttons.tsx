@@ -53,3 +53,13 @@ export const SittingsButton = styled(Button)<IButtonProps>`
   background-color: ${({ disabled }) => (disabled ? "#242d3ade" : "#0e192bde")};
   color: ${({ disabled }) => (disabled ? "#9c9a9a" : "white")};
 `;
+
+export const BackButton = styled(Button)`
+  margin: 20px;
+  margin-top: 70px;
+
+  @media screen and (${devices.tablet}) {
+    margin-top: 0;
+    margin: 15px;
+  }
+`;

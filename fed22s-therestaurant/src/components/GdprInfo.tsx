@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "./styled/Buttons";
+import { BackButton, Button } from "./styled/Buttons";
 
 interface IGdprInfoProps {
   goToForm: () => void;
@@ -9,7 +9,7 @@ interface IGdprInfoProps {
 export const GdprInfo = ({ goToForm }: IGdprInfoProps) => {
   const [html, setHtml] = useState<JSX.Element>(
     <div>
-      <Button onClick={() => goToForm()}>Tillbaka</Button>
+      <BackButton onClick={() => goToForm()}>Tillbaka</BackButton>
       <p>Behandling av personuppgifter</p>
       <span>
         För att kunna boka bord hos oss behöver vi spara givna personuppgifter.
