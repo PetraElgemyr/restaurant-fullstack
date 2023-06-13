@@ -35,6 +35,20 @@ export const ColToRowWrapper = styled(WrapperColumn)`
   }
 `;
 
+export const InputWrapperRow = styled(WrapperRow)`
+  background-color: unset;
+  width: 90%;
+  border: 0;
+
+  @media screen and (${devices.tablet}) {
+    width: 65%;
+  }
+
+  @media screen and (${devices.desktop}) {
+    width: 45%;
+  }
+`;
+
 export const AdminTextWrapper = styled(WrapperColumn)`
   border: 1px solid white;
   margin: 10px;
