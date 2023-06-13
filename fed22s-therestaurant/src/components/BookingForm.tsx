@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { StyledForm, Input } from "./styled/Forms";
-import { Button } from "./styled/Buttons";
+import { BackButton, Button } from "./styled/Buttons";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -54,9 +54,9 @@ export const BookingForm = ({
 
   return (
     <>
-      <Button type="button" onClick={() => goToCalendar()}>
+      <BackButton type="button" onClick={() => goToCalendar()}>
         Tillbaka
-      </Button>
+      </BackButton>
       {/* <p>
         Du har valt att boka bord för{" "}
         {context.currentBooking.user.numberOfGuests} pers den {"DATUM"}

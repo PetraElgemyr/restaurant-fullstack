@@ -38,7 +38,19 @@ export const ColToRowWrapper = styled(WrapperColumn)`
 export const AdminTextWrapper = styled(WrapperColumn)`
   border: 1px solid white;
   margin: 10px;
+  padding-bottom: 10px;
 `;
 export const AdminChangeWrapper = styled(WrapperColumn)`
   justify-content: start;
+`;
+
+export const TopMarginWrapper = styled(WrapperColumn)`
+  padding-top: 50px;
+`;
+
+export const AdminCalendarChange = styled(WrapperColumn)`
+  background-color: #818c9d;
+  width: 90%;
+  padding: 10px;
+  border: 1px solid white;
 `;

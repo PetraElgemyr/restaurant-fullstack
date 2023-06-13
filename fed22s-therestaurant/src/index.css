@@ -20,13 +20,15 @@ main {
 body {
   padding: 0;
   margin: 0;
+  overflow-x: hidden;
 }
 
 header {
   position: absolute;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 

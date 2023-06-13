@@ -14,6 +14,7 @@ import {
   AdminChangeWrapper,
   AdminTextWrapper,
   ColToRowWrapper,
+  TopMarginWrapper,
   WrapperColumn,
 } from "./styled/Wrappers";
 import { StyledParagraph } from "./styled/Texts";
@@ -51,8 +52,7 @@ export const Admin = () => {
   if (!createNewBooking) {
     return (
       <>
-        <WrapperColumn>
-          <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
+        <TopMarginWrapper>
           <ColToRowWrapper>
             <WrapperColumn>
               <h2>Välj datum för att se bokningar</h2>
@@ -72,6 +72,9 @@ export const Admin = () => {
               <StyledParagraph>
                 PS. Glöm inte att säga till kockarna om en större bokning görs.
               </StyledParagraph>
+              <Button onClick={handleAddBookingClick}>
+                Lägg till ny bokning
+              </Button>
             </AdminTextWrapper>
           </ColToRowWrapper>
 
@@ -109,7 +112,7 @@ export const Admin = () => {
               </AdminChangeWrapper>
             </ColToRowWrapper>
           </WrapperColumn>
-        </WrapperColumn>
+        </TopMarginWrapper>
       </>
     );
   } else {
