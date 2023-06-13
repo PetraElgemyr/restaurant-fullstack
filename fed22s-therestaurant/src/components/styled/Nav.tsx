@@ -4,8 +4,10 @@ interface IToggled {
 }
 
 export const Nav = styled.div`
+    width: 100vw;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 `
 
 export const Logo = styled.h3`
@@ -21,11 +23,10 @@ export const Menu = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
     z-index: 1;
     cursor: pointer;
-    top: 10px;
-    right: 13px;   
+    margin: 10px 15px;
+  
 `
 
 export const DropDownMenu = styled.div<IToggled>`

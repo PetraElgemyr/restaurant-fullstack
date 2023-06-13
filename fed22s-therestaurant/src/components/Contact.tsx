@@ -1,10 +1,25 @@
+import { ContactContainer, ContactInfoContainer } from "./styled/ContactContainer";
+import { Container, ImageContainer } from "./styled/Containers";
+
+import { H2 } from "./styled/Headings";
+
 export const Contact = () => {
   return (
-    <>
-      <h2 className="Contact-header">Kontakta oss</h2>
-      <li className="Contact-text">Adress: Storgatan 22, Sundsvall</li>
-      <li className="Contact-text">Telefonnummer: 0123456789</li>
-      <li className="Contact-text">E-post: info@resturangen.se</li>
-    </>
+    <ContactContainer>
+      <ImageContainer>
+        <img/>
+      </ImageContainer>
+      <ContactInfoContainer>
+        <Container>
+          <H2>Kontakta oss</H2>
+          <span>Telefonnummer: 0123456789</span>
+          <span>Email: info@resturangen.se</span>
+        </Container>
+        <Container>
+          <H2>Här finns vi</H2>
+          <span>Storgatan 22, Sundsvall</span>
+        </Container>
+      </ContactInfoContainer>
+    </ContactContainer>
   );
 };
