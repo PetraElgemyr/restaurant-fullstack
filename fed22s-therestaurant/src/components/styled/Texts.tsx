@@ -20,3 +20,8 @@ export const StyledSpan = styled.span`
     margin: 5px;
   }
 `;
+
+export const GdprSpan = styled(StyledSpan)`
+  padding: 20px;
+  margin-bottom: 35px;
+`;
