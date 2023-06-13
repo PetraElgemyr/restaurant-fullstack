@@ -17,7 +17,6 @@ export interface IGuest {
   selected: boolean;
 }
 export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
-  // const numberOfGuests = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
   const [numberOfGuests, setNumberOfGuests] = useState<IGuest[]>([
     { guests: 1, selected: false },
     { guests: 2, selected: false },
