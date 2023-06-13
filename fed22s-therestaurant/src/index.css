@@ -12,6 +12,9 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  max-width: 100vw;
 }
 
 body {
@@ -19,7 +22,11 @@ body {
   margin: 0;
 }
 
-ul {
+header {
+  position: absolute;
+}
+
+ul, li {
   list-style: none;
 }
 
