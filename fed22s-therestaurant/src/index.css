@@ -1,8 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Kite+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Julius+Sans+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kite+One&display=swap");
 
 :root {
-  font-family: 'Kite One', sans-serif, Arial, Helvetica, sans-serif;
-  background-color: #1F242C;
+  font-family: "Kite One", sans-serif, Arial, Helvetica, sans-serif;
+  background-color: #1f242c;
   color: white;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
