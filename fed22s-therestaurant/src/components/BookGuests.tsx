@@ -4,7 +4,7 @@ import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { Button } from "./styled/Buttons";
 import { Form } from "react-router-dom";
-import { Input } from "./styled/Forms";
+import { Input, StyledForm } from "./styled/Forms";
 import { GuestBox, GuestBoxWrapper, GuestWrapper } from "./styled/GuestBox";
 
 export interface IChooseGuests {
@@ -150,9 +150,9 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
   } else {
     return (
       <>
-        <div>
+        <GuestWrapper>
           <p>Här väljer du antalet gäster</p>
-          <Form
+          <StyledForm
             onSubmit={(e: FormEvent) => {
               e.preventDefault();
               if (currentBooking.numberOfGuests !== 0 || guestsString !== "0") {
@@ -169,11 +169,11 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
               required
             />
             <Button>Nästa</Button>
-          </Form>
+          </StyledForm>
 
           {html}
           <Button disabled={!isAdmin}>Is Admin</Button>
-        </div>
+        </GuestWrapper>
       </>
     );
   }
