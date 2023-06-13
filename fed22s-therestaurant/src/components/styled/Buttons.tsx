@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { devices } from "./devices";
 
 interface IButtonProps {
     disabled: boolean;
@@ -8,7 +9,7 @@ export const Button = styled.button`
     font-size: 20px;
     color: ${({disabled}) => disabled ? "#C1B9B9" : "white"};
     border: 1px solid rgba(50, 50, 93, 0.25);
-    background-color: ${({disabled}) => disabled ? "#818C9D" : "#5377AD"};
+    background-color: ${({disabled}) => disabled ? "#818C9D" : "#818C9D"};
     height: 50px;
     min-width: 100px;
     cursor: pointer;
@@ -27,7 +28,7 @@ export const Button = styled.button`
     &:active {
         transition: none;
         border: ${({disabled}) => disabled ? "1px solid #818C9D" : "1px solid #59739A"}; ;
-        background-color: ${({disabled}) => disabled ? "#818C9D" : "#3D5A86"};
+        background-color: ${({disabled}) => disabled ? "#818C9D" : "#4B5F7B"};
         color: ${({disabled}) => disabled ? "#C1B9B9" : "#ACCDFF"};
     }
 `

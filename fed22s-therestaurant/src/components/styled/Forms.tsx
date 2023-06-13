@@ -11,7 +11,7 @@ export const Input = styled.input`
     font-size: 20px;
     color: white;
     border: 1px solid rgba(0, 0, 0, 0.30);
-    background-color: #59739A;
+    background-color: #4B5F7B;
     height: 40px;
     min-width: 100px;
     cursor: pointer;
@@ -31,7 +31,7 @@ export const Input = styled.input`
     &:focus {
         border: 1px solid #ACCDFF;
         outline: white;
-        background-color: #5377AD;
+        background-color: #7C95BB;
         &::placeholder {
             opacity: 0;
         }
