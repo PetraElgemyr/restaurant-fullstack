@@ -52,7 +52,6 @@ export const Admin = () => {
     return (
       <>
         <WrapperColumn>
-          <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
           <ColToRowWrapper>
             <WrapperColumn>
               <h2>Välj datum för att se bokningar</h2>
@@ -72,6 +71,9 @@ export const Admin = () => {
               <StyledParagraph>
                 PS. Glöm inte att säga till kockarna om en större bokning görs.
               </StyledParagraph>
+              <Button onClick={handleAddBookingClick}>
+                Lägg till ny bokning
+              </Button>
             </AdminTextWrapper>
           </ColToRowWrapper>
 
