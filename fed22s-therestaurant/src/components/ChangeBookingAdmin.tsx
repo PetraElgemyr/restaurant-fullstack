@@ -22,7 +22,7 @@ interface IChangeBooking {
   handleDeleteClick: (bookingId: string) => void;
 }
 
-export const ChangeBooking = ({
+export const ChangeBookingAdmin = ({
   booking,
   handleDeleteClick,
 }: IChangeBooking) => {

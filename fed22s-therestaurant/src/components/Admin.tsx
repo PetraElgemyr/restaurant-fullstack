@@ -8,7 +8,6 @@ import {
 } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
-import { ChangeBooking } from "./changeBooking";
 import { Button } from "./styled/Buttons";
 import {
   AdminChangeWrapper,
@@ -18,6 +17,7 @@ import {
   WrapperColumn,
 } from "./styled/Wrappers";
 import { StyledParagraph } from "./styled/Texts";
+import { ChangeBookingAdmin } from "./ChangeBookingAdmin";
 
 export const Admin = () => {
   const isAdmin = true;
@@ -53,6 +53,7 @@ export const Admin = () => {
     return (
       <>
         <TopMarginWrapper>
+          <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
           <ColToRowWrapper>
             <WrapperColumn>
               <h2>Välj datum för att se bokningar</h2>
@@ -72,9 +73,6 @@ export const Admin = () => {
               <StyledParagraph>
                 PS. Glöm inte att säga till kockarna om en större bokning görs.
               </StyledParagraph>
-              <Button onClick={handleAddBookingClick}>
-                Lägg till ny bokning
-              </Button>
             </AdminTextWrapper>
           </ColToRowWrapper>
 
@@ -86,11 +84,11 @@ export const Admin = () => {
                 {bookingsAtDate.map((booking) => {
                   if (booking.sitting === 1) {
                     return (
-                      <ChangeBooking
+                      <ChangeBookingAdmin
                         key={booking.bookingId}
                         booking={booking}
                         handleDeleteClick={handleDeleteClick}
-                      ></ChangeBooking>
+                      ></ChangeBookingAdmin>
                     );
                   }
                 })}
@@ -101,11 +99,11 @@ export const Admin = () => {
                 {bookingsAtDate.map((booking) => {
                   if (booking.sitting === 2) {
                     return (
-                      <ChangeBooking
+                      <ChangeBookingAdmin
                         key={booking.bookingId}
                         booking={booking}
                         handleDeleteClick={handleDeleteClick}
-                      ></ChangeBooking>
+                      ></ChangeBookingAdmin>
                     );
                   }
                 })}
