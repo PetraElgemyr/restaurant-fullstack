@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { deleteBookingById, getAllBookings } from "../serivces/BookingServices";
 import { useEffect, useState } from "react";
 import { Booking } from "../models/Booking";
+import { Button } from "./styled/Buttons";
 
 export const CancelBooking = () => {
   const { bookingId } = useParams<string>();
@@ -44,9 +45,9 @@ export const CancelBooking = () => {
           <p>Är du säker på att du vill avboka din bokning?</p>
 
           <Link to="/cancel/confirmation">
-            <button type="button" onClick={handleDeleteClick}>
+            <Button type="button" onClick={handleDeleteClick}>
               Avboka
-            </button>
+            </Button>
           </Link>
         </>
       ) : (

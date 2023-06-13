@@ -9,6 +9,7 @@ import {
 import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { ChangeBooking } from "./changeBooking";
+import { Button } from "./styled/Buttons";
 
 export const Admin = () => {
   const isAdmin = true;
@@ -44,7 +45,7 @@ export const Admin = () => {
     return (
       <>
         <div>
-          <button onClick={handleAddBookingClick}>Lägg till ny bokning</button>
+          <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
           <h2>Välj datum för att se bokningar</h2>
           <Calendar onClickDay={(day) => handleDateClick(day)} />
           <div>

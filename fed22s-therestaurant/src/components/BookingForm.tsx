@@ -3,9 +3,11 @@ import { User, defaultUser } from "../models/User";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
-import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
+import { Form, Input } from "./styled/Forms";
+import { Button } from "./styled/Buttons";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -52,15 +54,15 @@ export const BookingForm = ({
 
   return (
     <>
-      <button type="button" onClick={() => goToCalendar()}>
+      <Button type="button" onClick={() => goToCalendar()}>
         Tillbaka
-      </button>
+      </Button>
       {/* <p>
         Du har valt att boka bord för{" "}
         {context.currentBooking.user.numberOfGuests} pers den {"DATUM"}
       </p> */}
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Input
           type="text"
           placeholder="Namn"
           name="name"
@@ -68,7 +70,7 @@ export const BookingForm = ({
           value={currentUser.name}
           required
         />
-        <input
+        <Input
           type="email"
           placeholder="Mejl"
           name="email"
@@ -76,7 +78,7 @@ export const BookingForm = ({
           value={currentUser.email}
           required
         />
-        <input
+        <Input
           type="number"
           placeholder="Mobilnummer"
           name="phonenumber"
@@ -87,15 +89,15 @@ export const BookingForm = ({
         <div>
           <label>
             Godkänn sparande av personuppgifter.{" "}
-            <button type="button" onClick={() => showGdprPage()}>
+            <Button type="button" onClick={() => showGdprPage()}>
               Läs mer här
-            </button>{" "}
+            </Button>{" "}
             *Nödvändigt för att fortsätta
           </label>{" "}
-          <input type="checkbox" required />{" "}
+          <Input type="checkbox" required />{" "}
         </div>
-        <button>Slutför bokning!</button>
-      </form>
+        <Button>Slutför bokning!</Button>
+      </Form>
       {/* endast för att checka att contextet förändras efter inputstatet */}
       <p>Namn: {currentUser.name}</p>
       <p>Mejl: {currentUser.email}</p>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Button } from "./styled/Buttons";
 
 export const Home = () => {
   return (
@@ -9,7 +10,7 @@ export const Home = () => {
         närodlade ekologiska varor.
       </p>
       <Link to="/booking">
-        <button>Boka bord</button>
+        <Button>Boka bord</Button>
       </Link>
       <Link to="/contact">Kontakta oss</Link>
     </>

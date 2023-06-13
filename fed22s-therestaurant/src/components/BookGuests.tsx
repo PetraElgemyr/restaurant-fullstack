@@ -2,6 +2,9 @@ import { ChangeEvent, FormEvent, useContext, useState } from "react";
 import { BookingDispatchContext } from "../contexts/BookingDispatchContext";
 import { ActionTypeCurrentBooking } from "../reducers/CurrentBookingReducer";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
+import { Button } from "./styled/Buttons";
+import { Form } from "react-router-dom";
+import { Input } from "./styled/Forms";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
@@ -80,7 +83,7 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
               {guests}
             </div>
           ))}
-          <button
+          <Button
             type="button"
             onClick={() => {
               if (currentBooking.numberOfGuests !== 0) {
@@ -91,9 +94,9 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
             }}
           >
             Nästa
-          </button>
+          </Button>
           {html}
-          <button disabled={!isAdmin}>Is Admin</button>
+          <Button disabled={!isAdmin}>Is Admin</Button>
         </div>
       </>
     );
@@ -102,7 +105,7 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
       <>
         <div>
           <p>Här väljer du antalet gäster</p>
-          <form
+          <Form
             onSubmit={(e: FormEvent) => {
               e.preventDefault();
               if (currentBooking.numberOfGuests !== 0 || guestsString !== "0") {
@@ -112,17 +115,17 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
               }
             }}
           >
-            <input
+            <Input
               type="text"
               value={guestsString}
               onChange={handleChange}
               required
             />
-            <button>Nästa</button>
-          </form>
+            <Button>Nästa</Button>
+          </Form>
 
           {html}
-          <button disabled={!isAdmin}>Is Admin</button>
+          <Button disabled={!isAdmin}>Is Admin</Button>
         </div>
       </>
     );
