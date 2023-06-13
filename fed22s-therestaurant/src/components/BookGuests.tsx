@@ -5,20 +5,57 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { Button } from "./styled/Buttons";
 import { Form } from "react-router-dom";
 import { Input } from "./styled/Forms";
+import { GuestBox, GuestBoxWrapper, GuestWrapper } from "./styled/GuestBox";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
   isAdmin: boolean;
 }
 
+export interface IGuest {
+  guests: number;
+  selected: boolean;
+}
 export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
-  const numberOfGuests = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  // const numberOfGuests = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const [numberOfGuests, setNumberOfGuests] = useState<IGuest[]>([
+    { guests: 1, selected: false },
+    { guests: 2, selected: false },
+    { guests: 3, selected: false },
+    { guests: 4, selected: false },
+    { guests: 5, selected: false },
+    { guests: 6, selected: false },
+    { guests: 7, selected: false },
+    { guests: 8, selected: false },
+    { guests: 9, selected: false },
+    { guests: 10, selected: false },
+    { guests: 11, selected: false },
+    { guests: 12, selected: false },
+  ]);
+
   const currentBooking = useContext(CurrentBookingContext);
   const dispatch = useContext(BookingDispatchContext);
   const [html, setHtml] = useState<JSX.Element>(<></>);
   const [guestsString, setGuestsString] = useState("");
+  const [boxHtml, setBoxHtml] = useState<JSX.Element>(<></>);
 
   const handleClick = (guests: number) => {
+    const updatedGuests = numberOfGuests.map((guest) => {
+      if (guest.guests === guests) {
+        return {
+          ...guest,
+          selected: true,
+        };
+      } else {
+        return {
+          ...guest,
+          selected: false,
+        };
+      }
+    });
+
+    setNumberOfGuests(updatedGuests);
+
     dispatch({
       type: ActionTypeCurrentBooking.SET_NUMBER_OF_GUESTS,
       payload: guests,
@@ -32,7 +69,8 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
       payload: tables,
     });
 
-    console.log(tables);
+    console.log("Antal bord ", tables);
+
     setHtml(<></>);
   };
 
@@ -76,13 +114,23 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
   if (!isAdmin) {
     return (
       <>
-        <div>
-          <p>Här väljer du antalet gäster</p>
-          {numberOfGuests.map((guests) => (
-            <div key={guests} onClick={() => handleClick(guests)}>
-              {guests}
-            </div>
-          ))}
+        <GuestWrapper>
+          <p>Välj antalet gäster</p>
+          <GuestBoxWrapper>
+            {numberOfGuests.map((guest) => (
+              <GuestBox
+                selected={guest.selected}
+                key={guest.guests}
+                onClick={() => {
+                  handleClick(guest.guests);
+
+                  console.log(numberOfGuests);
+                }}
+              >
+                {guest.guests}
+              </GuestBox>
+            ))}{" "}
+          </GuestBoxWrapper>
           <Button
             type="button"
             onClick={() => {
@@ -97,7 +145,7 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
           </Button>
           {html}
           <Button disabled={!isAdmin}>Is Admin</Button>
-        </div>
+        </GuestWrapper>
       </>
     );
   } else {
