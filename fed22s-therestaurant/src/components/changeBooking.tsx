@@ -8,8 +8,10 @@ import {
 } from "../serivces/BookingServices";
 import { ISittings } from "./CalendarPage";
 import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
-import { Button } from "./styled/Buttons";
+import { Button, ChangeButton } from "./styled/Buttons";
 import { Input, StyledForm } from "./styled/Forms";
+import { WrapperRow } from "./styled/Wrappers";
+import { StyledSpan } from "./styled/Texts";
 
 interface IChangeBooking {
   booking: Booking;
@@ -264,14 +266,13 @@ export const ChangeBooking = ({
     );
   } else {
     return (
-      <div>
-        <Button onClick={handleShowFullView}>Ändra</Button>
-        <span>{booking.user.name}</span>{" "}
-        <span>{booking.numberOfGuests} st</span>
-        <Button onClick={() => handleDeleteClick(booking.bookingId)}>
+      <WrapperRow>
+        <ChangeButton onClick={handleShowFullView}>Ändra</ChangeButton>
+        <StyledSpan>{booking.user.name}</StyledSpan>
+        <ChangeButton onClick={() => handleDeleteClick(booking.bookingId)}>
           Ta bort
-        </Button>
-      </div>
+        </ChangeButton>
+      </WrapperRow>
     );
   }
 };
