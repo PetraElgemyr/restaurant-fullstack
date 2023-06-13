@@ -25,3 +25,7 @@ export const GdprSpan = styled(StyledSpan)`
   padding: 20px;
   margin-bottom: 35px;
 `;
+
+export const LableText = styled.span`
+  padding: 10px;
+`;

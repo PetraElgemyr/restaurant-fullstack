@@ -48,3 +48,11 @@ export const Input = styled.input`
     height: 45px;
   }
 `;
+
+export const CheckboxInput = styled(Input)`
+  border: 0;
+  background-color: unset;
+  width: 30px;
+  height: 30px;
+  box-shadow: none;
+`;

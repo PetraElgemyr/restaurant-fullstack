@@ -6,8 +6,15 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useNavigate } from "react-router-dom";
 import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
-import { StyledForm, Input } from "./styled/Forms";
+import { StyledForm, Input, CheckboxInput } from "./styled/Forms";
 import { BackButton, Button } from "./styled/Buttons";
+import { InputWrapperRow, WrapperColumn, WrapperRow } from "./styled/Wrappers";
+import {
+  GdprSpan,
+  LableText,
+  StyledParagraph,
+  StyledSpan,
+} from "./styled/Texts";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -86,16 +93,18 @@ export const BookingForm = ({
           value={currentUser.phonenumber}
           required
         />
-        <div>
-          <label>
-            Godkänn sparande av personuppgifter.{" "}
-            <Button type="button" onClick={() => showGdprPage()}>
-              Läs mer här
-            </Button>{" "}
-            *Nödvändigt för att fortsätta
-          </label>{" "}
-          <Input type="checkbox" required />{" "}
-        </div>
+        <WrapperColumn>
+          <InputWrapperRow>
+            <CheckboxInput type="checkbox" required />{" "}
+            <StyledSpan>
+              {" "}
+              Godkänn sparande av personuppgifter. *Nödvändigt för att fortsätta
+            </StyledSpan>
+          </InputWrapperRow>
+          <Button type="button" onClick={() => showGdprPage()}>
+            Läs mer här
+          </Button>{" "}
+        </WrapperColumn>
         <Button>Slutför bokning!</Button>
       </StyledForm>
       {/* endast för att checka att contextet förändras efter inputstatet */}
