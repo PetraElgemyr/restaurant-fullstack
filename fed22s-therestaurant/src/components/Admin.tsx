@@ -17,7 +17,7 @@ import {
   WrapperColumn,
 } from "./styled/Wrappers";
 import { StyledParagraph } from "./styled/Texts";
-import { ChangeBookingAdmin } from "./ChangeBookingAdmin";
+import { ChangeBooking } from "./ChangeBooking";
 
 export const Admin = () => {
   const isAdmin = true;
@@ -84,11 +84,11 @@ export const Admin = () => {
                 {bookingsAtDate.map((booking) => {
                   if (booking.sitting === 1) {
                     return (
-                      <ChangeBookingAdmin
+                      <ChangeBooking
                         key={booking.bookingId}
                         booking={booking}
                         handleDeleteClick={handleDeleteClick}
-                      ></ChangeBookingAdmin>
+                      ></ChangeBooking>
                     );
                   }
                 })}
@@ -99,11 +99,11 @@ export const Admin = () => {
                 {bookingsAtDate.map((booking) => {
                   if (booking.sitting === 2) {
                     return (
-                      <ChangeBookingAdmin
+                      <ChangeBooking
                         key={booking.bookingId}
                         booking={booking}
                         handleDeleteClick={handleDeleteClick}
-                      ></ChangeBookingAdmin>
+                      ></ChangeBooking>
                     );
                   }
                 })}
