@@ -10,6 +10,14 @@ import { Booking } from "../models/Booking";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { ChangeBooking } from "./changeBooking";
 import { Button } from "./styled/Buttons";
+import {
+  AdminChangeWrapper,
+  AdminTextWrapper,
+  ColToRowWrapper,
+  WrapperColumn,
+  WrapperRow,
+} from "./styled/Wrappers";
+import { StyledParagraph } from "./styled/Texts";
 
 export const Admin = () => {
   const isAdmin = true;
@@ -44,44 +52,65 @@ export const Admin = () => {
   if (!createNewBooking) {
     return (
       <>
-        <div>
+        <WrapperColumn>
           <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
-          <h2>Välj datum för att se bokningar</h2>
-          <Calendar onClickDay={(day) => handleDateClick(day)} />
-          <div>
-            <h6>Bokningar för datumet {selectedDate}</h6>
+          <ColToRowWrapper>
+            <WrapperColumn>
+              <h2>Välj datum för att se bokningar</h2>
+              <Calendar onClickDay={(day) => handleDateClick(day)} />
+            </WrapperColumn>
+            <AdminTextWrapper>
+              <StyledParagraph>
+                För att se bokningarna, välj datum i kalendern.
+              </StyledParagraph>
+              <StyledParagraph>
+                För att ta bort en bokning, tryck på ta bort.
+              </StyledParagraph>
+              <StyledParagraph>
+                För att skapa en ny bokning, tryck på lägg till en bokning och
+                följ instruktionerna.
+              </StyledParagraph>
+              <StyledParagraph>
+                PS. Glöm inte att säga till kockarna om en större bokning görs.
+              </StyledParagraph>
+            </AdminTextWrapper>
+          </ColToRowWrapper>
 
-            <div>
-              <p>Sittning 1</p>
-              {bookingsAtDate.map((booking) => {
-                if (booking.sitting === 1) {
-                  return (
-                    <ChangeBooking
-                      key={booking.bookingId}
-                      booking={booking}
-                      handleDeleteClick={handleDeleteClick}
-                    ></ChangeBooking>
-                  );
-                }
-              })}
-            </div>
+          <WrapperColumn>
+            <h4>Bokningar för datumet {selectedDate}</h4>
+            <ColToRowWrapper>
+              <AdminChangeWrapper>
+                <p>Sittning 1</p>
+                {bookingsAtDate.map((booking) => {
+                  if (booking.sitting === 1) {
+                    return (
+                      <ChangeBooking
+                        key={booking.bookingId}
+                        booking={booking}
+                        handleDeleteClick={handleDeleteClick}
+                      ></ChangeBooking>
+                    );
+                  }
+                })}
+              </AdminChangeWrapper>
 
-            <div>
-              <p>Sittning 2</p>
-              {bookingsAtDate.map((booking) => {
-                if (booking.sitting === 2) {
-                  return (
-                    <ChangeBooking
-                      key={booking.bookingId}
-                      booking={booking}
-                      handleDeleteClick={handleDeleteClick}
-                    ></ChangeBooking>
-                  );
-                }
-              })}
-            </div>
-          </div>
-        </div>
+              <AdminChangeWrapper>
+                <p>Sittning 2</p>
+                {bookingsAtDate.map((booking) => {
+                  if (booking.sitting === 2) {
+                    return (
+                      <ChangeBooking
+                        key={booking.bookingId}
+                        booking={booking}
+                        handleDeleteClick={handleDeleteClick}
+                      ></ChangeBooking>
+                    );
+                  }
+                })}
+              </AdminChangeWrapper>
+            </ColToRowWrapper>
+          </WrapperColumn>
+        </WrapperColumn>
       </>
     );
   } else {
