@@ -1,26 +1,35 @@
 import styled from "styled-components";
 import { devices } from "./devices";
 
+interface IInputProps {
+  height?: string;
+}
+
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 10px;
-
-  @media screen and (${devices.desktop}) {
-    gap: 30px;
-  }
 `;
 
-export const Input = styled.input`
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  width: 200px;
+`
+
+export const Input = styled.input<IInputProps>`
   font-family: "Kite One", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   color: white;
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: #4b5f7b;
-  height: 30px;
-  min-width: 90%;
+  height: ${(props: IInputProps) => props.height || "30px"};
+  width: 300px;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition-property: border background-color;
@@ -45,7 +54,7 @@ export const Input = styled.input`
   }
 
   @media screen and (${devices.desktop}) {
-    height: 37px;
+    height: ${(props: IInputProps) => props.height || "30px"};
   }
 `;
 

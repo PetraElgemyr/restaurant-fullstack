@@ -9,7 +9,7 @@ import {
 import { ISittings } from "./CalendarPage";
 import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
 import { ChangeButton, SittingButton, SittingsButton } from "./styled/Buttons";
-import { Input, StyledForm } from "./styled/Forms";
+import { Input, InputContainer, StyledForm } from "./styled/Forms";
 import {
   AdminCalendarChange,
   WrapperColumn,
@@ -17,6 +17,7 @@ import {
 } from "./styled/Wrappers";
 import { StyledSpan } from "./styled/Texts";
 import "../calendar.css";
+import { Container } from "./styled/Containers";
 
 interface IChangeBooking {
   booking: Booking;
@@ -164,8 +165,12 @@ export const ChangeBooking = ({
   if (show) {
     return (
       <AdminCalendarChange>
-        <ChangeButton onClick={handleShowFullView}>Minimera</ChangeButton>
-        <div>{submitted ? "Bokning är uppdaterad!" : ""}</div>
+        <InputContainer>
+          <ChangeButton
+            onClick={() => {setCurrentBooking(booking);}}disabled={submitted}>Ångra</ChangeButton>
+          <ChangeButton onClick={handleShowFullView}>Minimera</ChangeButton>
+        </InputContainer>
+
         <Calendar
           onClickDay={(day) => {
             getBookingsOnDate(day);
@@ -173,6 +178,19 @@ export const ChangeBooking = ({
             setSelectedSecondSitting(false);
           }}
         ></Calendar>
+          <span>Bokningsnummer: {booking.bookingId}</span>
+          <div>
+            Datum:{" "}
+            {currentBooking.date
+            ? useConvertDateToISO8601(currentBooking.date)
+            : "Välj sittning för att se valt datum"}
+          </div>
+          <div>
+            Sittning:{" "}
+            {currentBooking.sitting === 0
+              ? "Välj en sittning"
+              : currentBooking.sitting}
+          </div>
         <SittingsButton
           disabled={!firstSitting.availabel || submitted}
           selected={selectedFirstSitting}
@@ -207,79 +225,71 @@ export const ChangeBooking = ({
         >
           Kl. 20:00 - 22:00
         </SittingsButton>
-        <div>
-          Datum:{" "}
-          {currentBooking.date
-            ? useConvertDateToISO8601(currentBooking.date)
-            : "Välj sittning för att se valt datum"}
-        </div>
-        <div>
-          Sittning:{" "}
-          {currentBooking.sitting === 0
-            ? "Välj en sittning"
-            : currentBooking.sitting}
-        </div>
+
 
         <StyledForm onSubmit={handleSubmit}>
-          <label htmlFor="guests">Antal gäster</label>
-          <Input
-            id="guests"
-            type="number"
-            placeholder=""
-            name="numberOfGuests"
-            onChange={handleChangeBooking}
-            value={currentBooking.numberOfGuests}
-            required
-            disabled={submitted}
-          />
+          <InputContainer>
+            <label htmlFor="guests">Gäster:</label>
+            <Input height={"15px"}
+              id="guests"
+              type="number"
+              placeholder=""
+              name="numberOfGuests"
+              onChange={handleChangeBooking}
+              value={currentBooking.numberOfGuests}
+              required
+              disabled={submitted}
+            />
+          </InputContainer>
+          <InputContainer>
           <label htmlFor="username">Namn:</label>
-          <Input
-            id="username"
-            type="text"
-            placeholder="Namn"
-            name="name"
-            onChange={handleChangeUser}
-            value={currentBooking.user.name}
-            required
-            disabled={submitted}
-          />
-          <label htmlFor="email">Mail:</label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="Mejl"
-            name="email"
-            onChange={handleChangeUser}
-            value={currentBooking.user.email}
-            required
-            disabled={submitted}
-          />
-          <label htmlFor="phonenumber">Telefonnummer:</label>
-          <Input
-            id="phonenumber"
-            type="number"
-            placeholder="Mobilnummer"
-            name="phonenumber"
-            onChange={handleChangeUser}
-            value={currentBooking.user.phonenumber}
-            required
-            disabled={submitted}
-          />
-          <span>
-            {bookingComplete
-              ? ""
-              : "Vänligen fyll i alla fält och välj önskad sittning"}
-          </span>
-          <ChangeButton disabled={submitted}>Spara</ChangeButton>
+            <Input height={"15px"}
+              id="username"
+              type="text"
+              placeholder="Namn"
+              name="name"
+              onChange={handleChangeUser}
+              value={currentBooking.user.name}
+              required
+              disabled={submitted}
+            />
+          </InputContainer>
+          <InputContainer>
+            <label htmlFor="email">Mail:</label>
+            <Input height={"15px"}
+              id="email"
+              type="email"
+              placeholder="Mejl"
+              name="email"
+              onChange={handleChangeUser}
+              value={currentBooking.user.email}
+              required
+              disabled={submitted}
+            />
+          </InputContainer>
+          <InputContainer>
+            <label htmlFor="phonenumber">Tel:</label>
+            <Input height={"15px"}
+              id="phonenumber"
+              type="number"
+              placeholder="Mobilnummer"
+              name="phonenumber"
+              onChange={handleChangeUser}
+              value={currentBooking.user.phonenumber}
+              required
+              disabled={submitted}
+            />
+          </InputContainer>
+          <InputContainer>
+            <span>
+              {bookingComplete
+                ? ""
+                : "Vänligen fyll i alla fält och välj önskad sittning"}
+            </span>
+            <div>{submitted ? "Bokning är uppdaterad!" : ""}</div>
+            <ChangeButton disabled={submitted}>Spara</ChangeButton>
+          </InputContainer>
         </StyledForm>
-        <ChangeButton
-          onClick={() => {
-            setCurrentBooking(booking);
-          }}
-          disabled={submitted}
-        >
-          Ångra
-        </ChangeButton>
       </AdminCalendarChange>
     );
   } else {
