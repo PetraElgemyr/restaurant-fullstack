@@ -46,8 +46,12 @@ export const GuestBox = styled.span<IGuestBoxProps>`
     box-shadow: 0px 0px 8px 0px #000000b5;
   }
 
+  @media screen and (${devices.tablet}) {
+    width: 10%;
+  }
+
   @media screen and (${devices.desktop}) {
-    width: 8%;
+    width: 12%;
     margin: 10px;
     padding: 15px;
   }
