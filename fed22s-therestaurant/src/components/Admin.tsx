@@ -19,6 +19,7 @@ import {
 } from "./styled/Wrappers";
 import { StyledParagraph } from "./styled/Texts";
 import { ChangeBooking } from "./ChangeBooking";
+import "../calendar.css";
 
 export const Admin = () => {
   const isAdmin = true;
