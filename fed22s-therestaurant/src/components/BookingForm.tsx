@@ -6,15 +6,15 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useNavigate } from "react-router-dom";
 import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
-import { StyledForm, Input, CheckboxInput } from "./styled/Forms";
+import { StyledForm, Input } from "./styled/Forms";
 import { BackButton, Button } from "./styled/Buttons";
 import {
   InputWrapperRow,
   TopMarginWrapper,
   WrapperColumn,
-  WrapperRow,
 } from "./styled/Wrappers";
 import { FormBookingParagraph, StyledSpan } from "./styled/Texts";
+import { CheckBox } from "./Checkbox";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -95,7 +95,8 @@ export const BookingForm = ({
         />
         <WrapperColumn>
           <InputWrapperRow>
-            <CheckboxInput type="checkbox" required />{" "}
+            {/* <CheckboxInput type="checkbox" required />{" "} */}
+            <CheckBox></CheckBox>
             <StyledSpan>
               {" "}
               Godkänn sparande av personuppgifter. *Nödvändigt för att fortsätta

@@ -49,10 +49,16 @@ export const Input = styled.input`
   }
 `;
 
-export const CheckboxInput = styled(Input)`
-  border: 0;
-  background-color: unset;
-  width: 30px;
-  height: 30px;
-  box-shadow: none;
+// export const CheckboxInput = styled(Input)`
+//   border: 0;
+//   background-color: unset;
+//   width: 30px;
+//   height: 30px;
+//   box-shadow: none;
+// `;
+
+export const InputCheckbox = styled.input`
+  border: 1px solid white;
+  position: absolute;
+  text-align: center;
 `;
