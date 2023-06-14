@@ -27,9 +27,12 @@ export const WrapperRow = styled.div`
 `;
 
 export const ColToRowWrapper = styled(WrapperColumn)`
+  justify-content: flex-start;
+
   @media screen and (${devices.tablet}) {
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
     padding: 10px;
     width: 100%;
   }
@@ -58,7 +61,12 @@ export const AdminTextWrapper = styled(WrapperColumn)`
 `;
 
 export const AdminChangeWrapper = styled(WrapperColumn)`
-  justify-content: start;
+  justify-content: center;
+
+  @media screen and (${devices.tablet}) {
+    width: 50%;
+    margin: 0;
+  }
 `;
 
 export const TopMarginWrapper = styled(WrapperColumn)`
