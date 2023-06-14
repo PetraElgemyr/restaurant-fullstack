@@ -79,7 +79,11 @@ export const BottomMarginWrapper = styled(WrapperColumn)`
 
 export const AdminCalendarChange = styled(WrapperColumn)`
   background-color: #818c9d;
-  width: 90%;
+  width: 100%;
   padding: 10px;
   border: 1px solid white;
+
+  @media screen and (${devices.tablet}) {
+    width: 80%;
+  }
 `;

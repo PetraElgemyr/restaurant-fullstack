@@ -32,4 +32,16 @@ export const LableText = styled.span`
 
 export const FormBookingParagraph = styled.p`
   font-family: "Kite One", sans-serif;
+
+  @media screen and (${devices.tablet}) {
+    margin: 2%;
+  }
+
+  @media screen and (${devices.desktop}) {
+    margin: 0;
+  }
+`;
+
+export const FormInfoSpan = styled.span`
+  font-family: "Kite One", sans-serif;
 `;

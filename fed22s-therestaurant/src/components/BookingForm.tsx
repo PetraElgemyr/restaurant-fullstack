@@ -7,14 +7,20 @@ import { useNavigate } from "react-router-dom";
 import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
 import { StyledForm, Input } from "./styled/Forms";
-import { BackButton, Button } from "./styled/Buttons";
+import { BackButton, Button, GdprButton } from "./styled/Buttons";
 import {
   InputWrapperRow,
   TopMarginWrapper,
   WrapperColumn,
 } from "./styled/Wrappers";
-import { FormBookingParagraph, StyledSpan } from "./styled/Texts";
+import { FormBookingParagraph, FormInfoSpan, StyledSpan } from "./styled/Texts";
 import { CheckBox } from "./Checkbox";
+import {
+  ContactContainer,
+  ContactInfoContainer,
+} from "./styled/ContactContainer";
+import { ImageContainer } from "./styled/Containers";
+import { GuestWrapper } from "./styled/GuestBox";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -60,63 +66,69 @@ export const BookingForm = ({
   };
 
   return (
-    <TopMarginWrapper>
-      <BackButton type="button" onClick={() => goToCalendar()}>
-        Tillbaka
-      </BackButton>
-      {/* <p>
+    <ContactContainer>
+      <ImageContainer img={"src/assets/plate-figgs.jpg"}>
+        <img />
+      </ImageContainer>
+      <ContactInfoContainer>
+        <TopMarginWrapper>
+          <BackButton type="button" onClick={() => goToCalendar()}>
+            Tillbaka
+          </BackButton>
+          {/* <p>
         Du har valt att boka bord för{" "}
         {context.currentBooking.user.numberOfGuests} pers den {"DATUM"}
       </p> */}
-      <StyledForm onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Namn"
-          name="name"
-          onChange={handleChange}
-          value={currentUser.name}
-          required
-        />
-        <Input
-          type="email"
-          placeholder="Mejl"
-          name="email"
-          onChange={handleChange}
-          value={currentUser.email}
-          required
-        />
-        <Input
-          type="number"
-          placeholder="Mobilnummer"
-          name="phonenumber"
-          onChange={handleChange}
-          value={currentUser.phonenumber}
-          required
-        />
-        <WrapperColumn>
-          <InputWrapperRow>
-            {/* <CheckboxInput type="checkbox" required />{" "} */}
-            <CheckBox></CheckBox>
-            <StyledSpan>
-              {" "}
-              Godkänn sparande av personuppgifter. *Nödvändigt för att fortsätta
-            </StyledSpan>
-          </InputWrapperRow>
-          <Button type="button" onClick={() => showGdprPage()}>
-            Läs mer här
-          </Button>{" "}
-        </WrapperColumn>
-        <Button>Slutför bokning!</Button>
-      </StyledForm>
-      {/* endast för att checka att contextet förändras efter inputstatet */}
-      <FormBookingParagraph>Namn: {currentUser.name}</FormBookingParagraph>
-      <FormBookingParagraph>Mejl: {currentUser.email}</FormBookingParagraph>
-      <FormBookingParagraph>
-        Mobilnr: {currentUser.phonenumber}
-      </FormBookingParagraph>
-      <FormBookingParagraph>
-        Antalet gäster: {context.numberOfGuests} st
-      </FormBookingParagraph>
-    </TopMarginWrapper>
+          <StyledForm onSubmit={handleSubmit}>
+            <Input
+              type="text"
+              placeholder="Namn"
+              name="name"
+              onChange={handleChange}
+              value={currentUser.name}
+              required
+            />
+            <Input
+              type="email"
+              placeholder="Mejl"
+              name="email"
+              onChange={handleChange}
+              value={currentUser.email}
+              required
+            />
+            <Input
+              type="number"
+              placeholder="Mobilnummer"
+              name="phonenumber"
+              onChange={handleChange}
+              value={currentUser.phonenumber}
+              required
+            />
+            <WrapperColumn>
+              <InputWrapperRow>
+                {/* <CheckboxInput type="checkbox" required />{" "} */}
+                <CheckBox></CheckBox>
+                <StyledSpan>
+                  {" "}
+                  Godkänn sparande av personuppgifter. *Nödvändigt för att
+                  fortsätta
+                </StyledSpan>
+              </InputWrapperRow>
+              <GdprButton type="button" onClick={() => showGdprPage()}>
+                Läs mer
+              </GdprButton>{" "}
+            </WrapperColumn>
+            <Button>Slutför bokning!</Button>
+          </StyledForm>
+          {/* endast för att checka att contextet förändras efter inputstatet */}
+          <FormInfoSpan>Namn: {currentUser.name}</FormInfoSpan>
+          <FormInfoSpan>Mejl: {currentUser.email}</FormInfoSpan>
+          <FormInfoSpan>Mobilnr: {currentUser.phonenumber}</FormInfoSpan>
+          <FormInfoSpan>
+            Antalet gäster: {context.numberOfGuests} st
+          </FormInfoSpan>
+        </TopMarginWrapper>{" "}
+      </ContactInfoContainer>
+    </ContactContainer>
   );
 };
