@@ -9,7 +9,8 @@ export const Button = styled.button`
   font-size: 20px;
   color: ${({ disabled }) => (disabled ? "#C1B9B9" : "white")};
   border: 1px solid rgba(50, 50, 93, 0.25);
-  background-color: ${({ disabled }) => (disabled ? "#818C9D" : "#818C9D")};
+  background-color: ${({ disabled }) => (disabled ? "#818C9D" : "#4b5f7b")};
+  text-decoration: ${({ disabled }) => (disabled ? "line-through" : "")};
   height: 50px;
   min-width: 100px;
   cursor: pointer;
@@ -22,15 +23,15 @@ export const Button = styled.button`
   transition: all 0.5s;
 
   &:hover {
-    border: 1px solid #accdff;
+    border: ${({ disabled }) => (disabled ? "1px solid #818C9D" : "1px solid #accdff")};
   }
 
   &:active {
     transition: none;
     border: ${({ disabled }) =>
       disabled ? "1px solid #818C9D" : "1px solid #59739A"};
-    background-color: ${({ disabled }) => (disabled ? "#818C9D" : "#4B5F7B")};
-    color: ${({ disabled }) => (disabled ? "#C1B9B9" : "#ACCDFF")};
+    background-color: ${({ disabled }) => (disabled ? "#818C9D" : "#314868")};
+    color: ${({ disabled }) => (disabled ? "#C1B9B9" : "#566479")};
   }
 `;
 

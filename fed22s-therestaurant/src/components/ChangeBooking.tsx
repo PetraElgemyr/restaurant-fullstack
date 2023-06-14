@@ -256,7 +256,9 @@ export const ChangeBooking = ({
               ? ""
               : "Vänligen fyll i alla fält och välj önskad sittning"}
           </span>
-          <ChangeButton
+          <ChangeButton disabled={submitted}>Spara</ChangeButton>
+        </StyledForm>
+        <ChangeButton
             onClick={() => {
               setCurrentBooking(booking);
             }}
@@ -264,8 +266,6 @@ export const ChangeBooking = ({
           >
             Ångra
           </ChangeButton>
-          <ChangeButton disabled={submitted}>Spara</ChangeButton>
-        </StyledForm>
       </AdminCalendarChange>
     );
   } else {
