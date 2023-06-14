@@ -8,6 +8,7 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { BackButton, Button } from "./styled/Buttons";
 import { WrapperColumn } from "./styled/Wrappers";
+import "../calendar.css";
 
 interface ICalendarProps {
   goToGuests: () => void;

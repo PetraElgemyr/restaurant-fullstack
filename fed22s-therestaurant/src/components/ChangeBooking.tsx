@@ -16,6 +16,7 @@ import {
   WrapperRow,
 } from "./styled/Wrappers";
 import { StyledSpan } from "./styled/Texts";
+import "../calendar.css";
 
 interface IChangeBooking {
   booking: Booking;
