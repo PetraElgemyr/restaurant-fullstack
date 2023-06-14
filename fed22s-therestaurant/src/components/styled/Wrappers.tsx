@@ -6,7 +6,7 @@ export const WrapperColumn = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 95vw;
+  width: 95%;
   gap: 10px;
   font-family: "Julius Sans One", sans-serif;
   color: white;
