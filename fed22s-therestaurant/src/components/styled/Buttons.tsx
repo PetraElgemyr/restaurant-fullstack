@@ -46,6 +46,7 @@ export const GdprButton = styled(Button)`
 
 export const SittingButton = styled(Button)<IButtonProps>`
   border: ${({ selected }) => (selected ? "1px solid white" : "none")};
+  height: 15px;
   background-color: ${({ selected, disabled }) => {
     if (selected && !disabled) {
       return "#18263a";
