@@ -3,6 +3,11 @@ import { deleteBookingById, getAllBookings } from "../serivces/BookingServices";
 import { useEffect, useState } from "react";
 import { Booking } from "../models/Booking";
 import { Button } from "./styled/Buttons";
+import { Span } from "./styled/Span";
+import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
+import { H2 } from "./styled/Headings";
+import { Container } from "./styled/Containers";
+import { Loader } from "./Loader";
 
 export const CancelBooking = () => {
   const { bookingId } = useParams<string>();
@@ -27,21 +32,29 @@ export const CancelBooking = () => {
 
       setTimeout(() => {
         setLoading(false);
-      }, 1500);
+      }, 100);
     };
 
     getBooking();
   }, []);
 
   if (isLoading) {
-    return <div>Laddar...</div>;
+    return (
+      <div></div>
+    )
   }
-
-  return (
-    <>
-      {booking ? (
+  if(booking) {
+      return (
         <>
-          <h4>Avbokning för bokning {booking.bookingId}</h4>
+          <Container>
+          <H2>Avbokning</H2>
+          <Span>Bokningsnummer: {booking.bookingId}</Span>
+          </Container>
+          <Span>Namn: {booking.user.name}</Span>
+          <Span>Datum: {useConvertDateToISO8601(booking.date)}</Span>
+          <Span>Sittning: {booking.sitting}</Span>
+          <Span>Antal personer: {booking.numberOfGuests}</Span>
+          
           <p>Är du säker på att du vill avboka din bokning?</p>
 
           <Link to="/cancel/confirmation">
@@ -50,16 +63,17 @@ export const CancelBooking = () => {
             </Button>
           </Link>
         </>
-      ) : (
-        <>
-          <h4>Ojdå! Bokningen kunde inte hittas.</h4>
-          <p>
-            Vi ser inte att er bokning finns i vårt system. Vänligen kontakta
-            oss vid frågor.
-          </p>
-          <span>Vänliga hälsningar, Bakgården</span>
-        </>
-      )}
+      )
+  } else {
+    return (
+      <>
+      <h4>Ojdå! Bokningen kunde inte hittas.</h4>
+      <p>
+        Vi ser inte att er bokning finns i vårt system. Vänligen kontakta
+        oss vid frågor.
+      </p>
+      <span>Vänliga hälsningar, Bakgården</span>
     </>
-  );
-};
+    )
+  }
+}

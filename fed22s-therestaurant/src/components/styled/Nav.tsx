@@ -13,8 +13,14 @@ export const Nav = styled.div`
 export const Logo = styled.h3`
     font-family: 'Lobster Two', cursive;
     font-size: 2em;
-    padding: 0.2em;
+    padding: 0.4em;
     margin: 0;
+    transition: all 0.2s ease-out;
+
+    &:hover {
+      padding: 0.3em;
+      font-size: 2.2em;
+    }
 `
 
 export const Menu = styled.div`
