@@ -65,8 +65,10 @@ export const ChangeButton = styled(Button)`
 `;
 
 export const SittingsButton = styled(Button)<IButtonProps>`
-  background-color: ${({ disabled }) => (disabled ? "#242d3ade" : "#0e192bde")};
+  background-color: ${({ disabled }) => (disabled ? "#485870" : "#4b5f7b")};
   color: ${({ disabled }) => (disabled ? "#9c9a9a" : "white")};
+  background-color: ${({ selected }) => (selected ? "#0e192bde" : "#4b5f7b")};
+  border: ${({ selected }) => (selected ? "1px solid white" : "none")};
 `;
 
 export const BackButton = styled(Button)`
