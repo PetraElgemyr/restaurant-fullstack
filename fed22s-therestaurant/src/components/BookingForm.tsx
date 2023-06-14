@@ -14,7 +14,7 @@ import {
   WrapperColumn,
   WrapperRow,
 } from "./styled/Wrappers";
-import { StyledSpan } from "./styled/Texts";
+import { FormBookingParagraph, StyledSpan } from "./styled/Texts";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -108,10 +108,14 @@ export const BookingForm = ({
         <Button>Slutför bokning!</Button>
       </StyledForm>
       {/* endast för att checka att contextet förändras efter inputstatet */}
-      <p>Namn: {currentUser.name}</p>
-      <p>Mejl: {currentUser.email}</p>
-      <p>Mobilnr: {currentUser.phonenumber}</p>
-      <p>Antalet gäster: {context.numberOfGuests} st</p>
+      <FormBookingParagraph>Namn: {currentUser.name}</FormBookingParagraph>
+      <FormBookingParagraph>Mejl: {currentUser.email}</FormBookingParagraph>
+      <FormBookingParagraph>
+        Mobilnr: {currentUser.phonenumber}
+      </FormBookingParagraph>
+      <FormBookingParagraph>
+        Antalet gäster: {context.numberOfGuests} st
+      </FormBookingParagraph>
     </TopMarginWrapper>
   );
 };
