@@ -2,10 +2,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Kite+One&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap");
 
+.loader {
+  &:empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1f242c;
+  }
+}
+
 :root {
   font-family: "Kite One", sans-serif, Arial, Helvetica, sans-serif;
   background-color: #1f242c;
   color: white;
+}
+
+text {
+  fill: white;
+  font-size: 1.6em;
+  letter-spacing: 0.5em;
 }
 
 main {
