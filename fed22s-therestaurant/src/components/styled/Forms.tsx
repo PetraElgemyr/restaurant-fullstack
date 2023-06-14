@@ -20,7 +20,7 @@ export const Input = styled.input`
   border: 1px solid rgba(0, 0, 0, 0.3);
   background-color: #4b5f7b;
   height: 30px;
-  min-width: 100px;
+  min-width: 90%;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   transition-property: border background-color;

@@ -5,6 +5,11 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { Button } from "./styled/Buttons";
 import { Input, StyledForm } from "./styled/Forms";
 import { GuestBox, GuestBoxWrapper, GuestWrapper } from "./styled/GuestBox";
+import {
+  ContactContainer,
+  ContactInfoContainer,
+} from "./styled/ContactContainer";
+import { ImageContainer } from "./styled/Containers";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
@@ -111,7 +116,10 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
 
   if (!isAdmin) {
     return (
-      <>
+      <ContactContainer>
+        <ImageContainer img={"src/assets/plate-figgs.jpg"}>
+          <img />
+        </ImageContainer>
         <GuestWrapper>
           <p>Välj antalet gäster</p>
           <GuestBoxWrapper>
@@ -143,34 +151,42 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
           </Button>
           {html}
         </GuestWrapper>
-      </>
+      </ContactContainer>
     );
   } else {
     return (
-      <>
-        <GuestWrapper>
-          <p>Här väljer du antalet gäster</p>
-          <StyledForm
-            onSubmit={(e: FormEvent) => {
-              e.preventDefault();
-              if (currentBooking.numberOfGuests !== 0 || guestsString !== "0") {
-                handleSubmit(e);
-              } else {
-                checkNumberOfGuests();
-              }
-            }}
-          >
-            <Input
-              type="text"
-              value={guestsString}
-              onChange={handleChange}
-              required
-            />
-            <Button>Nästa</Button>
-          </StyledForm>
-          {html}
-        </GuestWrapper>
-      </>
+      <ContactContainer>
+        <ImageContainer img={"src/assets/plate-figgs.jpg"}>
+          <img />
+        </ImageContainer>
+        <ContactInfoContainer>
+          <GuestWrapper>
+            <p>Här väljer du antalet gäster</p>
+            <StyledForm
+              onSubmit={(e: FormEvent) => {
+                e.preventDefault();
+                if (
+                  currentBooking.numberOfGuests !== 0 ||
+                  guestsString !== "0"
+                ) {
+                  handleSubmit(e);
+                } else {
+                  checkNumberOfGuests();
+                }
+              }}
+            >
+              <Input
+                type="text"
+                value={guestsString}
+                onChange={handleChange}
+                required
+              />
+              <Button>Nästa</Button>
+            </StyledForm>
+            {html}
+          </GuestWrapper>
+        </ContactInfoContainer>
+      </ContactContainer>
     );
   }
 };

@@ -9,6 +9,9 @@ import { useConvertDateToString } from "../hooks/useConvertDateToString";
 import { BackButton, Button, SittingButton } from "./styled/Buttons";
 import { WrapperColumn } from "./styled/Wrappers";
 import "../calendar.css";
+import { ContactContainer } from "./styled/ContactContainer";
+import { ImageContainer } from "./styled/Containers";
+import { GuestWrapper } from "./styled/GuestBox";
 
 interface ICalendarProps {
   goToGuests: () => void;
@@ -88,77 +91,92 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
 
   const checkCalenderValidation = () => {
     if (currentBooking.sitting === 0 || currentBooking.date === "") {
-      setHtml(<div>Du måste välja ett datum samt välja en tid!</div>);
+      setHtml(<div>Du måste välja ett datum samt tid!</div>);
     }
   };
 
   return (
-    <WrapperColumn>
-      <BackButton
-        type="button"
-        onClick={() => {
-          dispatch({ type: ActionTypeCurrentBooking.SET_DATE, payload: "" });
-          dispatch({ type: ActionTypeCurrentBooking.SET_SITTING, payload: 0 });
-          goToGuests();
-        }}
-      >
-        Tillbaka
-      </BackButton>
-      <Calendar
-        onClickDay={(day) => {
-          handleClick(day);
-        }}
-      ></Calendar>
-      <SittingButton
-        disabled={!firstSitting.availabel}
-        selected={selectedFirstSitting}
-        onClick={() => {
-          dispatch({ type: ActionTypeCurrentBooking.SET_SITTING, payload: 1 });
-          dispatch({
-            type: ActionTypeCurrentBooking.SET_DATE,
-            payload: selectedDate,
-          });
-          setSelectedFirstSitting(true);
-          setSelectedSecondSitting(false);
-          console.log("Första sittingen selected");
+    <ContactContainer>
+      {" "}
+      <ImageContainer img={"src/assets/plate-figgs.jpg"}>
+        <img />
+      </ImageContainer>
+      <GuestWrapper>
+        <BackButton
+          type="button"
+          onClick={() => {
+            dispatch({ type: ActionTypeCurrentBooking.SET_DATE, payload: "" });
+            dispatch({
+              type: ActionTypeCurrentBooking.SET_SITTING,
+              payload: 0,
+            });
+            goToGuests();
+          }}
+        >
+          Tillbaka
+        </BackButton>
+        <Calendar
+          onClickDay={(day) => {
+            handleClick(day);
+          }}
+        ></Calendar>
+        <SittingButton
+          disabled={!firstSitting.availabel}
+          selected={selectedFirstSitting}
+          onClick={() => {
+            dispatch({
+              type: ActionTypeCurrentBooking.SET_SITTING,
+              payload: 1,
+            });
+            dispatch({
+              type: ActionTypeCurrentBooking.SET_DATE,
+              payload: selectedDate,
+            });
+            setSelectedFirstSitting(true);
+            setSelectedSecondSitting(false);
+            console.log("Första sittingen selected");
 
-          setHtml(<></>);
-        }}
-      >
-        Kl. 18:00 - 20:00
-      </SittingButton>
+            setHtml(<></>);
+          }}
+        >
+          Kl. 18:00 - 20:00
+        </SittingButton>
 
-      <SittingButton
-        disabled={!secondSitting.availabel}
-        selected={selectedSecondSitting}
-        onClick={() => {
-          dispatch({ type: ActionTypeCurrentBooking.SET_SITTING, payload: 2 });
-          dispatch({
-            type: ActionTypeCurrentBooking.SET_DATE,
-            payload: selectedDate,
-          });
-          setSelectedFirstSitting(false);
-          setSelectedSecondSitting(true);
-          console.log("Andra sittingen selected");
+        <SittingButton
+          disabled={!secondSitting.availabel}
+          selected={selectedSecondSitting}
+          onClick={() => {
+            dispatch({
+              type: ActionTypeCurrentBooking.SET_SITTING,
+              payload: 2,
+            });
+            dispatch({
+              type: ActionTypeCurrentBooking.SET_DATE,
+              payload: selectedDate,
+            });
+            setSelectedFirstSitting(false);
+            setSelectedSecondSitting(true);
+            console.log("Andra sittingen selected");
 
-          setHtml(<></>);
-        }}
-      >
-        Kl. 20:00 - 22:00
-      </SittingButton>
-      <Button
-        type="button"
-        onClick={() => {
-          if (currentBooking.date !== "" && currentBooking.sitting !== 0) {
-            goToForm();
-          } else {
-            checkCalenderValidation();
-          }
-        }}
-      >
-        Nästa
-      </Button>
-      {html}
-    </WrapperColumn>
+            setHtml(<></>);
+          }}
+        >
+          Kl. 20:00 - 22:00
+        </SittingButton>
+        <Button
+          type="button"
+          onClick={() => {
+            if (currentBooking.date !== "" && currentBooking.sitting !== 0) {
+              goToForm();
+            } else {
+              checkCalenderValidation();
+            }
+          }}
+        >
+          Nästa
+        </Button>
+        {html}
+      </GuestWrapper>{" "}
+    </ContactContainer>
   );
 };
