@@ -120,7 +120,7 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
         <ImageContainer img={"src/assets/plate-figgs.jpg"}>
           <img />
         </ImageContainer>
-        <ContactInfoContainer>
+        <GuestWrapper>
           <p>Välj antalet gäster</p>
           <GuestBoxWrapper>
             {numberOfGuests.map((guest) => (
@@ -150,35 +150,43 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
             Nästa
           </Button>
           {html}
-        </ContactInfoContainer>
+        </GuestWrapper>
       </ContactContainer>
     );
   } else {
     return (
-      <>
-        <GuestWrapper>
-          <p>Här väljer du antalet gäster</p>
-          <StyledForm
-            onSubmit={(e: FormEvent) => {
-              e.preventDefault();
-              if (currentBooking.numberOfGuests !== 0 || guestsString !== "0") {
-                handleSubmit(e);
-              } else {
-                checkNumberOfGuests();
-              }
-            }}
-          >
-            <Input
-              type="text"
-              value={guestsString}
-              onChange={handleChange}
-              required
-            />
-            <Button>Nästa</Button>
-          </StyledForm>
-          {html}
-        </GuestWrapper>
-      </>
+      <ContactContainer>
+        <ImageContainer img={"src/assets/plate-figgs.jpg"}>
+          <img />
+        </ImageContainer>
+        <ContactInfoContainer>
+          <GuestWrapper>
+            <p>Här väljer du antalet gäster</p>
+            <StyledForm
+              onSubmit={(e: FormEvent) => {
+                e.preventDefault();
+                if (
+                  currentBooking.numberOfGuests !== 0 ||
+                  guestsString !== "0"
+                ) {
+                  handleSubmit(e);
+                } else {
+                  checkNumberOfGuests();
+                }
+              }}
+            >
+              <Input
+                type="text"
+                value={guestsString}
+                onChange={handleChange}
+                required
+              />
+              <Button>Nästa</Button>
+            </StyledForm>
+            {html}
+          </GuestWrapper>
+        </ContactInfoContainer>
+      </ContactContainer>
     );
   }
 };

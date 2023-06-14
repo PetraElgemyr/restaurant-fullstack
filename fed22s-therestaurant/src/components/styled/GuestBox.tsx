@@ -13,6 +13,9 @@ export const GuestWrapper = styled.div`
   gap: 20px;
   font-family: "Julius Sans One", sans-serif;
   color: white;
+  @media screen and (${devices.desktop}) {
+    width: 50vw;
+  }
 `;
 
 export const GuestBoxWrapper = styled.div`
