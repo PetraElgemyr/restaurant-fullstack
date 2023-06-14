@@ -6,7 +6,7 @@ import { Booking } from "../models/Booking";
 import { getBookingsByDate } from "../serivces/BookingServices";
 import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useConvertDateToString } from "../hooks/useConvertDateToString";
-import { BackButton, Button } from "./styled/Buttons";
+import { BackButton, Button, SittingButton } from "./styled/Buttons";
 import { WrapperColumn } from "./styled/Wrappers";
 import "../calendar.css";
 
@@ -36,11 +36,14 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
     availabel: true,
   });
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedFirstSitting, setSelectedFirstSitting] = useState(false);
+  const [selectedSecondSitting, setSelectedSecondSitting] = useState(false);
 
   const handleClick = (day: Date) => {
     const date = useConvertDateToString(day);
     setSelectedDate(date);
-
+    setSelectedFirstSitting(false);
+    setSelectedFirstSitting(false);
     const getData = async () => {
       const bookingsFromApi = await getBookingsByDate(date);
       countAvaibleTables(bookingsFromApi);
@@ -106,33 +109,43 @@ export const CalendarPage = ({ goToGuests, goToForm }: ICalendarProps) => {
           handleClick(day);
         }}
       ></Calendar>
-      <Button
+      <SittingButton
         disabled={!firstSitting.availabel}
+        selected={selectedFirstSitting}
         onClick={() => {
           dispatch({ type: ActionTypeCurrentBooking.SET_SITTING, payload: 1 });
           dispatch({
             type: ActionTypeCurrentBooking.SET_DATE,
             payload: selectedDate,
           });
+          setSelectedFirstSitting(true);
+          setSelectedSecondSitting(false);
+          console.log("Första sittingen selected");
+
           setHtml(<></>);
         }}
       >
         Kl. 18:00 - 20:00
-      </Button>
+      </SittingButton>
 
-      <Button
+      <SittingButton
         disabled={!secondSitting.availabel}
+        selected={selectedSecondSitting}
         onClick={() => {
           dispatch({ type: ActionTypeCurrentBooking.SET_SITTING, payload: 2 });
           dispatch({
             type: ActionTypeCurrentBooking.SET_DATE,
             payload: selectedDate,
           });
+          setSelectedFirstSitting(false);
+          setSelectedSecondSitting(true);
+          console.log("Andra sittingen selected");
+
           setHtml(<></>);
         }}
       >
         Kl. 20:00 - 22:00
-      </Button>
+      </SittingButton>
       <Button
         type="button"
         onClick={() => {

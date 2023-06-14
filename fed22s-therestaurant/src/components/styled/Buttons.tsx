@@ -3,6 +3,7 @@ import { devices } from "./devices";
 
 interface IButtonProps {
   disabled: boolean;
+  selected: boolean;
 }
 export const Button = styled.button`
   font-family: "Julius Sans One", sans-serif;
@@ -23,7 +24,8 @@ export const Button = styled.button`
   transition: all 0.5s;
 
   &:hover {
-    border: ${({ disabled }) => (disabled ? "1px solid #818C9D" : "1px solid #accdff")};
+    border: ${({ disabled }) =>
+      disabled ? "1px solid #818C9D" : "1px solid #accdff"};
   }
 
   &:active {
@@ -33,6 +35,18 @@ export const Button = styled.button`
     background-color: ${({ disabled }) => (disabled ? "#818C9D" : "#314868")};
     color: ${({ disabled }) => (disabled ? "#C1B9B9" : "#566479")};
   }
+`;
+
+export const SittingButton = styled(Button)<IButtonProps>`
+  border: ${({ selected }) => (selected ? "1px solid white" : "none")};
+  background-color: ${({ selected, disabled }) => {
+    if (selected && !disabled) {
+      return "#18263a";
+    }
+    if (!selected && !disabled) {
+      return "#4b5f7b";
+    }
+  }};
 `;
 
 export const ChangeButton = styled(Button)`
