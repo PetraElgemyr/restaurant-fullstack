@@ -5,22 +5,23 @@ import {
 import { Container, ImageContainer } from "./styled/Containers";
 
 import { H2 } from "./styled/Headings";
+import { Span } from "./styled/Span";
 
 export const Contact = () => {
   return (
     <ContactContainer>
-      <ImageContainer>
+      <ImageContainer img={"src/assets/plate-figgs.jpg"}>
         <img />
       </ImageContainer>
       <ContactInfoContainer>
         <Container>
           <H2>Kontakta oss</H2>
-          <span>Telefonnummer: 0123456789</span>
-          <span>Email: restaurang.bakgarden@gmail.com</span>
+          <Span>Telefonnummer: 0123456789</Span>
+          <Span>Email: restaurang.bakgarden@gmail.com</Span>
         </Container>
         <Container>
           <H2>Här finns vi</H2>
-          <span>Storgatan 22, 852 30 Sundsvall</span>
+          <Span>Storgatan 22, 852 30 Sundsvall</Span>
         </Container>
       </ContactInfoContainer>
     </ContactContainer>

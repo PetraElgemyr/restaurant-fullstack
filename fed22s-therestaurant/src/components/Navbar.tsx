@@ -18,6 +18,9 @@ export const Navbar = () => {
     <DropDownMenu toggled={+toggled}>
       <ul>
         <li>
+          <Link to="/" onClick={() => {setToggled(!toggled)}}>Startsidan</Link>
+        </li>
+        <li>
           <Link to="/booking" onClick={() => {setToggled(!toggled)}} >Boka bord</Link>
         </li>
         <li>

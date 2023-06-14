@@ -33,12 +33,13 @@ export const DropDownMenu = styled.div<IToggled>`
     font-family: 'Julius Sans One', sans-serif;
     display: flex;
     transition: top 1s;
-    top: ${({toggled}) => toggled ? "0" : "-150px" };
+    top: ${({toggled}) => toggled ? "0" : "-200px" };
     flex-direction: column;
-    background-color: #818C9D;
+    background-color: #141921;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
     width: 100vw;
-    height: 150px;
+    height: 200px;
     justify-content: center;
     align-items: center;
 
