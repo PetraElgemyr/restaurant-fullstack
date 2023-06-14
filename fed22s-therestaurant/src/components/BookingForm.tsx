@@ -9,6 +9,7 @@ import { Booking } from "../models/Booking";
 import { StyledForm, Input } from "./styled/Forms";
 import { BackButton, Button, GdprButton } from "./styled/Buttons";
 import {
+  CheckboxWrapper,
   InputWrapperRow,
   TopMarginWrapper,
   WrapperColumn,
@@ -105,15 +106,14 @@ export const BookingForm = ({
               required
             />
             <WrapperColumn>
-              <InputWrapperRow>
-                {/* <CheckboxInput type="checkbox" required />{" "} */}
+              <CheckboxWrapper>
                 <CheckBox></CheckBox>
                 <StyledSpan>
                   {" "}
                   Godkänn sparande av personuppgifter. *Nödvändigt för att
                   fortsätta
                 </StyledSpan>
-              </InputWrapperRow>
+              </CheckboxWrapper>
               <GdprButton type="button" onClick={() => showGdprPage()}>
                 Läs mer
               </GdprButton>{" "}
@@ -121,9 +121,7 @@ export const BookingForm = ({
             <Button>Slutför bokning!</Button>
           </StyledForm>
           {/* endast för att checka att contextet förändras efter inputstatet */}
-          <FormInfoSpan>Namn: {currentUser.name}</FormInfoSpan>
-          <FormInfoSpan>Mejl: {currentUser.email}</FormInfoSpan>
-          <FormInfoSpan>Mobilnr: {currentUser.phonenumber}</FormInfoSpan>
+
           <FormInfoSpan>
             Antalet gäster: {context.numberOfGuests} st
           </FormInfoSpan>

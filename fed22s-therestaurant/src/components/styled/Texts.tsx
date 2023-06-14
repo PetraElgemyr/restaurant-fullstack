@@ -19,6 +19,10 @@ export const StyledSpan = styled.span`
     font-size: 13pt;
     margin: 5px;
   }
+
+  @media screen and (${devices.tablet}) {
+    margin: 0;
+  }
 `;
 
 export const GdprSpan = styled(StyledSpan)`
@@ -44,4 +48,8 @@ export const FormBookingParagraph = styled.p`
 
 export const FormInfoSpan = styled.span`
   font-family: "Kite One", sans-serif;
+`;
+
+export const AdminHeading = styled.h2`
+  text-align: center;
 `;

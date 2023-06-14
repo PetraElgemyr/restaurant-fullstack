@@ -12,12 +12,13 @@ import { Button } from "./styled/Buttons";
 import {
   AdminChangeWrapper,
   AdminTextWrapper,
+  AdminTopInfoWrapper,
   BottomMarginWrapper,
   ColToRowWrapper,
   TopMarginWrapper,
   WrapperColumn,
 } from "./styled/Wrappers";
-import { StyledParagraph } from "./styled/Texts";
+import { AdminHeading, StyledParagraph } from "./styled/Texts";
 import { ChangeBooking } from "./ChangeBooking";
 import "../calendar.css";
 
@@ -56,11 +57,12 @@ export const Admin = () => {
       <BottomMarginWrapper>
         <TopMarginWrapper>
           <Button onClick={handleAddBookingClick}>Lägg till ny bokning</Button>
-          <ColToRowWrapper>
-            <WrapperColumn>
-              <h2>Välj datum för att se bokningar</h2>
+          <AdminHeading>Välj datum för att se bokningar</AdminHeading>
+          <AdminTopInfoWrapper>
+            <AdminChangeWrapper>
               <Calendar onClickDay={(day) => handleDateClick(day)} />
-            </WrapperColumn>
+            </AdminChangeWrapper>
+
             <AdminTextWrapper>
               <StyledParagraph>
                 För att se bokningarna, välj datum i kalendern.
@@ -76,7 +78,7 @@ export const Admin = () => {
                 PS. Glöm inte att säga till kockarna om en större bokning görs.
               </StyledParagraph>
             </AdminTextWrapper>
-          </ColToRowWrapper>
+          </AdminTopInfoWrapper>
 
           <WrapperColumn>
             <h4>Bokningar för datumet {selectedDate}</h4>

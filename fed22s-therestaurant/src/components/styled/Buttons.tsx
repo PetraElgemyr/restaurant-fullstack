@@ -86,4 +86,9 @@ export const BackButton = styled(Button)`
     margin: 15px;
     margin-top: 35px;
   }
+
+  @media screen and (${devices.tablet}) {
+    margin: 5px;
+    padding: 10px;
+  }
 `;

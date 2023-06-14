@@ -9,6 +9,12 @@
   color: white;
 }
 
+@media screen and (min-width: 1200px) {
+  .react-calendar {
+    width: 450px;
+  }
+}
+
 .react-calendar--doubleView {
   width: 700px;
 }
