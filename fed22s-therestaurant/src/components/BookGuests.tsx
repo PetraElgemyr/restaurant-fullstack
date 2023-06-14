@@ -5,6 +5,11 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { Button } from "./styled/Buttons";
 import { Input, StyledForm } from "./styled/Forms";
 import { GuestBox, GuestBoxWrapper, GuestWrapper } from "./styled/GuestBox";
+import {
+  ContactContainer,
+  ContactInfoContainer,
+} from "./styled/ContactContainer";
+import { ImageContainer } from "./styled/Containers";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
@@ -111,8 +116,11 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
 
   if (!isAdmin) {
     return (
-      <>
-        <GuestWrapper>
+      <ContactContainer>
+        <ImageContainer img={"src/assets/plate-figgs.jpg"}>
+          <img />
+        </ImageContainer>
+        <ContactInfoContainer>
           <p>Välj antalet gäster</p>
           <GuestBoxWrapper>
             {numberOfGuests.map((guest) => (
@@ -142,8 +150,8 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
             Nästa
           </Button>
           {html}
-        </GuestWrapper>
-      </>
+        </ContactInfoContainer>
+      </ContactContainer>
     );
   } else {
     return (

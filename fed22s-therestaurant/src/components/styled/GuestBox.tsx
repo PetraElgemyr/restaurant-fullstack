@@ -9,7 +9,7 @@ export const GuestWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 95vw;
+  width: 95%;
   gap: 20px;
   font-family: "Julius Sans One", sans-serif;
   color: white;
