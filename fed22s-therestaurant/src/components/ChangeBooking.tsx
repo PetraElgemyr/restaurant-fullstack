@@ -8,7 +8,7 @@ import {
 } from "../serivces/BookingServices";
 import { ISittings } from "./CalendarPage";
 import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
-import { ChangeButton, SittingsButton } from "./styled/Buttons";
+import { ChangeButton, SittingButton, SittingsButton } from "./styled/Buttons";
 import { Input, StyledForm } from "./styled/Forms";
 import {
   AdminCalendarChange,
@@ -30,6 +30,8 @@ export const ChangeBooking = ({
   const [show, setShow] = useState(false);
   const [currentBooking, setCurrentBooking] = useState({ ...booking });
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedFirstSitting, setSelectedFirstSitting] = useState(false);
+  const [selectedSecondSitting, setSelectedSecondSitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [bookingComplete, setBookingComplete] = useState(true);
   const [firstSitting, setFirstSitting] = useState<ISittings>({
@@ -167,29 +169,40 @@ export const ChangeBooking = ({
         <Calendar
           onClickDay={(day) => {
             getBookingsOnDate(day);
+            setSelectedFirstSitting(false);
+            setSelectedSecondSitting(false);
           }}
         ></Calendar>
         <SittingsButton
           disabled={!firstSitting.availabel || submitted}
+          selected={selectedFirstSitting}
           onClick={() => {
             setCurrentBooking({
               ...currentBooking,
               sitting: 1,
               date: selectedDate,
             });
+
+            setSelectedFirstSitting(true);
+            setSelectedSecondSitting(false);
+            console.log("Första sittingen selected");
           }}
         >
           Kl. 18:00 - 20:00
         </SittingsButton>
-
         <SittingsButton
           disabled={!secondSitting.availabel || submitted}
+          selected={selectedSecondSitting}
           onClick={() => {
             setCurrentBooking({
               ...currentBooking,
               sitting: 2,
               date: selectedDate,
             });
+
+            setSelectedFirstSitting(false);
+            setSelectedSecondSitting(true);
+            console.log("Andra sittingen selected");
           }}
         >
           Kl. 20:00 - 22:00
@@ -260,13 +273,13 @@ export const ChangeBooking = ({
           <ChangeButton disabled={submitted}>Spara</ChangeButton>
         </StyledForm>
         <ChangeButton
-            onClick={() => {
-              setCurrentBooking(booking);
-            }}
-            disabled={submitted}
-          >
-            Ångra
-          </ChangeButton>
+          onClick={() => {
+            setCurrentBooking(booking);
+          }}
+          disabled={submitted}
+        >
+          Ångra
+        </ChangeButton>
       </AdminCalendarChange>
     );
   } else {

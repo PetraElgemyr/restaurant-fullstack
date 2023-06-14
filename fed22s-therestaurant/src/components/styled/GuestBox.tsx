@@ -36,8 +36,6 @@ export const GuestBox = styled.span<IGuestBoxProps>`
   padding: 10px;
   text-align: center;
   border: 1px solid white;
-  /* background-color: ${({ selected }) =>
-    selected ? "#0e1827b5" : "#8691a4b5"}; */
   background-color: ${({ selected }) => (selected ? "#111b2ab5" : "#818C9D")};
 
   &:hover {
