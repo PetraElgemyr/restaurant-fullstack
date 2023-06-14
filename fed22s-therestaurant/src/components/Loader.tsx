@@ -1,6 +1,5 @@
-import { H2 } from "./styled/Headings"
 import { LoaderContainer, Spinner } from "./styled/Loadings"
-import { Span } from "./styled/Span"
+
 
 export const Loader = () => {
     return (
@@ -16,7 +15,7 @@ export const Loader = () => {
                         </path>
                     </defs>
                     <text width="800" className="curved-text">           
-                        <textPath alignment-baseline="left" href="#circle">BakgårdenBakgården</textPath>
+                        <textPath href="#circle">BakgårdenBakgården</textPath>
                     </text>
                 </svg>  
             </Spinner>
