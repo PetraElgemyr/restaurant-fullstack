@@ -6,15 +6,15 @@ import { CurrentBookingContext } from "../contexts/BookingsContext";
 import { useNavigate } from "react-router-dom";
 import { addNewBooking } from "../serivces/BookingServices";
 import { Booking } from "../models/Booking";
-import { StyledForm, Input, CheckboxInput } from "./styled/Forms";
+import { StyledForm, Input } from "./styled/Forms";
 import { BackButton, Button } from "./styled/Buttons";
 import {
   InputWrapperRow,
   TopMarginWrapper,
   WrapperColumn,
-  WrapperRow,
 } from "./styled/Wrappers";
-import { StyledSpan } from "./styled/Texts";
+import { FormBookingParagraph, StyledSpan } from "./styled/Texts";
+import { CheckBox } from "./Checkbox";
 
 interface IBookingFormProps {
   goToCalendar: () => void;
@@ -95,7 +95,8 @@ export const BookingForm = ({
         />
         <WrapperColumn>
           <InputWrapperRow>
-            <CheckboxInput type="checkbox" required />{" "}
+            {/* <CheckboxInput type="checkbox" required />{" "} */}
+            <CheckBox></CheckBox>
             <StyledSpan>
               {" "}
               Godkänn sparande av personuppgifter. *Nödvändigt för att fortsätta
@@ -108,10 +109,14 @@ export const BookingForm = ({
         <Button>Slutför bokning!</Button>
       </StyledForm>
       {/* endast för att checka att contextet förändras efter inputstatet */}
-      <p>Namn: {currentUser.name}</p>
-      <p>Mejl: {currentUser.email}</p>
-      <p>Mobilnr: {currentUser.phonenumber}</p>
-      <p>Antalet gäster: {context.numberOfGuests} st</p>
+      <FormBookingParagraph>Namn: {currentUser.name}</FormBookingParagraph>
+      <FormBookingParagraph>Mejl: {currentUser.email}</FormBookingParagraph>
+      <FormBookingParagraph>
+        Mobilnr: {currentUser.phonenumber}
+      </FormBookingParagraph>
+      <FormBookingParagraph>
+        Antalet gäster: {context.numberOfGuests} st
+      </FormBookingParagraph>
     </TopMarginWrapper>
   );
 };

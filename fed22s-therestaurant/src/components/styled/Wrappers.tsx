@@ -37,8 +37,10 @@ export const ColToRowWrapper = styled(WrapperColumn)`
 
 export const InputWrapperRow = styled(WrapperRow)`
   background-color: unset;
-  width: 90%;
+  width: 80%;
   border: 0;
+  justify-content: center;
+  gap: 10px;
 
   @media screen and (${devices.tablet}) {
     width: 65%;

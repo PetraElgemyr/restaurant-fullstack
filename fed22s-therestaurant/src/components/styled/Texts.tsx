@@ -29,3 +29,7 @@ export const GdprSpan = styled(StyledSpan)`
 export const LableText = styled.span`
   padding: 10px;
 `;
+
+export const FormBookingParagraph = styled.p`
+  font-family: "Kite One", sans-serif;
+`;
