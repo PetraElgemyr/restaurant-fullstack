@@ -37,6 +37,14 @@ export const ColToRowWrapper = styled(WrapperColumn)`
     width: 100%;
   }
 `;
+export const AdminTopInfoWrapper = styled(ColToRowWrapper)`
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (${devices.tablet}) {
+    align-items: center;
+  }
+`;
 
 export const InputWrapperRow = styled(WrapperRow)`
   background-color: unset;
@@ -58,6 +66,19 @@ export const AdminTextWrapper = styled(WrapperColumn)`
   border: 1px solid white;
   margin: 10px;
   padding-bottom: 10px;
+  padding-top: 10px;
+
+  @media screen and (${devices.tablet}) {
+    padding: 10px;
+    width: 50vw;
+    align-items: flex-start;
+  }
+
+  @media screen and (${devices.desktop}) {
+    width: 30vw;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
 `;
 
 export const AdminChangeWrapper = styled(WrapperColumn)`
@@ -93,5 +114,22 @@ export const AdminCalendarChange = styled(WrapperColumn)`
 
   @media screen and (${devices.tablet}) {
     width: 80%;
+  }
+`;
+
+export const GdprInfoWrapper = styled(WrapperColumn)`
+  width: 95vw;
+
+  @media screen and (${devices.desktop}) {
+    width: 50vw;
+  }
+`;
+
+export const CheckboxWrapper = styled(InputWrapperRow)`
+  margin: 5px;
+  @media screen and (${devices.desktop}) {
+    margin: 0;
+    width: 70%;
+    padding: 0;
   }
 `;

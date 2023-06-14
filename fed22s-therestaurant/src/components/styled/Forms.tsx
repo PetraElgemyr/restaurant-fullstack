@@ -45,7 +45,7 @@ export const Input = styled.input`
   }
 
   @media screen and (${devices.desktop}) {
-    height: 45px;
+    height: 37px;
   }
 `;
 
