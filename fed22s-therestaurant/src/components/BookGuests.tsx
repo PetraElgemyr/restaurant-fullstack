@@ -142,7 +142,6 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
             Nästa
           </Button>
           {html}
-          <Button disabled={!isAdmin}>Is Admin</Button>
         </GuestWrapper>
       </>
     );
@@ -169,9 +168,7 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
             />
             <Button>Nästa</Button>
           </StyledForm>
-
           {html}
-          <Button disabled={!isAdmin}>Is Admin</Button>
         </GuestWrapper>
       </>
     );
