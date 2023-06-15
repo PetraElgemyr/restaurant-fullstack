@@ -17,7 +17,7 @@ export const WrapperRow = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
+  width: 95vw;
   background-color: #818c9d;
   border: 1px solid white;
 
@@ -108,8 +108,8 @@ export const BottomMarginWrapper = styled(WrapperColumn)`
 
 export const AdminCalendarChange = styled(WrapperColumn)`
   background-color: #818c9d;
-  width: 100%;
-  padding: 10px;
+  width: 95vw;
+  padding: 10px 0px;
   border: 1px solid white;
 
   @media screen and (${devices.tablet}) {

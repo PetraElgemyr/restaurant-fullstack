@@ -21,6 +21,7 @@ import {
 import { AdminHeading, StyledParagraph } from "./styled/Texts";
 import { ChangeBooking } from "./ChangeBooking";
 import "../calendar.css";
+import { useConvertDateToISO8601 } from "../hooks/useConvertDateToISO8601";
 
 export const Admin = () => {
   const isAdmin = true;
@@ -81,7 +82,7 @@ export const Admin = () => {
           </AdminTopInfoWrapper>
 
           <WrapperColumn>
-            <h4>Bokningar för datumet {selectedDate}</h4>
+            <h4>Bokningar för datumet {selectedDate ? useConvertDateToISO8601(selectedDate) : ""}</h4>
             <ColToRowWrapper>
               <AdminChangeWrapper>
                 <p>Sittning 1</p>
