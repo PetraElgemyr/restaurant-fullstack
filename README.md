@@ -4,6 +4,9 @@
 # The restaurant är ett projekt för grupp 11 på Medieinstituet i Stockholm
 
 ![Bakgården home](./fed22s-therestaurant/src/assets/home-desktop.jpg)
+![Bakgården booking 1](/fed22s-therestaurant//src/assets/booking-1.jpg)
+![Bakgården booking 2](/fed22s-therestaurant//src/assets/booking-2.jpg)
+![Bakgården booking](/fed22s-therestaurant/src/assets/booking-3.jpg)
 
 ## Uppgiften
 
