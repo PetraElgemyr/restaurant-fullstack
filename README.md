@@ -15,10 +15,15 @@
 Vi fick till uppgift att skapa en applikation som kan hantera bordsbokningar för en restaurang.
 Funktionaliteten följer de krav vi fick.
 
-- Restaurangen ska ha 15 bord med plats för 6 gäster. Varje bord går att boka två gånger, dvs två sittningar.
+- Restaurangen ska ha 15 bord med plats för upp till 6 gäster. Varje bord går att boka två gånger per dag, dvs två sittningar.
 - Användaren ska kunna ange antalet personer för önskad bokning för att sen kunna söka på datum, samt välja sittning utefter de lediga bord som finns kvar.
 - Användaren ska få ett bekräftelsemejl vid slutförd bokning med en länk för att kunna avboka bokningen.
-- Det ska finnas ett admingränssnitt där en admin ska kunna hämta bokningar och filtrera dessa (vi valde för valt datum), ändra och ta bort befintliga bokningar samt skapa nya bokningar. Vid nyskapande av bokningar som admin ska man kunna ange ett högre antalet gäster för sällskapet.
+- Användaren ska kunna avboka sin bokning via en länk.
+- Det ska finnas ett admingränssnit.
+- Admin ska kunna hämta bokningar och filtrera dessa (vi valde för valt datum).
+- Admin ska kunna ändra befintliga bokningar
+- Admin ska kunna ta bort befintliga bokningar
+- Admin ska kunna skapa nya bokningar. Som admin ska man kunna ange ett högre antalet gäster för sällskapet.
 
 ## Tekniker & verktyg
 
@@ -42,6 +47,6 @@ Backend:
 
 ### Utvecklingsteam
 
-[Jennifer McAllister](https://github.com/jennifer-mcallister)
-[Petra Elgemyr](https://github.com/PetraElgemyr)
-[Hama Jaff](https://github.com/hamajaff)
+- [Jennifer McAllister](https://github.com/jennifer-mcallister)
+- [Petra Elgemyr](https://github.com/PetraElgemyr)
+- [Hama Jaff](https://github.com/hamajaff)
