@@ -7,7 +7,8 @@
 ![Bakgården booking 1](/fed22s-therestaurant//src/assets/booking-1.jpg)
 ![Bakgården booking 2](/fed22s-therestaurant//src/assets/booking-2.jpg)
 ![Bakgården booking](/fed22s-therestaurant/src/assets/booking-3.jpg)
-![Bakgården mobile first home](/fed22s-therestaurant/src/assets/home-mobile.png)![Bakgården mobile first booking](/fed22s-therestaurant/src/assets/book-mobile.png)
+![Bakgården mobile first home](/fed22s-therestaurant/src/assets/home-mobile.png)!
+[Bakgården mobile first booking](/fed22s-therestaurant/src/assets/book-mobile.png)
 
 ## Uppgiften
 
@@ -18,11 +19,14 @@ Funktionaliteten följer de krav vi fick.
 - Användaren ska kunna ange antalet personer för önskad bokning för att sen kunna söka på datum, samt välja sittning utefter de lediga bord som finns kvar.
 - Användaren ska få ett bekräftelsemejl vid slutförd bokning med en länk för att kunna avboka bokningen.
 - Användaren ska kunna avboka sin bokning via en länk.
-- Det ska finnas ett admingränssnit.
-- Admin ska kunna hämta bokningar och filtrera dessa (vi valde för valt datum).
-- Admin ska kunna ändra befintliga bokningar
-- Admin ska kunna ta bort befintliga bokningar
-- Admin ska kunna skapa nya bokningar. Som admin ska man kunna ange ett högre antalet gäster för sällskapet.
+- Det ska finnas ett admingränssnitt.
+
+Admin ska kunna:
+
+- hämta bokningar och filtrera dessa (vi valde för valt datum).
+- ändra befintliga bokningar
+- ta bort befintliga bokningar
+- skapa nya bokningar. Som admin ska man kunna ange ett högre antalet gäster för sällskapet.
 
 ## Tekniker & verktyg
 
