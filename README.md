@@ -7,6 +7,8 @@
 ![Bakgården booking 1](/fed22s-therestaurant//src/assets/booking-1.jpg)
 ![Bakgården booking 2](/fed22s-therestaurant//src/assets/booking-2.jpg)
 ![Bakgården booking](/fed22s-therestaurant/src/assets/booking-3.jpg)
+![Bakgården mobile first home](/fed22s-therestaurant/src/assets/home-mobile.png)
+![Bakgården mobile first booking](/fed22s-therestaurant/src/assets/book-mobile.png)
 
 ## Uppgiften
 
@@ -40,6 +42,6 @@ Backend:
 
 ### Utvecklingsteam
 
-Jennifer Mcallister
-Petra Elgemyr
-Hama Jaff
+[Jennifer McAllister](https://github.com/jennifer-mcallister)
+[Petra Elgemyr](https://github.com/PetraElgemyr)
+[Hama Jaff](https://github.com/hamajaff)
