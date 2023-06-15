@@ -18,14 +18,18 @@ Funktionaliteten följer de krav vi fick.
 ## Tekniker & verktyg
 
 I projektet använder vi enligt instruktioner Trello som planeringsverktyg och uppdatering av hur projektet ligger till.
-Vi använder följande i projektet:
+Vi använder följande i projektet.
+
 Frontend:
 
 - Typescript
 - React
+- Vite
 - Styled components
 - Css
-  Backend:
+
+Backend:
+
 - Javascript
 - NodeJs
 - Express
