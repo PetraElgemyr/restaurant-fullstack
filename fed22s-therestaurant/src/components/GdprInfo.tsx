@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { BackButton, Button } from "./styled/Buttons";
-import { GdprInfoWrapper, WrapperColumn } from "./styled/Wrappers";
-import { GdprSpan } from "./styled/Texts";
+import { BackButton} from "./styled/Buttons";
+import { GdprInfoWrapper} from "./styled/Wrappers";
 import {
   ContactContainer,
-  ContactInfoContainer,
 } from "./styled/ContactContainer";
 import { ImageContainer } from "./styled/Containers";
+import { Span } from "./styled/Span";
+
 
 interface IGdprInfoProps {
   goToForm: () => void;
@@ -20,8 +20,8 @@ export const GdprInfo = ({ goToForm }: IGdprInfoProps) => {
       </ImageContainer>
       <GdprInfoWrapper>
         <BackButton onClick={() => goToForm()}>Tillbaka</BackButton>
-        <p>Behandling av personuppgifter</p>
-        <GdprSpan>
+        <h3>Behandling av personuppgifter</h3>
+        <Span>
           För att kunna boka bord hos oss behöver vi spara givna
           personuppgifter. Enligt GDPR får organisationer endast lagra
           information om individen har gett sitt samtycke. Då personinformation
@@ -32,7 +32,7 @@ export const GdprInfo = ({ goToForm }: IGdprInfoProps) => {
           förändringar, avbokningar och klagomål. Godkännandet måste ges en gång
           per bokning. Vid eventuella frågor, kontakta oss via mejl eller per
           telefon.
-        </GdprSpan>
+        </Span>
       </GdprInfoWrapper>
     </ContactContainer>
   );
