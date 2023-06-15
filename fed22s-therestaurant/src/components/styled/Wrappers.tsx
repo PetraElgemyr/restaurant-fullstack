@@ -127,9 +127,10 @@ export const GdprInfoWrapper = styled(WrapperColumn)`
 
 export const CheckboxWrapper = styled(InputWrapperRow)`
   margin: 5px;
-  @media screen and (${devices.desktop}) {
+  width: 350px;
+  @media screen and (${devices.tablet}) {
     margin: 0;
-    width: 70%;
+    width: 400px;
     padding: 0;
   }
 `;
