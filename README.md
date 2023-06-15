@@ -18,3 +18,21 @@ Funktionaliteten följer de krav vi fick.
 ## Tekniker & verktyg
 
 I projektet använder vi enligt instruktioner Trello som planeringsverktyg och uppdatering av hur projektet ligger till.
+Vi använder följande i projektet:
+Frontend:
+
+- Typescript
+- React
+- Styled components
+- Css
+  Backend:
+- Javascript
+- NodeJs
+- Express
+- MongoDb
+
+### Utvecklingsteam
+
+Jennifer Mcallister
+Petra Elgemyr
+Hama Jaff
