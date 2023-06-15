@@ -78,19 +78,23 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
   };
 
   const checkNumberOfGuests = () => {
-    if (currentBooking.numberOfGuests === 0 || guestsString === "0") {
+    if (
+      currentBooking.numberOfGuests === 0 ||
+      guestsString === "0" ||
+      guestsString === ""
+    ) {
       setHtml(<div>Du måste välja antalet gäster innan du går vidare</div>);
     }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.type === "text") {
-      setGuestsString(e.target.value);
-
-      if (e.target.value === "" || e.target.value === "0") {
-        setHtml(<div>Du måste välja antalet gäster innan du går vidare</div>);
-      }
+    if (e.target.type === "number") {
+      setGuestsString(e.target.value.toString());
     }
+    dispatch({
+      type: ActionTypeCurrentBooking.SET_NUMBER_OF_GUESTS,
+      payload: parseInt(guestsString),
+    });
   };
 
   const handleSubmit = (e: FormEvent) => {
@@ -166,21 +170,25 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
               onSubmit={(e: FormEvent) => {
                 e.preventDefault();
                 if (
-                  currentBooking.numberOfGuests !== 0 ||
-                  guestsString !== "0"
+                  guestsString === "0" ||
+                  currentBooking.numberOfGuests === 0 ||
+                  guestsString === ""
                 ) {
-                  handleSubmit(e);
-                } else {
                   checkNumberOfGuests();
+                } else {
+                  handleSubmit(e);
                 }
               }}
             >
               <Input
-                type="text"
-                value={guestsString}
+                type="number"
+                placeholder="Antal gäster"
+                name="phonenumber"
                 onChange={handleChange}
+                value={guestsString}
                 required
               />
+
               <Button>Nästa</Button>
             </StyledForm>
             {html}
