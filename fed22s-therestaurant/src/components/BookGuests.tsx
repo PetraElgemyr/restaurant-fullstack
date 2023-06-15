@@ -10,6 +10,7 @@ import {
   ContactInfoContainer,
 } from "./styled/ContactContainer";
 import { ImageContainer } from "./styled/Containers";
+import { GuestInfoSpan, StyledSpan } from "./styled/Texts";
 
 export interface IChooseGuests {
   goToCalendar: () => void;
@@ -140,7 +141,10 @@ export const BookGuests = ({ goToCalendar, isAdmin }: IChooseGuests) => {
                 {guest.guests}
               </GuestBox>
             ))}{" "}
-          </GuestBoxWrapper>
+          </GuestBoxWrapper>{" "}
+          <GuestInfoSpan>
+            Vid sällskap fler än 12, vänligen kontakta oss så hjälper vi dig!
+          </GuestInfoSpan>
           <Button
             type="button"
             onClick={() => {

@@ -25,6 +25,11 @@ export const StyledSpan = styled.span`
   }
 `;
 
+export const GuestInfoSpan = styled(StyledSpan)`
+  margin: 5px;
+  text-align: center;
+`;
+
 export const GdprSpan = styled(StyledSpan)`
   padding: 20px;
   margin-bottom: 35px;
